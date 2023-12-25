@@ -9,8 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-email/container": "0.0.11",
+    "@react-email/html": "0.0.7",
+    "@react-email/section": "0.0.11",
+    "@react-email/text": "0.0.7",
+    "next": "14.0.4",
+    "nodemailer": "^6.9.7",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "react-email": "1.10.0",
+    "sanitize-html": "^2.11.0",
+    "styled-components": "^6.1.1",
+    "validator": "^13.11.0"
   }
 }

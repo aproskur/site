@@ -44,13 +44,31 @@ justify-content: center;
 align-items: center;
 `;
 
+const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+`;
+
+
+const StyledErrorMessage = styled.span`
+  font-size: 0.8rem;
+  margin: ${({ $show }) => ($show ? '5px 0' : '0')};
+  height: ${({ $show }) => ($show ? 'auto' : '0')};
+  overflow: hidden; // Ensures content does not spill out when height is 0
+  margin: 0px 15px;
+`;
+
 const StyledForm = styled.form`
     display: grid;
     width: 100%; 
     max-width: 600px; 
     margin: 20px 10px;
-    grid-gap: 10px;
-    
+    grid-template-areas: 
+    "name"
+    "email"
+    "message"
+    "button";
 
 
     @media (min-width: 600px) { // Adjust breakpoint as needed
@@ -59,16 +77,6 @@ const StyledForm = styled.form`
         "name email"
         "message message"
         "button button";
-    }
-  
-    // For small screens
-    @media (max-width: 599px) {
-      grid-template-columns: 1fr; // One column on small screens
-      grid-template-areas: 
-        "name"
-        "email"
-        "message"
-        "button";
     }
 `;
 
@@ -150,16 +158,70 @@ const Contact = ({ id }) => {
   const [message, setMessage] = useState('');
 
 
+  //State for error messages
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [messageError, setMessageError] = useState('');
+
+
+  // State for tracking form submission status. Added to avoid multiple submissions
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateForm = () => {
+    let isValid = true;
+
+    // Validate name
+    if (!name) {
+      setNameError("Please enter your name");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
+
+    // Validate email
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+
+    if (!email) {
+      setEmailError("Please enter your email");
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    // Validate message
+    if (!message.trim()) {
+      setMessageError("Please enter your message");
+      isValid = false;
+    } else {
+      setMessageError("");
+    }
+    return isValid;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Log the form state before validation
     console.log('Form state before validation:', { name, email, message });
 
+
+    /*
     // Basic validation (optional)
     if (!name || !email || !message) {
       alert("Please fill all fields");
       return;
+    } */
+
+    const isFormValid = validateForm();
+
+    if (!isFormValid || isSubmitting) {
+      return;
     }
+
+
 
     // Log the form data after validation
     console.log('Form data after validation:', { name, email, message });
@@ -173,6 +235,7 @@ const Contact = ({ id }) => {
 
     // Log the formData object before sending
     console.log('Sending formData to server:', formData);
+    setIsSubmitting(true);
 
     // Sending data to the server
     try {
@@ -205,8 +268,11 @@ const Contact = ({ id }) => {
     } catch (error) {
       console.error('Error during fetch request:', error);
       alert('Error sending message: ' + error.message);
+    } finally {
+      setIsSubmitting(false); // Reset submission status
     }
   }
+
 
 
 
@@ -218,33 +284,41 @@ const Contact = ({ id }) => {
         <p><strong>For Startups & Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
         <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
         <p><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
-        <p>Feel free to reach out to me via email <a href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a> or use a contact form</p>
+        <p>Feel free to reach out to me via email <a href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a> or use a contact form below</p>
       </StyledContactsContainer>
 
       <StyledForm onSubmit={handleSubmit}>
-        <StyledInput
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Your Name"
-        />
-        <StyledInput
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your Email"
-        />
-        <StyledTextArea
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Your Message"
-        />
-        <GridButton type="submit" onClick={handleSubmit} aria-label="send message">Send message</GridButton>
+        <FieldWrapper style={{ gridArea: 'name' }}>
+          <StyledInput
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
+          />
+          <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
+        </FieldWrapper>
+        <FieldWrapper style={{ gridArea: 'email' }}>
+          <StyledInput
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your Email"
+          />
+          {<StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>}
+        </FieldWrapper>
+        <FieldWrapper style={{ gridArea: 'message' }}>
+          <StyledTextArea
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Your Message"
+          />
+          <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
+        </FieldWrapper>
+        <GridButton style={{ gridArea: 'button' }} type="submit" onClick={handleSubmit} aria-label="send message"> {isSubmitting ? "Sending message..." : "Send message"}</GridButton>
       </StyledForm>
-      <StyledContactsContainer>
 
-      </StyledContactsContainer>
+      {/* Other components */}
     </StyledContainer>
   );
 };

@@ -4,9 +4,9 @@ import TopMenu from './components/TopMenu'
 import Hero from './components/Hero'
 import Watermark from './components/Watermark'
 import Service from './components/Service'
-import Tools from './components/Tools'
 import Portfolio from './components/Portfolio'
 import Contact from './components/Contacts'
+import Footer from './components/Footer'
 
 export default function Home() {
 
@@ -24,6 +24,7 @@ export default function Home() {
         <Service id="services" />
         <Portfolio id="projects" />
         <Contact id="contact-anna" />
+        <Footer />
       </main >
     </>
   )

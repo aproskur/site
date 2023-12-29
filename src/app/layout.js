@@ -17,6 +17,11 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          rel="stylesheet"
+        />
+
       </head>
       <body className={inter.className}>{children}</body>
     </html>

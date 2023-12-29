@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import Button from './Button'
+import ReCAPTCHA from "react-google-recaptcha";
 
-// Styled component named StyledContainer
 const StyledContainer = styled.div`
   background-color: rgb(var(--clr-subtle-gray));
   color: rgb(var(--clr-gray));
@@ -42,6 +42,14 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+
+@media (max-width: 800px) {
+  width: 90%;
+}
+
+div {
+  padding: 1em 1em;
+}
 `;
 
 const FieldWrapper = styled.div`
@@ -71,8 +79,8 @@ const StyledForm = styled.form`
     "button";
 
 
-    @media (min-width: 600px) { // Adjust breakpoint as needed
-      grid-template-columns: 1fr 1fr; // Two columns on large screens
+    @media (min-width: 600px) { 
+      grid-template-columns: 1fr 1fr; 
       grid-template-areas: 
         "name email"
         "message message"
@@ -81,8 +89,6 @@ const StyledForm = styled.form`
 `;
 
 
-
-// Styled component for input
 const StyledInput = styled.input`
   padding: 10px;
   margin: 10px 5px;
@@ -131,24 +137,53 @@ const GridButton = styled(Button)`
 
 
 const ContactList = styled.ul`
-  list-style: none; // Removes bullets
+  list-style: none;
   padding: 0;
 
   li {
     display: flex;
-    align-items: center; // Aligns icons with text
-    margin-bottom: 10px; // Adds space between items
+    align-items: center; 
+    margin-bottom: 10px; 
   }
 
   a {
     text-decoration: none;
-    color: inherit; // Keeps link color consistent
-    margin-left: 5px; // Spacing between icon and text
+    color: inherit; 
+    margin-left: 5px;
   }
 
   .icon {
-    // Styles for your icon (Font Awesome, SVG, etc.)
-    margin-right: 10px; // Space between icon and text
+    margin-right: 10px; 
+  }
+`;
+
+const StyledParagraph = styled.p`
+font-size: 10px;
+
+a {
+  color: rgb(var(--clr-gold));
+}
+`;
+
+const StyledMessage = styled.div`
+display: flex;
+padding: 5px;
+text-transform: uppercase;
+font-size: 0.75rem;
+
+`;
+
+const StyledSuccessFormMessage = styled(StyledMessage)`
+  p {
+    color: rgb(var(--clr-gray));
+    border: 1px solid rgb(var(--clr-gold));
+  }
+`;
+
+const StyledErrorFormMessage = styled(StyledMessage)`
+  p {
+    color: red;
+    border: 1px solid rgb(var(--clr-gold));
   }
 `;
 
@@ -162,6 +197,10 @@ const Contact = ({ id }) => {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [messageError, setMessageError] = useState('');
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
 
 
   // State for tracking form submission status. Added to avoid multiple submissions
@@ -204,16 +243,6 @@ const Contact = ({ id }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Log the form state before validation
-    console.log('Form state before validation:', { name, email, message });
-
-
-    /*
-    // Basic validation (optional)
-    if (!name || !email || !message) {
-      alert("Please fill all fields");
-      return;
-    } */
 
     const isFormValid = validateForm();
 
@@ -221,25 +250,18 @@ const Contact = ({ id }) => {
       return;
     }
 
-
-
-    // Log the form data after validation
-    console.log('Form data after validation:', { name, email, message });
-
     // Form data
     const formData = {
       name,
       email,
       message
     };
-
-    // Log the formData object before sending
-    console.log('Sending formData to server:', formData);
     setIsSubmitting(true);
 
     // Sending data to the server
     try {
-      const response = await fetch('http://localhost:3000/api/send-email', {
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -247,8 +269,7 @@ const Contact = ({ id }) => {
         body: JSON.stringify(formData),
       });
 
-      // Log the raw response from the server
-      console.log('Raw response from server:', response);
+
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -256,10 +277,9 @@ const Contact = ({ id }) => {
 
       const result = await response.json();
 
-      // Log the parsed response data
-      console.log('Parsed response data:', result);
 
-      alert("Message sent successfully!");
+      //TODO
+      setSuccessMessage("Message sent successfully!");
 
       // Reset form fields
       setName('');
@@ -267,13 +287,23 @@ const Contact = ({ id }) => {
       setMessage('');
     } catch (error) {
       console.error('Error during fetch request:', error);
-      alert('Error sending message: ' + error.message);
+      setErrorMessage('Error sending message: ' + error.message);
     } finally {
       setIsSubmitting(false); // Reset submission status
+
+      setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+      }, 5000);
+
     }
   }
 
 
+  //TODO!!!
+  const handleRecaptcha = (value) => {
+    console.log("Captcha value:", value);
+  };
 
 
   return (
@@ -284,7 +314,8 @@ const Contact = ({ id }) => {
         <p><strong>For Startups & Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
         <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
         <p><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
-        <p>Feel free to reach out to me via email <a href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a> or use a contact form below</p>
+        <p>Feel free to reach out to me via email <a href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
+          or use a contact form below</p>
       </StyledContactsContainer>
 
       <StyledForm onSubmit={handleSubmit}>
@@ -315,10 +346,30 @@ const Contact = ({ id }) => {
           />
           <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
         </FieldWrapper>
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+          size="invisible"
+          onChange={handleRecaptcha}
+        />
         <GridButton style={{ gridArea: 'button' }} type="submit" onClick={handleSubmit} aria-label="send message"> {isSubmitting ? "Sending message..." : "Send message"}</GridButton>
       </StyledForm>
+      {successMessage && (
+        <StyledSuccessFormMessage>
+          <p>{successMessage}</p>
+        </StyledSuccessFormMessage>
+      )}
 
-      {/* Other components */}
+      {errorMessage && (
+        <StyledErrorFormMessage>
+          <p>{errorMessage}</p>
+        </StyledErrorFormMessage>
+      )}
+
+
+      <StyledParagraph>This site is protected by reCAPTCHA and the
+        <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
+        <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+      </StyledParagraph>
     </StyledContainer>
   );
 };

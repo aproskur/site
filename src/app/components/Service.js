@@ -71,7 +71,23 @@ const StyledServiceContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 800px) {
+    width: 90%;
+  }
 `;
+
+const StyledShortDescription = styled.div`
+display:flex;
+@media (max-width: 635px) {
+  flex-direction: column;
+  align-items: center;
+
+  strong {
+    font-size: .75em;
+  }
+}
+`
 
 const Service = ({ id }) => {
   const [descriptionLength, setDescriptionLength] = useState('long');
@@ -103,7 +119,7 @@ const Service = ({ id }) => {
 
   const shortDescription = (
     <>
-      <p style={{ padding: '3em' }}><strong>Efficient Web Development:</strong> I build websites</p>
+      <StyledShortDescription><p><strong>Efficient Web Development:</strong></p> <p>I build websites</p></StyledShortDescription>
     </>
 
   );

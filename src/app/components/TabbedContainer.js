@@ -18,12 +18,13 @@ const TabButton = styled.button`
   color: rgb(var(--clr-white));
 
   &:focus {
-    outline: none;
+    outline: none;  // Remove default browser outline
+    box-shadow: 0 0 0 2px #007bff;  // Add a custom focus style, like a blue outline
   }
 
   // Styles for the active tab
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     `
     background: inherit;
     border-color: #bbb;
@@ -40,14 +41,38 @@ overflow-y: scroll;
 const TabbedContainer = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(tabs[0].name);
 
+
+  //accessibility. Moving through tabs with keyboard
+  const handleKeyDown = (e, tabName) => {
+    const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
+    let newIndex = currentIndex;
+
+    if (e.key === 'ArrowRight') {
+      newIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+    } else if (e.key === 'ArrowLeft') {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      setActiveTab(tabName);
+      return;
+    }
+
+    setActiveTab(tabs[newIndex].name);
+  };
+
+
   return (
     <div>
       <TabWrapper>
         {tabs.map(tab => (
           <TabButton
             key={tab.name}
-            active={tab.name === activeTab}
+            $active={tab.name === activeTab}
             onClick={() => setActiveTab(tab.name)}
+            tabIndex="0"
+            role="tab"
+            aria-selected={tab.name === activeTab}
+            onKeyDown={(e) => handleKeyDown(e, tab.name)}
+            aria-label={`Tab for ${tab.name}`}
           >
             {tab.name}
           </TabButton>

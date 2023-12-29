@@ -1,8 +1,8 @@
+
 'use client'
 import styled from 'styled-components';
 import TabbedContainer from './TabbedContainer'
 
-// Styled components
 
 const SuperContainer = styled.div` 
 background: url('./images/watercolor.png');
@@ -18,6 +18,10 @@ h2 {
 
 const PortfolioItemWrapper = styled.div`
     width: 50%;
+
+    @media (max-width: 1200px) {
+       width: 80%;
+      }
 `;
 
 const PortfolioContainer = styled.div`
@@ -25,6 +29,10 @@ const PortfolioContainer = styled.div`
   align-items: center;
   justify-content: center;  
   margin-bottom: 3em;
+
+  @media (max-width: 1200px) {
+    flex-direction: column-reverse;
+  }
  
 `;
 
@@ -34,6 +42,11 @@ const ProjectCard = styled.div`
   margin: 20px;
   width: 300px;
   overflow: hidden;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+    text-align: center;
+  }
 `;
 
 const ProjectImageContainer = styled.div`
@@ -65,15 +78,15 @@ const ProjectInfo = styled.div`
   }
 
   a {
-    color: #0066cc; /* Link color */
-    text-decoration: none; /* Removes underline */
-    transition: color 0.3s, text-decoration 0.3s; /* Smooth transition for hover effects */
+    color: #0066cc; 
+    text-decoration: none; 
+    transition: color 0.3s, text-decoration 0.3s; 
+a:hover, a:focus {
+    color: #004499; 
+    text-decoration: underline; 
 }
 
-a:hover, a:focus {
-    color: #004499; /* Darker shade on hover */
-    text-decoration: underline; /* Underline on hover */
-}
+
 `;
 
 const ProjectTitle = styled.h3`
@@ -102,7 +115,7 @@ const Portfolio = ({ id }) => {
                             {
                                 name: 'Portfolio Page', content:
 
-                                    <ProjectImage src="./images/ludesign-portfolio.jpg" alt="Project Screenshot" />
+                                    <ProjectImage src="./images/ludesign-portfolio-2.jpg" alt="Project Screenshot" />
 
                             },
                             {

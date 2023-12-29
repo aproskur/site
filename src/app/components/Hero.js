@@ -67,9 +67,8 @@ const HeroImage = styled.div`
 img {
 
    max-width: 100%;
-    border-radius: 10px;  // Example to round the corners
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  // Example shadow
-    // Add more styles as needed
+    border-radius: 10px;  
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  
     display: none;
   }
 

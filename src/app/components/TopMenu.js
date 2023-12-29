@@ -31,8 +31,8 @@ const HamburgerIcon = styled.div`
     align-items: center;
     padding: 0 1em;
     cursor: pointer;
-    cursor: pointer;
     z-index: 11;
+
     div {
         width: 30px;
         height: 3px;
@@ -41,14 +41,33 @@ const HamburgerIcon = styled.div`
         transition: 0.4s;
     }
     &.open div:nth-child(1) {
-        transform: rotate(45deg) translate(8px, 3px); /* Adjust translation for top bar */
+        transform: rotate(45deg) translate(8px, 3px); 
     }
     &.open div:nth-child(2) {
-        opacity: 0; /* Hides the middle bar */
+        opacity: 0; 
     }
     &.open div:nth-child(3) {
-        transform: rotate(-45deg) translate(9px, -5px); /* Adjust translation for bottom bar */
+        transform: rotate(-45deg) translate(9px, -5px); 
     }
+
+    &:focus {
+        outline: 2px solid blue; 
+    }
+
+    span:last-child {
+        // Hide the text by default
+        display: none;
+
+        // When isOpen is true, always show the text (for "CLOSE")
+        .open & {
+            display: inline;
+        }
+    
+
+        // When isOpen is false, show the text only on screens wider than 500px (for "MENU")
+        @media (min-width: 501px) {
+            display: inline;
+        }
 `;
 
 
@@ -63,7 +82,9 @@ const slideUp = keyframes`
 `;
 
 
-const MenuItems = styled.ul`
+const MenuItems = styled.ul.attrs({
+    id: 'offCanvasMenu'
+})`
     display: ${props => props.$isOpen || props.$isAnimating ? 'flex' : 'none'};
     visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
     opacity: ${props => props.$isOpen ? 1 : 0};
@@ -74,6 +95,7 @@ const MenuItems = styled.ul`
     transition: opacity 0.4s ease, max-height 0.4s ease;
     animation: ${props => props.$isOpen ? css`${slideDown} 0.4s ease forwards` :
         props.$isAnimating ? css`${slideUp} 0.4s ease forwards` : 'none'};
+
 
         @media (max-width: 768px) { 
             display: flex;
@@ -97,10 +119,9 @@ const MenuItems = styled.ul`
         }
 `;
 
-
 const MenuItem = styled.li`
     list-style-type: none;
-    text-transform: uppercase;
+    text-transform: uppercase;  
 `;
 
 const RoundButton = styled.div`
@@ -120,11 +141,14 @@ const RoundButton = styled.div`
   z-index: 1001;
 `;
 
-// HamburgerMenu Component
+
 const TopMenu = () => {
+
     const [isOpen, setIsOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButton, setShowButton] = useState(false);
+
+
 
     const timeoutRef = useRef(null);
 
@@ -144,10 +168,8 @@ const TopMenu = () => {
             } else {
                 setShowButton(false);
             }
-        };
-
+        }
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -159,8 +181,6 @@ const TopMenu = () => {
             behavior: 'smooth'
         });
     };
-
-
 
 
     const toggleMenu = () => {
@@ -185,8 +205,6 @@ const TopMenu = () => {
             section.scrollIntoView({ behavior: 'auto' });
         }
     };
-
-
 
     return (
         <>

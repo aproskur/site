@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+.gameContainer {
+    --dark: #152938;
+    --less-dark-background: #304859;
+    --text: #FCFCFC;
+    --clr: #f2f2f2;
+    --accent-yellow: #FDA214;
+    --idle: #bcced9;
+    --hover: rgb(99, 149, 184);
+    --greyish-blue: 188, 206, 217;
+
+    --h1: 48px;
+    --h2: 32px;
+    --h3: 30px;
+
+    --body-font-size: 18px;
+
+    --numbers-6-x-6: 44px;
+    --numbers-4-x-4: 56px;
+
+    margin: 0;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-weight: bold;
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+
+}

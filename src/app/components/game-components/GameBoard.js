@@ -116,29 +116,31 @@ const ButtonsFlexContainer = styled.div`
 
 
 
-const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => {
+    const { formatTime } = useGameSettings();
+
+    return (
+        <PopupContainer>
+            <PopupContent>
+                <h2>You did it!</h2>
+                <p>Game Over! Here is what you got on...</p>
+                <StyledResult>
+                    <p>Time Elapsed:</p>
+                    <span>{formatTime(totalTime)}</span>
+                </StyledResult>
+                <StyledResult>
+                    <p>Moves Taken:</p>
+                    <span>{totalMoves} Moves</span>
+                </StyledResult>
+                <ButtonsFlexContainer>
+                    <StyledYellowButton onClick={onRestart}>Restart Game</StyledYellowButton>
+                    <ToggleButton onClick={onNewGame}>Setup New Game</ToggleButton>
+                </ButtonsFlexContainer>
+            </PopupContent>
+            <PopupBackground />
+        </PopupContainer>
+    );
 };
-
-const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => (
-
-    <PopupContainer>
-        <PopupContent>
-            <h2>You did it!</h2>
-            <p>Game Over! Here is what you got on...</p>
-            <StyledResult><p>Time Elapsed:</p><span>{formatTime(totalTime)}</span> </StyledResult>
-            <StyledResult><p>Moves Taken:</p><span>{totalMoves} Moves</span> </StyledResult>
-            <ButtonsFlexContainer>
-                <StyledYellowButton onClick={onRestart}>Restart Game</StyledYellowButton>
-                <ToggleButton onClick={onNewGame}>Setup New Game</ToggleButton>
-            </ButtonsFlexContainer>
-
-        </PopupContent>
-        <PopupBackground />
-    </PopupContainer>
-);
 
 
 
@@ -147,7 +149,7 @@ const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => (
 
 const GameBoard = ({ size, theme }) => {
 
-    const { startGame } = useGameSettings();
+    const { startGame, updatePairsCount, numPlayers, playerData } = useGameSettings();
 
     const [flippedCards, setFlippedCards] = useState([]);
     const [matchedPairs, setMatchedPairs] = useState([]);
@@ -156,6 +158,7 @@ const GameBoard = ({ size, theme }) => {
     const [movesCounter, setMovesCounter] = useState(0);
     const [time, setTime] = useState(0);
     const [gameOver, setGameOver] = useState(false);
+    const [currentPlayer, setCurrentPlayer] = useState(0);
 
     useEffect(() => {
         const generatedContentArray = generateContentArray();
@@ -210,20 +213,34 @@ const GameBoard = ({ size, theme }) => {
         setFlippedCards((prevFlippedCards) => [...prevFlippedCards, index]);
     };
 
+    //const handlePairFound = (playerIndex) => {
+    // Assuming I have logic to determine the new pairs count
+    // const newPairsCount = /* logic to determine new pairs count */;
+    // updatePairsCount(playerIndex, newPairsCount);
+    //};
+
+
     const checkForMatch = () => {
         const [firstIndex, secondIndex] = flippedCards;
 
-        // Assuming each content item has a unique 'id' property
+
         if (contentArray[firstIndex].id === contentArray[secondIndex].id) {
             setMatchedPairs(prevMatchedPairs => [
                 ...prevMatchedPairs,
                 contentArray[firstIndex].id,
             ]);
+
+            // Increment pair count for the current player
+            updatePairsCount(currentPlayer, playerData[currentPlayer].pairs + 1);
         }
 
-        // Reset the flipped cards array
+        // Reset the flipped cards array and change turn
         setFlippedCards([]);
+        if (numPlayers > 1) {
+            setCurrentPlayer((prevPlayer) => (prevPlayer + 1) % numPlayers);
+        }
     };
+
 
     // Function to generate an array of pairs of numbers based on the size of the board
     const generateContentArray = () => {
@@ -286,7 +303,7 @@ const GameBoard = ({ size, theme }) => {
             <GameInfoContainer>
                 <GameInfo totalMoves={movesCounter} time={time}></GameInfo>
             </GameInfoContainer>
-            {GameOver && (
+            {gameOver && (
                 <GameEndPopup
                     totalTime={time}
                     totalMoves={movesCounter}
@@ -298,4 +315,4 @@ const GameBoard = ({ size, theme }) => {
     );
 };
 
-export default GameBoard;
+export default GameBoard; 

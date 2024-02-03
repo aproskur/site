@@ -63,7 +63,11 @@ const StyledYellowButton = styled(ToggleButton)`
 
 const ThemeSelector = () => {
 
-    const { theme, changeTheme, startGame, changeGridSize, gridSize, players } = useGameSettings();
+    const { theme, changeTheme, startGame, changeGridSize, gridSize, changePlayers, numPlayers } = useGameSettings();
+
+    const handlePlayerSelection = (playerCount) => {
+        changePlayers(playerCount);
+    };
 
     return (
         <StyledThemeSelectorWrapper>
@@ -84,16 +88,16 @@ const ThemeSelector = () => {
                     <div>Select Players</div>
                 </StyledItemsWrapper>
                 <StyledItemsWrapper>
-                    <ToggleButton active={players === 1} >
+                    <ToggleButton active={numPlayers === 1} onClick={() => handlePlayerSelection(1)}>
                         1
                     </ToggleButton>
-                    <ToggleButton active={players === 2}>
+                    <ToggleButton active={numPlayers === 2} onClick={() => handlePlayerSelection(2)}>
                         2
                     </ToggleButton>
-                    <ToggleButton active={players === 3}>
+                    <ToggleButton active={numPlayers === 3} onClick={() => handlePlayerSelection(3)}>
                         3
                     </ToggleButton>
-                    <ToggleButton active={players === 3}>
+                    <ToggleButton active={numPlayers === 4} onClick={() => handlePlayerSelection(4)}>
                         4
                     </ToggleButton>
                 </StyledItemsWrapper>

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const GameSettingsContext = createContext();
 
@@ -6,11 +6,10 @@ export const useGameSettings = () => useContext(GameSettingsContext);
 
 export const GameSettingsProvider = ({ children }) => {
     const [theme, setTheme] = useState('Numbers');
-    const [players, setPlayers] = useState(1);
     const [gridSize, setGridSize] = useState(4);
-
-
+    const [numPlayers, setNumPlayers] = useState(1);
     const [gameStarted, setGameStarted] = useState(false);
+    const [playerData, setPlayerData] = useState([]);
 
     const startGame = (start) => {
         setGameStarted(start);
@@ -23,7 +22,33 @@ export const GameSettingsProvider = ({ children }) => {
 
     // Method to update the number of players
     const changePlayers = (newPlayers) => {
-        setPlayers(newPlayers);
+        setNumPlayers(newPlayers);
+        //resetPlayerData(newPlayers);
+    };
+
+
+    const updatePlayerData = (newData) => {
+        setPlayerData(newData);
+    };
+
+    const resetPlayerData = () => {
+        // Create a new array with each element being a distinct object
+        const initialData = Array.from({ length: numPlayers }, () => ({ pairs: 0 }));
+        setPlayerData(initialData);
+    };
+
+    // Use an effect to reset player data when numPlayers changes
+    useEffect(() => {
+        resetPlayerData(); // This ensures player data is reset with the correct number of players
+    }, [numPlayers]); // Depend on numPlayers to automatically reset player data when it changes
+
+
+    const updatePairsCount = (playerIndex, newPairsCount) => {
+        setPlayerData(currentPlayerData =>
+            currentPlayerData.map((data, index) =>
+                index === playerIndex ? { ...data, pairs: newPairsCount } : data
+            )
+        );
     };
 
     // Method to update the grid size
@@ -31,16 +56,26 @@ export const GameSettingsProvider = ({ children }) => {
         setGridSize(newGridSize);
     };
 
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+    };
+
     return (
         <GameSettingsContext.Provider value={{
             theme,
             changeTheme,
-            players,
+            numPlayers,
             changePlayers,
+            playerData,
             gridSize,
             changeGridSize,
             gameStarted,
             startGame,
+            formatTime,
+            updatePairsCount,
+            resetPlayerData,
         }}>
             {children}
         </GameSettingsContext.Provider>

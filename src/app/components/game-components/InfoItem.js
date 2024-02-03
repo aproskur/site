@@ -5,7 +5,6 @@ const InfoItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
   margin-bottom: 8px;
   background-color: #DFE7EC;
   padding: 0.75em 0.75em;

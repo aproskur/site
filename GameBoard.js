@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Card from "./Card";
-import GameInfo from "./GameInfo";
 import { faStar, faHeart, faApple, faPoo, faHippo, faMoon, faHouse, faCar } from '@fortawesome/free-solid-svg-icons';
 
 

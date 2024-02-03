@@ -14,7 +14,7 @@ const GameInfoContainer = styled.div`
 `;
 
 
-const GameInfo = ({ totalMoves, time }) => {
+const GameInfo = ({ totalMoves, time, currentPlayerIndex }) => {
 
     const { formatTime, numPlayers, playerData } = useGameSettings();
 
@@ -31,7 +31,7 @@ const GameInfo = ({ totalMoves, time }) => {
     const renderMultiPlayerInfo = () => (
         playerData.map((data, index) => (
             <div key={index}>
-                <InfoItem label={`Player ${index + 1} Pairs`} value={data.pairs} />
+                <InfoItem label={`Player ${index + 1} Pairs`} value={data.pairs} highlight={index === currentPlayerIndex} />
             </div>
         ))
     );

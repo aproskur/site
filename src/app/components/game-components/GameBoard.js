@@ -149,7 +149,7 @@ const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => {
 
 const GameBoard = ({ size, theme }) => {
 
-    const { startGame, updatePairsCount, numPlayers, playerData } = useGameSettings();
+    const { startGame, updatePairsCount, numPlayers, playerData, setPlayerData } = useGameSettings();
 
     const [flippedCards, setFlippedCards] = useState([]);
     const [matchedPairs, setMatchedPairs] = useState([]);
@@ -223,7 +223,6 @@ const GameBoard = ({ size, theme }) => {
     const checkForMatch = () => {
         const [firstIndex, secondIndex] = flippedCards;
 
-
         if (contentArray[firstIndex].id === contentArray[secondIndex].id) {
             setMatchedPairs(prevMatchedPairs => [
                 ...prevMatchedPairs,
@@ -232,13 +231,17 @@ const GameBoard = ({ size, theme }) => {
 
             // Increment pair count for the current player
             updatePairsCount(currentPlayer, playerData[currentPlayer].pairs + 1);
+
+            // Do not change currentPlayer if a match is found
+        } else {
+            // Only change the currentPlayer if no match is found, and if there are more than one player
+            if (numPlayers > 1) {
+                setCurrentPlayer((prevPlayer) => (prevPlayer + 1) % numPlayers);
+            }
         }
 
-        // Reset the flipped cards array and change turn
+        // Reset the flipped cards array after checking for a match or no match
         setFlippedCards([]);
-        if (numPlayers > 1) {
-            setCurrentPlayer((prevPlayer) => (prevPlayer + 1) % numPlayers);
-        }
     };
 
 
@@ -291,6 +294,13 @@ const GameBoard = ({ size, theme }) => {
         setGameOver(false);
         setTime(0);
         setContentArray(generateContentArray());
+        setCurrentPlayer(0); // Reset current player to the first player
+        resetPlayerData(); // Reset player data for a fresh start
+    };
+
+    const resetPlayerData = () => {
+        const initialData = Array.from({ length: numPlayers }, () => ({ pairs: 0 }));
+        setPlayerData(initialData);
     };
 
     // Render the game board container with columns set based on the size prop
@@ -301,7 +311,7 @@ const GameBoard = ({ size, theme }) => {
                 <CenteredBoardContainer columns={size}>{renderBoard()}</CenteredBoardContainer>
             </CenteredContainer>
             <GameInfoContainer>
-                <GameInfo totalMoves={movesCounter} time={time}></GameInfo>
+                <GameInfo totalMoves={movesCounter} time={time} currentPlayerIndex={currentPlayer}></GameInfo>
             </GameInfoContainer>
             {gameOver && (
                 <GameEndPopup

@@ -10,6 +10,7 @@ export const GameSettingsProvider = ({ children }) => {
     const [numPlayers, setNumPlayers] = useState(1);
     const [gameStarted, setGameStarted] = useState(false);
     const [playerData, setPlayerData] = useState([]);
+    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
 
     const startGame = (start) => {
         setGameStarted(start);
@@ -76,6 +77,7 @@ export const GameSettingsProvider = ({ children }) => {
             formatTime,
             updatePairsCount,
             resetPlayerData,
+            currentPlayerIndex,
         }}>
             {children}
         </GameSettingsContext.Provider>

@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useGameSettings } from '../../context/GameSettingsContext';
+
 
 
 
@@ -12,10 +14,19 @@ const RoundCardContainer = styled.div
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: .75em;
+    padding: ${(props) => (props.gridSize === 4 ? '0.75em' : '0.55em')};
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added background-color transition */
     font-size: var(--numbers-4-x-4);
+    font-size: ${(props) => (props.gridSize === 4 ? 'var(--numbers-4-x-4)' : 'var(--numbers-6-x-6)')};
     color: var(--text);
+
+    @media screen and (max-width: 425px) {
+      
+
+
+    }
+
+
 
     ${(props) =>
     props.isFlipped &&
@@ -44,10 +55,13 @@ const RoundCardContainer = styled.div
 
 const Card = ({ content, isFlipped, isIdle, onClick }) => {
 
+  const { gridSize } = useGameSettings();
+
+
   const isIcon = typeof content === 'object' && content.hasOwnProperty('iconName');
 
   return (
-    <RoundCardContainer isFlipped={isFlipped} isIdle={isIdle} onClick={onClick}>
+    <RoundCardContainer isFlipped={isFlipped} isIdle={isIdle} onClick={onClick} gridSize={gridSize}>
       {(isFlipped || isIdle) && (
         isIcon ? <FontAwesomeIcon icon={content} /> : content
       )}

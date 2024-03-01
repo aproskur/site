@@ -18,7 +18,7 @@ const StyledMainContainer = styled.div`
 
 const CenteredContainer = styled.div`
   display: flex;
- flex-grow: 1;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -29,10 +29,20 @@ const BoardContainer = styled.div
     display: grid;
     grid-template-columns: repeat(${(props) => props.columns}, 1fr);
     gap: 8px;
+    @media (max-width: 400px) {
+        width: 98%;
+        justify-content: center;
+      }
+    
   `;
 
 const CenteredBoardContainer = styled(BoardContainer)`
   max-width: 600px; 
+  @media (max-width: 400px) {
+    width: 100%;
+    justify-content: center;
+    gap: 1px;
+  }
 `;
 
 const GameInfoContainer = styled.div`   
@@ -86,17 +96,17 @@ const PopupContent = styled.div`
 
 const StyledResult = styled.div`
     padding: 1em;
-    background-color: rgb(var(--greyish-blue), .5);
+    background-color: ${(props) => props.winner ? 'rgba(21, 41, 56, .9)' : 'rgb(var(--greyish-blue), .5)'};
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
 
     p {
-        color: rgba(48, 72, 89, 0.8);
+        color:${(props) => props.winner ? '#ffffff' : 'rgba(48, 72, 89, 0.8)'};
     }
 
     span {
-        color: rgb(48, 72, 89);
+        color:${(props) => props.winner ? '#ffffff' : 'rgba(48, 72, 89)'};
     }
 `;
 
@@ -114,27 +124,69 @@ const ButtonsFlexContainer = styled.div`
   gap: 1em;
   `;
 
+const StyledGameButton = styled(ToggleButton)`
+    color: var(--dark);
+`
+
 
 
 const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => {
-    const { formatTime } = useGameSettings();
+    const { formatTime, playerData, resetPlayerData } = useGameSettings();
+    const isMultiplayer = playerData && playerData.length > 1;
+
+    // Sort players by the number of pairs found
+    let sortedPlayers = [...playerData].sort((a, b) => b.pairs - a.pairs);
+
+    // Determine the highest number of pairs found
+    const highestPairs = sortedPlayers.length > 0 ? sortedPlayers[0].pairs : 0;
+
+    // Identify all players who have matched the highest number of pairs
+    const topPlayers = sortedPlayers.filter(player => player.pairs === highestPairs);
+
+    let titleMessage = "Game Over!"; // Default message
+    if (isMultiplayer) {
+        if (topPlayers.length > 1) {
+            // If more than one player has the top number of pairs, it's a tie
+            titleMessage = "It's a tie!";
+        } else {
+            // Single top player
+            titleMessage = `${topPlayers[0].id} Wins!`;
+        }
+    } else {
+        titleMessage = "You did it!"; // Message for single player
+    }
 
     return (
         <PopupContainer>
             <PopupContent>
-                <h2>You did it!</h2>
-                <p>Game Over! Here is what you got on...</p>
-                <StyledResult>
-                    <p>Time Elapsed:</p>
-                    <span>{formatTime(totalTime)}</span>
-                </StyledResult>
-                <StyledResult>
-                    <p>Moves Taken:</p>
-                    <span>{totalMoves} Moves</span>
-                </StyledResult>
+                <h2>{titleMessage}</h2>
+                {isMultiplayer ? (
+                    <>
+                        <p>Here are the results...</p>
+                        {sortedPlayers.map((player) => (
+                            <StyledResult key={player.id}
+                                winner={topPlayers.find(winner => winner.id === player.id) !== undefined}>
+                                <p>{player.id}{topPlayers.find(winner => winner.id === player.id) ? " (winner)" : ""}:</p>
+                                <span>{player.pairs} Pairs</span>
+                            </StyledResult>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        <p>Here is what you got...</p>
+                        <StyledResult>
+                            <p>Time Elapsed:</p>
+                            <span>{formatTime(totalTime)}</span>
+                        </StyledResult>
+                        <StyledResult>
+                            <p>Moves Taken:</p>
+                            <span>{totalMoves} Moves</span>
+                        </StyledResult>
+                    </>
+                )}
                 <ButtonsFlexContainer>
-                    <StyledYellowButton onClick={onRestart}>Restart Game</StyledYellowButton>
-                    <ToggleButton onClick={onNewGame}>Setup New Game</ToggleButton>
+                    <StyledYellowButton onClick={onRestart}>Restart</StyledYellowButton>
+                    <StyledGameButton onClick={onNewGame}>Setup New Game</StyledGameButton>
                 </ButtonsFlexContainer>
             </PopupContent>
             <PopupBackground />
@@ -147,9 +199,12 @@ const GameEndPopup = ({ totalTime, totalMoves, onRestart, onNewGame }) => {
 
 
 
+
+
+
 const GameBoard = ({ size, theme }) => {
 
-    const { startGame, updatePairsCount, numPlayers, playerData, setPlayerData } = useGameSettings();
+    const { startGame, updatePairsCount, numPlayers, playerData, resetPlayerData } = useGameSettings();
 
     const [flippedCards, setFlippedCards] = useState([]);
     const [matchedPairs, setMatchedPairs] = useState([]);
@@ -157,6 +212,7 @@ const GameBoard = ({ size, theme }) => {
     const [contentArray, setContentArray] = useState([]);
     const [movesCounter, setMovesCounter] = useState(0);
     const [time, setTime] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState(0);
 
@@ -174,7 +230,7 @@ const GameBoard = ({ size, theme }) => {
 
     useEffect(() => {
         let timer;
-        if (!gameOver) {
+        if (!gameOver && !isPaused) {
             timer = setInterval(() => {
                 setTime(prevTime => prevTime + 1);
             }, 1000);
@@ -182,7 +238,17 @@ const GameBoard = ({ size, theme }) => {
 
         // Cleanup the interval on component unmount or when the game ends
         return () => clearInterval(timer);
-    }, [gameOver]);
+    }, [gameOver, isPaused]);
+
+    const pauseTimer = () => {
+        setIsPaused(!isPaused);
+        console.log("Is Paused:", !isPaused);
+    };
+
+    const resumeTimer = () => {
+        setIsPaused(false);
+    };
+
 
     useEffect(() => {
         // Check for a match when two cards are flipped and count moves
@@ -294,24 +360,24 @@ const GameBoard = ({ size, theme }) => {
         setGameOver(false);
         setTime(0);
         setContentArray(generateContentArray());
-        setCurrentPlayer(0); // Reset current player to the first player
-        resetPlayerData(); // Reset player data for a fresh start
+        setCurrentPlayer(0);
+        resetPlayerData();
     };
 
-    const resetPlayerData = () => {
-        const initialData = Array.from({ length: numPlayers }, () => ({ pairs: 0 }));
-        setPlayerData(initialData);
-    };
+
 
     // Render the game board container with columns set based on the size prop
     return (
         <StyledMainContainer>
-            <GameHeader onRestart={restartGame} />
+            <GameHeader onRestart={restartGame} resumeTimer={resumeTimer} pauseTimer={pauseTimer} />
             <CenteredContainer>
                 <CenteredBoardContainer columns={size}>{renderBoard()}</CenteredBoardContainer>
             </CenteredContainer>
             <GameInfoContainer>
-                <GameInfo totalMoves={movesCounter} time={time} currentPlayerIndex={currentPlayer}></GameInfo>
+                <GameInfo totalMoves={movesCounter}
+                    time={time}
+                    currentPlayerIndex={currentPlayer}>
+                </GameInfo>
             </GameInfoContainer>
             {gameOver && (
                 <GameEndPopup

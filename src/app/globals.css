@@ -13,6 +13,7 @@
   --clr-gray: 58, 83, 109;
   --clr-subtle-gray: 240, 240, 240;
   --clr-white: 255, 255, 255;
+  --clr-torquoise: 64, 224, 208;
 
   --bgr-gradient: linear-gradient(to bottom right, rgb(44, 62, 80), rgb(248, 187, 208));
 }

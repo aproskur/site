@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Tools from './Tools'
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ const ToggleOption = styled.div`
   cursor: pointer;
   padding: 5px;
   margin: 5px;
-  border-bottom: ${({ $isActive }) => $isActive ? '1px solid pink' : 'none'};
+  border-bottom: ${({ $isActive }) => $isActive ? '1px solid rgb(var(--clr-torquoise));' : 'none'};
 `;
 
 
@@ -25,6 +25,8 @@ const StyledService = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
+
   
   h2 {
     color: #fff;
@@ -96,7 +98,7 @@ const Service = ({ id }) => {
     <>
       <h3>Custom web development</h3>
       <p><strong>From Scratch to Excellence:</strong> I specialize in creating websites using HTML, CSS, and JavaScript, ensuring each site is tailored to your unique needs with custom functionalities.</p>
-      <p><strong>React Development with Next.js:</strong> I'm proficient in building dynamic, responsive websites using the Next.js framework, and I'm adept at working with other React-based frameworks.</p>
+      <p><strong>React Development:</strong> I'm proficient in building dynamic, responsive websites using React framework, and I'm adept at working with other React-based frameworks.</p>
       <h3>Wordpress development</h3>
       <p><strong>Theme Customization & Development</strong> Whether you need to tweak an existing theme or create a new custom WordPress theme, I have the skills to deliver exactly what your brand requires.</p>
       <p><strong>Custom Plugin Development:</strong> I can develop bespoke WordPress plugins, enhancing your site's functionality with tailored PHP solutions.</p>
@@ -119,7 +121,7 @@ const Service = ({ id }) => {
 
   const shortDescription = (
     <>
-      <StyledShortDescription><p><strong>Efficient Web Development:</strong></p> <p>I build websites</p></StyledShortDescription>
+      <StyledShortDescription><p><strong>Efficient Web Development & Support:</strong></p> <p>I build and support websites</p></StyledShortDescription>
     </>
 
   );
@@ -143,7 +145,8 @@ const Service = ({ id }) => {
           {descriptionLength === 'short' ? shortDescription : longDescription}
         </StyledServiceContainer>
       </StyledService>
-      {descriptionLength === 'short' ? <Tools /> : null}
+      <Tools />
+      {/*descriptionLength === 'short' ? <Tools /> : null*/}
     </>
   );
 };

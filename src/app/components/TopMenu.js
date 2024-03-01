@@ -18,13 +18,22 @@ const Nav = styled.nav`
 
 const Logo = styled.div`
     flex-grow: 0;
-    flex-shrink: 1; // Allow it to shrink if needed
-    flex-basis: auto; // Adjust as needed
-    padding: 1em;
-    // TODO: a media query for font-size adjustment
+    flex-shrink: 1; 
+    flex-basis: auto; 
+
+  
+
+    @media (max-width: 400px) {
+        img {
+            width: 200px;
+        }
+    }
 `;
 
 const HamburgerIcon = styled.div`
+    display: none;
+
+    @media (max-width: 768px){
     display: flex;
     gap: 0.5em;
     justify-content: space-between;
@@ -68,8 +77,18 @@ const HamburgerIcon = styled.div`
         @media (min-width: 501px) {
             display: inline;
         }
+    }
 `;
 
+const UseClientMenu = styled.div`
+    display: flex;
+    gap: 1em;
+
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
 
 const slideDown = keyframes`
     from { transform: translateY(-100%); opacity: 0; }
@@ -85,9 +104,9 @@ const slideUp = keyframes`
 const MenuItems = styled.ul.attrs({
     id: 'offCanvasMenu'
 })`
-    display: ${props => props.$isOpen || props.$isAnimating ? 'flex' : 'none'};
-    visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
-    opacity: ${props => props.$isOpen ? 1 : 0};
+    display: flex;
+    visibility: ${props => (props.$isOpen || props.$isAnimating || window.innerWidth > 768) ? 'visible' : 'hidden'};
+    opacity: ${props => (props.$isOpen || window.innerWidth > 768) ? 1 : 0};
     overflow: hidden;
     gap: 1em;
     justify-content: flex-end;
@@ -95,33 +114,34 @@ const MenuItems = styled.ul.attrs({
     transition: opacity 0.4s ease, max-height 0.4s ease;
     animation: ${props => props.$isOpen ? css`${slideDown} 0.4s ease forwards` :
         props.$isAnimating ? css`${slideUp} 0.4s ease forwards` : 'none'};
+  
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 7em 1em;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(to bottom, rgb(44, 62, 80), rgb(248, 187, 208));
+      z-index: 10;
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+  `;
 
-
-        @media (max-width: 768px) { 
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 7em 1em;
-            align-items: center;
-            position: fixed; // To cover the entire screen
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh; // Full viewport height         
-            background: linear-gradient(to bottom, rgb(44, 62, 80), rgb(248, 187, 208));
-            z-index: 10; 
-            transform: translateX(-100%); // Start off-screen
-            transition: transform 0.4s ease;
-
- 
-        }
-`;
 
 const MenuItem = styled.li`
     list-style-type: none;
     text-transform: uppercase;  
+    font-weight: bold;
+  --clr-torquoise: 64, 224, 208;
+  color: rgb(var(--clr-torquoise));
 `;
 
 const RoundButton = styled.div`
@@ -184,20 +204,19 @@ const TopMenu = () => {
 
 
     const toggleMenu = () => {
-        if (isOpen) {
-            setIsAnimating(true); // Start closing animation
-            timeoutRef.current = setTimeout(() => {
-                setIsOpen(false);
-                setIsAnimating(false);
-            }, 400); // Duration of slideUp animation
-        } else {
+        if (window.innerWidth <= 768) {
+            if (isOpen) {
+                setIsAnimating(true); // Start closing animation
+                timeoutRef.current = setTimeout(() => {
+                    setIsOpen(false);
+                    setIsAnimating(false);
+                }, 400); // Duration of slideUp animation
+            } else {
 
-            setIsOpen(true);
+                setIsOpen(true);
+            }
         }
-    };
-
-
-    const scrollToSection = (event, sectionId) => {
+    }; const scrollToSection = (event, sectionId) => {
         event.preventDefault();
         setIsOpen(false);
         const section = document.getElementById(sectionId);
@@ -209,13 +228,16 @@ const TopMenu = () => {
     return (
         <>
             <Nav>
-                <Logo>ANNA WEBDEV</Logo>
-                <MenuItems $isOpen={isOpen} $isAnimating={isAnimating}>
-                    <MenuItem>Home</MenuItem>
-                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
-                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>
-                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Contact</a></MenuItem>
-                </MenuItems>
+                <Logo><img src="../images/Logo_Anna_Webdev_2.png" alt="Anna WEBDEV" /></Logo>
+                <UseClientMenu>
+                    <MenuItems $isOpen={isOpen} $isAnimating={isAnimating}>
+                        {/*<MenuItem>Home</MenuItem>*/}
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Contact</a></MenuItem>
+                    </MenuItems>
+                </UseClientMenu>
+
                 <HamburgerIcon onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
                     <span>
                         <div></div>
@@ -235,3 +257,6 @@ const TopMenu = () => {
 };
 
 export default TopMenu;
+
+
+

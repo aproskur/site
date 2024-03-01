@@ -31,6 +31,19 @@ const StyledThemeSelector = styled.div`
     padding: 2em;
     gap: 1em;
     
+    @media(max-width: 1300px) {
+        width: 70%;
+    }
+
+    @media(max-width: 940px) {
+        width: 95%;
+    }
+
+    @media(max-width: 450px) {
+        width: 97%;
+        padding: 0.75em;
+    }
+
     
     `;
 
@@ -45,6 +58,10 @@ const StyledItemsWrapper = styled.div`
 
     & > * {
         flex: 1; 
+    }
+
+    @media (max-width: 450px) {
+        gap:0.3em;
     }
     `;
 

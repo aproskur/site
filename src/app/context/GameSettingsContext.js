@@ -14,6 +14,11 @@ export const GameSettingsProvider = ({ children }) => {
 
     const startGame = (start) => {
         setGameStarted(start);
+        if (start) {
+            resetPlayerData(); // Reset player data to initial state
+            setCurrentPlayerIndex(0); // Reset current player index to 0
+        }
+
     }
 
     // Method to update the theme
@@ -32,11 +37,23 @@ export const GameSettingsProvider = ({ children }) => {
         setPlayerData(newData);
     };
 
+    /* v1
     const resetPlayerData = () => {
         // Create a new array with each element being a distinct object
         const initialData = Array.from({ length: numPlayers }, () => ({ pairs: 0 }));
         setPlayerData(initialData);
+    }; */
+
+
+    const resetPlayerData = () => {
+        const initialData = Array.from({ length: numPlayers }, (_, index) => ({
+            id: `Player ${index + 1}`,
+            pairs: 0,
+            moves: 0,
+        }));
+        setPlayerData(initialData);
     };
+
 
     // Use an effect to reset player data when numPlayers changes
     useEffect(() => {
@@ -51,6 +68,9 @@ export const GameSettingsProvider = ({ children }) => {
             )
         );
     };
+
+
+
 
     // Method to update the grid size
     const changeGridSize = (newGridSize) => {
@@ -78,6 +98,7 @@ export const GameSettingsProvider = ({ children }) => {
             updatePairsCount,
             resetPlayerData,
             currentPlayerIndex,
+            updatePlayerData,
         }}>
             {children}
         </GameSettingsContext.Provider>

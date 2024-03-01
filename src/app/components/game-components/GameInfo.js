@@ -6,9 +6,6 @@ import { useGameSettings } from "@/app/context/GameSettingsContext";
 const GameInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 450px; 
-  margin-top: 2.5em;
   gap: 1em;
   height: 15%;
 `;
@@ -31,7 +28,13 @@ const GameInfo = ({ totalMoves, time, currentPlayerIndex }) => {
     const renderMultiPlayerInfo = () => (
         playerData.map((data, index) => (
             <div key={index}>
-                <InfoItem label={`Player ${index + 1} Pairs`} value={data.pairs} highlight={index === currentPlayerIndex} />
+                <InfoItem
+                    label={window.innerWidth > 768 ? `Player ${index + 1}` : `P${index + 1}`}
+                    value={data.pairs}
+                    highlight={index === currentPlayerIndex}
+                    currentPlayer={index === currentPlayerIndex}
+
+                />
             </div>
         ))
     );

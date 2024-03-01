@@ -311,11 +311,11 @@ const Contact = ({ id }) => {
       <StyledContactsContainer>
         <h2>Contact Me</h2>
         <p><strong>For Small Businesses & Individual Entrepreneurs: </strong>Need a website that captures the essence of your business? I specialize in creating custom, engaging websites that help small businesses and entrepreneurs stand out and grow.</p>
-        <p><strong>For Startups & Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
+        <p><strong>For Startups  Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
         <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
         <p><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
-        <p>Feel free to reach out to me via email <a href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
-          or use a contact form below</p>
+        <p>Feel free to reach out to me via email <a style={{ color: 'rgb(var(--clr-gold))' }} href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
+          &nbsp; or use a contact form below</p>
       </StyledContactsContainer>
 
       <StyledForm onSubmit={handleSubmit}>

@@ -11,7 +11,7 @@ const HeroContainer = styled.div`
   align-items: center;
   height: 80%;
   padding: 1em;
-  margin-top: 1.25em;
+  margin-top: 0.3em;
 
   @media (max-width: 1000px){
     flex-direction: column;
@@ -92,10 +92,10 @@ function Hero() {
     return (
         <HeroContainer>
             <HeroText>
-                <h1>ANNA</h1>
-                <h2>WEB DEVELOPER </h2>
+                <h1>WEB DEVELOPER </h1>
                 <h3>Based in Cardiff, working worldwide</h3>
-                <p> Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
+                <p> Hi, my name is Anna and I am a freelance web developer.</p>
+                <p>Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
                 <p>  From <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>creation</span> to ongoing <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>support</span>, I'm here for your small business or collaborative team. </p>
                 <p>Here coding meets creativity!</p>
                 <Button onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>

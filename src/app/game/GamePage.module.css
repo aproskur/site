@@ -16,7 +16,7 @@
 
     --body-font-size: 18px;
 
-    --numbers-6-x-6: 44px;
+    --numbers-6-x-6: 35px;
     --numbers-4-x-4: 56px;
 
     margin: 0;
@@ -29,5 +29,9 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
+
+
+    height: 100vh;
+    overflow: scroll;
 
 }

@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <Watermark words={words} colors={colors} />
+      {/* <Watermark words={words} colors={colors} /> */}
       <TopMenu />
       <main className={styles.main}>
         <Hero />

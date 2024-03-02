@@ -11,7 +11,7 @@ const HeroContainer = styled.div`
   align-items: center;
   height: 80%;
   padding: 1em;
-  margin-top: 0.3em;
+  margin-top: 0.4em;
 
   @media (max-width: 1000px){
     flex-direction: column;

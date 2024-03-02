@@ -40,7 +40,7 @@ const ProjectCard = styled.div`
   border: 1px solid #ddd;
   padding: 20px;
   margin: 20px;
-  width: 300px;
+  width: 350px;
   overflow: hidden;
 
   @media (max-width: 1200px) {
@@ -210,6 +210,48 @@ const Portfolio = ({ id }) => {
                     <ProjectTitle>Portfolio</ProjectTitle>
                     <ProjectDescription>
                         Wordpress, CSS, JavaScript
+                    </ProjectDescription>
+                </ProjectCard>
+            </PortfolioContainer>
+            <PortfolioContainer>
+                <PortfolioItemWrapper>
+                    <TabbedContainer
+                        tabs={[
+                            {
+                                name: 'Main Page', content:
+
+                                    <ProjectImage src="./images/anna-webdev-main-page.png" alt="Project Screenshot" />
+
+                            },
+                            {
+                                name: 'A game', content:
+
+                                    <ProjectImage src="./images/anna-webdev-game.png" alt="Project Screenshot" />
+
+                            },
+                            {
+                                name: 'Approach', content:
+
+                                    <ProjectInfo>
+                                        <p>The website I created for myself <a href='https://annawedev.pro'>annawebdev.pro</a>. This website is where my coding adventures unfold.</p>
+
+                                        <p>Crafted it with React and styled using Styled Components</p>
+
+                                        <p>Explore my projects, each a labor of passion and a testament to my skills in web development.</p>
+
+                                        <p>But it's not all serious business here! Have some fun with <a href="https://annawebdev.pro/game">Memo game</a>, a quirky addition to spice things up. </p>
+
+                                        <p>Responsive, intuitive, and a dash of personality – that's the essence of my site.</p>
+                                    </ProjectInfo>
+
+                            },
+                        ]}
+                    />
+                </PortfolioItemWrapper>
+                <ProjectCard>
+                    <ProjectTitle>Portfolio</ProjectTitle>
+                    <ProjectDescription>
+                        <p>React.js, styled components</p>
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>

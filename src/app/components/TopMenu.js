@@ -151,7 +151,7 @@ const RoundButton = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--bgr-gradient);
+  background: rgba(var(--clr-torquoise), 0.3);
   color: rgb(var(--clr-white));
   display: flex;
   justify-content: center;

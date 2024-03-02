@@ -251,7 +251,7 @@ const Portfolio = ({ id }) => {
                 <ProjectCard>
                     <ProjectTitle>Portfolio</ProjectTitle>
                     <ProjectDescription>
-                        <p>React.js, styled components</p>
+                        React.js, styled components
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>

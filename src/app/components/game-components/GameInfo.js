@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import InfoItem from "./InfoItem";
 import { useGameSettings } from "@/app/context/GameSettingsContext";
+import useWindowSize from '@/app/hooks/useWindowSize';
+
 
 const GameInfoContainer = styled.div`
   display: flex;
@@ -14,6 +16,7 @@ const GameInfoContainer = styled.div`
 const GameInfo = ({ totalMoves, time, currentPlayerIndex }) => {
 
     const { formatTime, numPlayers, playerData } = useGameSettings();
+    const { width, height } = useWindowSize();
 
 
     const renderOnePlayerInfo = () => {
@@ -27,9 +30,9 @@ const GameInfo = ({ totalMoves, time, currentPlayerIndex }) => {
 
     const renderMultiPlayerInfo = () => (
         playerData.map((data, index) => (
-            <div key={index}>
+            <div key={data.id}>
                 <InfoItem
-                    label={window.innerWidth > 768 ? `Player ${index + 1}` : `P${index + 1}`}
+                    label={width > 768 ? `Player ${index + 1}` : `P${index + 1}`}
                     value={data.pairs}
                     highlight={index === currentPlayerIndex}
                     currentPlayer={index === currentPlayerIndex}

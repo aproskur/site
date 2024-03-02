@@ -6,7 +6,7 @@ import { useGameSettings } from '../../context/GameSettingsContext';
 
 
 const RoundCardContainer = styled.div
-  .withConfig({ shouldForwardProp: prop => !['isFlipped', 'isIdle'].includes(prop) })`
+  .withConfig({ shouldForwardProp: prop => !['isFlipped', 'isIdle', 'gridSize'].includes(prop) })`
     width: var(--numbers-4-x-4);
     height: var(--numbers-4-x-4);
     border-radius: 50%;

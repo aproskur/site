@@ -1,10 +1,12 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components'
+import useWindowSize from '@/app/hooks/useWindowSize';
 
 
 const Nav = styled.nav`
     display: flex;
+    flex-direction: row;
     position: sticky;
     top: 0;
     width: 100%;
@@ -82,6 +84,7 @@ const HamburgerIcon = styled.div`
 
 const UseClientMenu = styled.div`
     display: flex;
+    flex-direction: row;
     gap: 1em;
 
     @media (max-width: 768px) {
@@ -105,8 +108,8 @@ const MenuItems = styled.ul.attrs({
     id: 'offCanvasMenu'
 })`
     display: flex;
-    visibility: ${props => (props.$isOpen || props.$isAnimating || window.innerWidth > 768) ? 'visible' : 'hidden'};
-    opacity: ${props => (props.$isOpen || window.innerWidth > 768) ? 1 : 0};
+    visibility: ${({ $isOpen, $isAnimating, $width }) => ($isOpen || $isAnimating || $width > 768) ? 'visible' : 'hidden'};
+    opacity: ${({ $isOpen, $width }) => ($isOpen || $width > 768) ? 1 : 0};    
     overflow: hidden;
     gap: 1em;
     justify-content: flex-end;
@@ -168,6 +171,8 @@ const TopMenu = () => {
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButton, setShowButton] = useState(false);
 
+    const { width, height } = useWindowSize();
+
 
 
     const timeoutRef = useRef(null);
@@ -204,7 +209,7 @@ const TopMenu = () => {
 
 
     const toggleMenu = () => {
-        if (window.innerWidth <= 768) {
+        if (width <= 768) {
             if (isOpen) {
                 setIsAnimating(true); // Start closing animation
                 timeoutRef.current = setTimeout(() => {
@@ -230,7 +235,7 @@ const TopMenu = () => {
             <Nav>
                 <Logo><img src="../images/Logo_Anna_Webdev_2.png" alt="Anna WEBDEV" /></Logo>
                 <UseClientMenu>
-                    <MenuItems $isOpen={isOpen} $isAnimating={isAnimating}>
+                    <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>

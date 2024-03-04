@@ -8,18 +8,18 @@ const TabWrapper = styled.div`
 `;
 const TabButton = styled.button`
   border: 1px solid #ddd;
-  border-bottom: none; // Remove bottom border to blend with the content
+  border-bottom: none; 
   padding: 10px 20px;
   cursor: pointer;
-  border-top-left-radius: 10px; // Rounded corners for the top
+  border-top-left-radius: 10px;
   border-top-right-radius: 3px;
   font-family: var(--font-text);
   background: var(--bgr-gradient);
   color: rgb(var(--clr-white));
 
   &:focus {
-    outline: none;  // Remove default browser outline
-    box-shadow: 0 0 0 2px #007bff;  // Add a custom focus style, like a blue outline
+    outline: none; 
+    box-shadow: 0 0 0 2px #007bff;  
   }
 
   // Styles for the active tab

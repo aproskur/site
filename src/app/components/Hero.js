@@ -45,10 +45,12 @@ const HeroText = styled.div`
     }
 
     @media (max-width: 600px){
-        h1,h2,h3 {
-            font-size: 2.15rem;
+        h1,h2 {
+            font-size: 2.25rem;
         }
 
+        h3 {
+            font-size: 1.75rem;
         p {
             font-size: 1.5rem;
         }

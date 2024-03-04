@@ -18,7 +18,7 @@ const ToggleOption = styled.div`
 
 
 const StyledService = styled.div`
-  padding: 20px;
+  padding: 20px 0px;
   background: rgb(var(--clr-gray));
   width: 100%;
   display: flex;
@@ -39,13 +39,13 @@ const StyledService = styled.div`
   h3 {
     text-transform: uppercase;
     text-align: center;
-    padding: 1em;
+    margin-top: .9em; 
+    margin-bottom: .75em;  
   }
 
   p {
     color: #fff;
     line-height: 1.6;
-    padding: 0.75em;
   }
 
   strong {

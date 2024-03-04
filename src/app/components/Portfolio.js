@@ -233,7 +233,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Approach', content:
 
                                     <ProjectInfo>
-                                        <p>The website I created for myself <a href='https://annawedev.pro'>annawebdev.pro</a>. This website is where my coding adventures unfold.</p>
+                                        <p><a href='https://annawedev.pro'>annawebdev.pro</a> is created for myself  This website is where my coding adventures unfold.</p>
 
                                         <p>Crafted it with React and styled using Styled Components</p>
 

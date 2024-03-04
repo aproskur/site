@@ -7,7 +7,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 const StyledContainer = styled.div`
   background-color: rgb(var(--clr-subtle-gray));
   color: rgb(var(--clr-gray));
-  padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,6 +15,10 @@ const StyledContainer = styled.div`
 
   h2{
     font-size: 3rem;
+
+    @media (max-width: 500px){
+      font-size: 2.5rem;
+    }
   }
 
   h1,
@@ -26,7 +29,6 @@ const StyledContainer = styled.div`
 
   p {
     line-height: 1.6;
-    padding: 0.75em;
   }
 
   strong {
@@ -42,6 +44,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+margin-top: 1em;
 
 @media (max-width: 800px) {
   width: 90%;
@@ -70,7 +73,8 @@ const StyledErrorMessage = styled.span`
 const StyledForm = styled.form`
     display: grid;
     width: 100%; 
-    max-width: 600px; 
+    max-width: 600px;
+    padding: 10px;
     margin: 20px 10px;
     grid-template-areas: 
     "name"
@@ -159,6 +163,7 @@ const ContactList = styled.ul`
 
 const StyledParagraph = styled.p`
 font-size: 10px;
+margin-bottom: 18px;
 
 a {
   color: rgb(var(--clr-gold));

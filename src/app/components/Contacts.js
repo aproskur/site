@@ -305,9 +305,6 @@ const Contact = ({ id }) => {
     console.log("Captcha value:", value);
   };
 
-  //tmp 
-  console.lof('DEBUG env')
-  console.log(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
 
   return (
     <StyledContainer id={id}>

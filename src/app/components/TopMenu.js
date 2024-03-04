@@ -240,6 +240,7 @@ const TopMenu = () => {
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Contact</a></MenuItem>
+                        <MenuItem><a href="/game" aria-label="play a memo game">Fun</a></MenuItem>
                     </MenuItems>
                 </UseClientMenu>
 

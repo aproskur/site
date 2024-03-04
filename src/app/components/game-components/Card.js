@@ -20,10 +20,9 @@ const RoundCardContainer = styled.div
     font-size: ${(props) => (props.gridSize === 4 ? 'var(--numbers-4-x-4)' : 'var(--numbers-6-x-6)')};
     color: var(--text);
 
-    @media screen and (max-width: 425px) {
-      
 
-
+    @media (max-width: 450px) {
+      padding: ${(props) => (props.gridSize === 4 ? '0.7em' : '0.5em')};
     }
 
 

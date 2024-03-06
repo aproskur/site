@@ -11,7 +11,7 @@ background-size: cover;
 
 h2 {
     font-size: 3rem;
-    padding: 1em;
+    margin-top: 1em;
     text-align: center;
     color: rgb(var(--clr-gold));
 }`

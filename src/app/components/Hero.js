@@ -19,7 +19,7 @@ const HeroContainer = styled.div`
 `;
 
 const HeroText = styled.div`
-    width:60%;
+   
     line-height: 1.3;
 
     h1,h2 {

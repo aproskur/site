@@ -121,7 +121,7 @@ const Service = ({ id }) => {
 
   const shortDescription = (
     <>
-      <StyledShortDescription><p><strong>Efficient Web Development & Support:</strong></p> <p>I build and support websites</p></StyledShortDescription>
+      <StyledShortDescription><p><strong>Efficient Web Development & Support: </strong></p> <p>&nbsp; I build and support websites</p></StyledShortDescription>
     </>
 
   );

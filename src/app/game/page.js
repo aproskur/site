@@ -12,7 +12,7 @@ const GameContent = () => {
     return (
         <div className={styles.gameContainer}>
             {gameStarted ? (
-                <GameBoard size={gridSize} theme={theme} />
+                <GameBoard size={gridSize} theme={theme} className="noSelect" />
             ) : (
                 <ThemeSelector />
             )}

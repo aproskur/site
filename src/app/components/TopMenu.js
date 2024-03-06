@@ -35,7 +35,7 @@ const Logo = styled.div`
 const HamburgerIcon = styled.div`
     display: none;
 
-    @media (max-width: 768px){
+    @media (max-width: 850px){
     display: flex;
     gap: 0.5em;
     justify-content: space-between;
@@ -87,7 +87,7 @@ const UseClientMenu = styled.div`
     flex-direction: row;
     gap: 1em;
 
-    @media (max-width: 768px) {
+    @media (max-width: 850px) {
         display: flex;
         flex-direction: column;
     }
@@ -108,8 +108,8 @@ const MenuItems = styled.ul.attrs({
     id: 'offCanvasMenu'
 })`
     display: flex;
-    visibility: ${({ $isOpen, $isAnimating, $width }) => ($isOpen || $isAnimating || $width > 768) ? 'visible' : 'hidden'};
-    opacity: ${({ $isOpen, $width }) => ($isOpen || $width > 768) ? 1 : 0};    
+    visibility: ${({ $isOpen, $isAnimating, $width }) => ($isOpen || $isAnimating || $width > 850) ? 'visible' : 'hidden'};
+    opacity: ${({ $isOpen, $width }) => ($isOpen || $width > 850) ? 1 : 0};    
     overflow: hidden;
     gap: 1em;
     justify-content: flex-end;
@@ -118,7 +118,7 @@ const MenuItems = styled.ul.attrs({
     animation: ${props => props.$isOpen ? css`${slideDown} 0.4s ease forwards` :
         props.$isAnimating ? css`${slideUp} 0.4s ease forwards` : 'none'};
   
-    @media (max-width: 768px) {
+    @media (max-width: 850px) {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -209,7 +209,7 @@ const TopMenu = () => {
 
 
     const toggleMenu = () => {
-        if (width <= 768) {
+        if (width <= 850) {
             if (isOpen) {
                 setIsAnimating(true); // Start closing animation
                 timeoutRef.current = setTimeout(() => {

@@ -20,6 +20,19 @@ const RoundCardContainer = styled.div
     font-size: ${(props) => (props.gridSize === 4 ? 'var(--numbers-4-x-4)' : 'var(--numbers-6-x-6)')};
     color: var(--text);
 
+  /* Fix blue otline on touchscreens */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  
+  
+      outline: none !important;
+  
+
 
     @media (max-width: 450px) {
       padding: ${(props) => (props.gridSize === 4 ? '0.7em' : '0.5em')};

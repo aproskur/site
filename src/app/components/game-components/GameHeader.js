@@ -9,7 +9,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 15%;
+  
 `;
 
 const Title = styled.div`
@@ -30,7 +30,8 @@ gap: 1em;
 `;
 
 const StyledYellowButton = styled(ToggleButton)`
-    background-color: var(--accent-yellow);
+background-color: var(--accent-yellow);
+padding: .5em 1.25em;
   
     &:hover {
         background-color: rgba(253, 162, 20, 0.8);
@@ -60,6 +61,8 @@ const StyledSmallScreenMenuButton = styled(ToggleButton)`
 const StyledGameButton = styled(ToggleButton)`
     color: var(--accent-dark);
     font-weight: bold;
+    padding: .5em 1.25em;
+
     @media screen and (max-width: 594px) {
       display: none;
     }

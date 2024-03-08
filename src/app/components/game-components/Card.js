@@ -7,8 +7,8 @@ import { useGameSettings } from '../../context/GameSettingsContext';
 
 const RoundCardContainer = styled.div
   .withConfig({ shouldForwardProp: prop => !['isFlipped', 'isIdle', 'gridSize'].includes(prop) })`
-    width: var(--numbers-4-x-4);
-    height: var(--numbers-4-x-4);
+  width: var(--numbers-4-x-4);
+  height: var(--numbers-4-x-4);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -16,7 +16,6 @@ const RoundCardContainer = styled.div
     cursor: pointer;
     padding: ${(props) => (props.gridSize === 4 ? '0.75em' : '0.55em')};
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added background-color transition */
-    font-size: var(--numbers-4-x-4);
     font-size: ${(props) => (props.gridSize === 4 ? 'var(--numbers-4-x-4)' : 'var(--numbers-6-x-6)')};
     color: var(--text);
 
@@ -36,6 +35,14 @@ const RoundCardContainer = styled.div
 
     @media (max-width: 450px) {
       padding: ${(props) => (props.gridSize === 4 ? '0.7em' : '0.5em')};
+    }
+
+    @media (max-width: 325px) {
+      padding: ${(props) => (props.gridSize === 4 ? '0.6em' : '.3em')};
+      font-size: ${(props) => (props.gridSize === 4 ? '45px' : '25px')};
+      width: ${(props) => (props.gridSize === 4 ? '55px' : '40px')};
+      height: ${(props) => (props.gridSize === 4 ? '55px' : '40px')};
+
     }
 
 

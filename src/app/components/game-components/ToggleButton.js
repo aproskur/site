@@ -21,7 +21,7 @@ flex-shrink: 1;
 }
 
   &:disabled {
-    cursor: default ;
+    cursor: default;
     opacity: 0.7;
 }
 

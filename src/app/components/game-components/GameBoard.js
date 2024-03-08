@@ -14,6 +14,10 @@ const StyledMainContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   padding: 1em;
+  
+  @media (max-widht: 375px){
+    background-color: red !important;
+  }
 `;
 
 const CenteredContainer = styled.div`
@@ -32,6 +36,7 @@ const BoardContainer = styled.div
     @media (max-width: 400px) {
         width: 98%;
         justify-content: center;
+        padding: .75em;
       }
     
   `;

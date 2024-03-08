@@ -5,7 +5,7 @@ const GameSettingsContext = createContext();
 export const useGameSettings = () => useContext(GameSettingsContext);
 
 export const GameSettingsProvider = ({ children }) => {
-    const [theme, setTheme] = useState('Numbers');
+    const [theme, setTheme] = useState('Icons')
     const [gridSize, setGridSize] = useState(4);
     const [numPlayers, setNumPlayers] = useState(1);
     const [gameStarted, setGameStarted] = useState(false);

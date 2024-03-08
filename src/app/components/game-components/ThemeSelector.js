@@ -94,11 +94,11 @@ const ThemeSelector = () => {
                     <div>Select Theme</div>
                 </StyledItemsWrapper>
                 <StyledItemsWrapper>
-                    <ToggleButton active={theme === 'Numbers'} onClick={() => changeTheme('Numbers')}>
-                        Numbers
-                    </ToggleButton>
                     <ToggleButton active={theme === 'Icons'} onClick={() => changeTheme('Icons')}>
                         Icons
+                    </ToggleButton>
+                    <ToggleButton active={theme === 'Numbers'} onClick={() => changeTheme('Numbers')}>
+                        Numbers
                     </ToggleButton>
                 </StyledItemsWrapper>
                 <StyledItemsWrapper>

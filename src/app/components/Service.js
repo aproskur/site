@@ -73,6 +73,7 @@ const StyledServiceContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2em;
 
   @media (max-width: 800px) {
     width: 90%;
@@ -81,6 +82,8 @@ const StyledServiceContainer = styled.div`
 
 const StyledShortDescription = styled.div`
 display:flex;
+padding-top: 3.5em;
+padding-bottom: 3.5em;
 @media (max-width: 635px) {
   flex-direction: column;
   align-items: center;

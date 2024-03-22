@@ -122,7 +122,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Approach', content:
 
                                     <ProjectInfo>
-                                        <p>The website <a href='https://ludesign.info'>ludesign.info</a> showcases the work of Ludmila Stepashina, a talented designer and illustrator. This site serves as a professional portfolio highlighting her skills and projects.</p>
+                                        <p>The website <a href='https://ludesign.info' rel="nofollow noopener noreferrer">ludesign.info</a> showcases the work of Ludmila Stepashina, a talented designer and illustrator. This site serves as a professional portfolio highlighting her skills and projects.</p>
 
                                         <p>Built with HTML, CSS, and JavaScript, and utilizing Bootstrap for responsive design, the website offers a clean, modern look and a user-friendly experience. Its layout is intuitive, making it easy for visitors to navigate and explore Ludmila's work.</p>
 
@@ -160,7 +160,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Approach', content:
 
                                     <ProjectInfo>
-                                        <p>The website <a href="https://sozodesign.ru">sozodesign.ru</a> is a well-crafted WordPress site, customized to showcase design and interior decoration services. It features an aesthetically pleasing and modern design, enhanced by HTML, CSS, JavaScript, and PHP.</p>
+                                        <p>The website <a href="https://sozodesign.ru" rel="nofollow noopener noreferrer">sozodesign.ru</a> is a well-crafted WordPress site, customized to showcase design and interior decoration services. It features an aesthetically pleasing and modern design, enhanced by HTML, CSS, JavaScript, and PHP.</p>
 
                                         <p>With its responsive layout, the site ensures seamless navigation and viewing on various devices. JavaScript enhancements provide advanced user interaction, while PHP customizations contribute to dynamic content functionality, demonstrating a harmonious blend of design and technical expertise in web development.</p>
 
@@ -197,7 +197,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Approach', content:
 
                                     <ProjectInfo>
-                                        <p>The website <a href="https://www.art-inspiration.ch">www.art-inspiration.ch</a> represents a custom adaptation of a WordPress theme, designed to create a unique and artistic online gallery. It incorporates interactive elements through custom JavaScript, adding depth to the user experience.</p>
+                                        <p>The website <a href="https://www.art-inspiration.ch" rel="nofollow noopener noreferrer">www.art-inspiration.ch</a> represents a custom adaptation of a WordPress theme, designed to create a unique and artistic online gallery. It incorporates interactive elements through custom JavaScript, adding depth to the user experience.</p>
 
                                         <p>Offering a distinctive approach to layout and design, the site effectively showcases art pieces, leveraging a responsive framework for seamless viewing on various devices. This project is a testament to the fusion of creative design and interactive web technologies.</p>
                                     </ProjectInfo>

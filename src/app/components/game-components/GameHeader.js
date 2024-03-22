@@ -154,7 +154,7 @@ const GameHeader = ({ onRestart, pauseTimer, resumeTimer }) => {
     <>
       <HeaderContainer>
 
-        <Title><a href="/"><img src="../images/Favicon_3.png" width="60px" /></a><div>memo</div></Title>
+        <Title><a href="/"><img src="../images/short-logo-stack.png" width="60px" /></a><div>memo</div></Title>
         <StyledFlexContainer>
           <StyledSmallScreenMenuButton onClick={toggleMenu} className="menu-button">
             Menu

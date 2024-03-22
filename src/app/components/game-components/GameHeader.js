@@ -8,13 +8,24 @@ import { useGameSettings } from '../../context/GameSettingsContext';
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  
+  align-items: center;  
 `;
 
 const Title = styled.div`
   font-size: 44px;
   font-weight: bold;
+  display: flex;
+
+  
+
+
+  @media (min-width:  450px){
+    div {
+      margin-left: 2em;
+    }
+  }
+
+  
 `;
 
 const Button = styled.button`
@@ -27,6 +38,7 @@ const Button = styled.button`
 const StyledFlexContainer = styled.div`
 display: flex;
 gap: 1em;
+align-items: center;
 `;
 
 const StyledYellowButton = styled(ToggleButton)`
@@ -44,6 +56,9 @@ padding: .5em 1.25em;
 
 const StyledSmallScreenMenuButton = styled(ToggleButton)`
   background-color: var(--accent-yellow);
+  margin-bottom: 1em;
+
+
   
 
   &:hover {
@@ -138,7 +153,8 @@ const GameHeader = ({ onRestart, pauseTimer, resumeTimer }) => {
   return (
     <>
       <HeaderContainer>
-        <Title>memo</Title>
+
+        <Title><a href="/"><img src="../images/Favicon_3.png" width="60px" /></a><div>memo</div></Title>
         <StyledFlexContainer>
           <StyledSmallScreenMenuButton onClick={toggleMenu} className="menu-button">
             Menu

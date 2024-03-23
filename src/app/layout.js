@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
           rel="stylesheet"
         />
+        <meta name="google-site-verification" content="gjXFbI9AM_fLYLQx1-wpbQb13sn77x9OcM7234uy_Gw" />
 
       </head>
       <body className={inter.className}><StyledComponentsRegistry>{children}</StyledComponentsRegistry></body>

@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from './lib/registry'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
 
       </head>
       <body className={inter.className}><StyledComponentsRegistry>{children}</StyledComponentsRegistry></body>
+      <GoogleTagManager gtmId="G-W5ZZY1CWBH" />
     </html>
   )
 }

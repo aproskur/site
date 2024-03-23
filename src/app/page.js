@@ -9,6 +9,7 @@ import Contact from './components/Contacts'
 import Footer from './components/Footer'
 
 
+
 export default function Home() {
 
   const words = ['CODE', 'CODE', 'CODE', 'CODE', 'CODE'];
@@ -27,6 +28,7 @@ export default function Home() {
         <Contact id="contact-anna" />
         <Footer />
       </main >
+
     </>
   )
 }

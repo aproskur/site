@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components'
 import useWindowSize from '@/app/hooks/useWindowSize';
+import Image from 'next/image'
+
 
 
 const Nav = styled.nav`
@@ -233,7 +235,7 @@ const TopMenu = () => {
     return (
         <>
             <Nav>
-                <Logo><img src="../images/Logo_Anna_Webdev_2.png" alt="Anna WEBDEV" /></Logo>
+                <Logo><img src='../images/logo-torquoise.png' alt="Anna WEBDEV" /></Logo>
                 <UseClientMenu>
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}

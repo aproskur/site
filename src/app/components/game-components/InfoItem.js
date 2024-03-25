@@ -68,17 +68,15 @@ letter-spacing: 2px;
 `;
 
 const InfoItem = ({ label, value, highlight = false, currentPlayer = false }) => (
-
   <div>
     <InfoItemContainer $highlight={highlight}>
       <Label $highlight={highlight}>{label}</Label>
       <Value $highlight={highlight}>{value}</Value>
-      {currentPlayer && <CurrentPlayer></CurrentPlayer>}
     </InfoItemContainer>
     {currentPlayer && <CurrentPlayer>Current turn</CurrentPlayer>}
   </div>
-
 );
 
 export default InfoItem;
+
 

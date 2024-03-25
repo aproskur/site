@@ -12,12 +12,11 @@ import { faStar, faHeart, faAppleWhole, faPoo, faHippo, faMoon, faHouse, faCar, 
 const StyledMainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   padding: 1em;
   
-  @media (max-widht: 375px){
-    background-color: red !important;
-  }
+  @media (max-width: 500px){
+    height: 100vh;
+}
 `;
 
 const CenteredContainer = styled.div`

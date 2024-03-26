@@ -14,8 +14,9 @@ const StyledMainContainer = styled.div`
   flex-direction: column;
   padding: 1em;
   
-  @media (max-width: 500px){
-    height: 100vh;
+  @media (max-width: 900px){
+    justify-content: flex-start;
+    gap: 2.5em;
 }
 `;
 
@@ -25,6 +26,11 @@ const CenteredContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  @media (max-width: 500px) {
+    
+
+  }
   `;
 
 const BoardContainer = styled.div

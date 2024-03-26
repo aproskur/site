@@ -18,8 +18,10 @@ bottom: 0;
 left: 0;
 margin: 0; 
 
+
 @media (max-width: 500px){
-    height: 100vh;
+    justify-content: flex-start;
+    padding: 3em 1em;
 }
 `
 

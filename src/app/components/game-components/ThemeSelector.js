@@ -21,7 +21,12 @@ margin: 0;
 
 @media (max-width: 500px){
     justify-content: flex-start;
-    padding: 3em 1em;
+    padding: 3em 1.5em;
+}
+
+@media (max-width: 350px){
+    justify-content: flex-start;
+    padding: 3em .5em;
 }
 `
 

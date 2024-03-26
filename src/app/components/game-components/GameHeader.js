@@ -25,6 +25,13 @@ const Title = styled.div`
     }
   }
 
+  @media (max-width:  325px){
+    div {
+     display:none;
+    }
+  }
+
+
   
 `;
 

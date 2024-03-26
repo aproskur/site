@@ -26,7 +26,7 @@ margin: 0;
 
 @media (max-width: 350px){
     justify-content: flex-start;
-    padding: 3em .5em;
+    padding: 3em 0;
 }
 `
 
@@ -36,6 +36,7 @@ const StyledMemoTitle = styled.div`
     font-weight: 700;
     margin-bottom: 1em; 
     text-align: center;
+    
 `;
 
 const StyledThemeSelector = styled.div`

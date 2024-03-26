@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Styled component for the button
+
 const StyledToggleButton = styled.button`
 background-color: ${(props) => (props.$active ? 'var(--dark)' : 'var(--idle)')};
 font-family: "Atkinson Hyperlegible", sans-serif;

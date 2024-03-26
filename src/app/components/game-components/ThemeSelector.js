@@ -11,7 +11,12 @@ flex-direction: column;
 background-color: var(--dark);
 justify-content: center;
 align-items: center;
-padding: .75em;
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+margin: 0; 
 
 @media (max-width: 500px){
     height: 100vh;

@@ -6,7 +6,7 @@ import GameInfo from "./GameInfo";
 import GameHeader from './GameHeader'
 import ToggleButton from "./ToggleButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faHeart, faAppleWhole, faPoo, faHippo, faMoon, faHouse, faCar, faSun, faBug, faSnowflake, faFutbol, faFish, faRocket, faDumpster, faTrashCan, faSackDollar, faSocks } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faHeart, faAppleWhole, faPoo, faRecycle, faMoon, faHouse, faCar, faSun, faBug, faSnowflake, faFutbol, faFish, faBath, faDumpster, faTrashCan, faSackDollar, faSocks } from '@fortawesome/free-solid-svg-icons';
 
 
 const StyledMainContainer = styled.div`
@@ -321,7 +321,7 @@ const GameBoard = ({ size, theme }) => {
         const totalPairs = (size * size) / 2;
 
         if (theme === 'Icons') {
-            const iconsArray = [faStar, faHeart, faAppleWhole, faPoo, faHippo, faMoon, faHouse, faCar, faSun, faBug, faSnowflake, faFutbol, faFish, faRocket, faDumpster, faTrashCan, faSackDollar, faSocks];
+            const iconsArray = [faStar, faHeart, faAppleWhole, faPoo, faBath, faMoon, faHouse, faCar, faSun, faBug, faSnowflake, faFutbol, faFish, faRecycle, faDumpster, faTrashCan, faSackDollar, faSocks];
             const shuffledIcons = shuffleArray(iconsArray);
             const selectedIcons = shuffledIcons.slice(0, totalPairs);
             contentArray = selectedIcons.map((icon, index) => ({ id: `icon-${index}`, content: icon }));

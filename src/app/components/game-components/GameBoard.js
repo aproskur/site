@@ -13,27 +13,17 @@ const StyledMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-   
   
   @media (max-width: 900px){
     justify-content: flex-start;
-    gap: 2.5em;
 }
 `;
 
 const CenteredContainer = styled.div`
   display: flex;
-  flex-grow: 1;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-
-  @media (max-width: 500px) {
-    
-
-  }
   `;
 
 const BoardContainer = styled.div

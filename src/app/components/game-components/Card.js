@@ -34,7 +34,9 @@ const RoundCardContainer = styled.div
 
 
     @media (max-width: 450px) {
-      padding: ${(props) => (props.gridSize === 4 ? '0.65em' : '0.5em')};
+      padding: ${(props) => (props.gridSize === 4 ? '.8em' : '.7em')};
+      font-size: ${(props) => (props.gridSize === 4 ? '45px' : '40px')};
+
     }
 
     @media (max-width: 325px) {

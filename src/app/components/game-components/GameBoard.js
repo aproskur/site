@@ -266,14 +266,13 @@ const GameBoard = ({ size, theme }) => {
             setTimeout(() => {
                 checkForMatch();
                 setIsChecking(false);
-            }, 1000);
+            }, 300);
         }
     }, [flippedCards]);
 
 
     const handleCardClick = (index, value) => {
-        // Ignore clicks on already flipped or matched cards
-        console.log("FROM handleCARDCLICK func: Card clicked", index, value);
+
 
         if (
             flippedCards.length === 2 ||

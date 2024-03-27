@@ -13,6 +13,7 @@ const StyledMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  outline: 2px solid pink;
    
   
   @media (max-width: 900px){
@@ -27,6 +28,7 @@ const CenteredContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  outline: 2px solid pink;
 
   @media (max-width: 500px) {
     
@@ -42,7 +44,8 @@ const BoardContainer = styled.div
     @media (max-width: 400px) {
         width: 98%;
         justify-content: center;
-        padding: .75em;
+        padding: 1.5em;
+        outline: 2px solid lime;
       }
     
   `;
@@ -55,6 +58,7 @@ const CenteredBoardContainer = styled(BoardContainer)`
     width: 100%;
     justify-content: center;
     gap: 1px;
+    outline: 2px solid lime;
   }
 `;
 
@@ -63,6 +67,7 @@ display: flex;
 justify-content: center; 
 align-items: center;
 padding: 1em;
+
 `;
 
 const PopupContainer = styled.div`

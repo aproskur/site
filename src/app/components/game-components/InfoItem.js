@@ -5,10 +5,9 @@ const InfoItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
   background-color: ${(props) => props.$highlight ? 'var(--accent-yellow)' : '#DFE7EC'};
   border-radius: 10px;
-  padding:  1em 0.75em;
+  padding:  0.75em;
   position: relative; 
 
   @media (max-width: 450px){

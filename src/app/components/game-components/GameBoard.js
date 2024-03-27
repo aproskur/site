@@ -12,7 +12,8 @@ import { faStar, faHeart, faAppleWhole, faPoo, faRecycle, faMoon, faHouse, faCar
 const StyledMainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  justify-content: space-between;
+   
   
   @media (max-width: 900px){
     justify-content: flex-start;
@@ -48,6 +49,8 @@ const BoardContainer = styled.div
 
 const CenteredBoardContainer = styled(BoardContainer)`
   max-width: 600px; 
+ 
+  
   @media (max-width: 400px) {
     width: 100%;
     justify-content: center;
@@ -59,6 +62,7 @@ const GameInfoContainer = styled.div`
 display: flex;
 justify-content: center; 
 align-items: center;
+padding: 1em;
 `;
 
 const PopupContainer = styled.div`

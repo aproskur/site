@@ -8,7 +8,9 @@ import { useGameSettings } from '../../context/GameSettingsContext';
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
+  padding: .5em;
+  margin-bottom: 1em;
 `;
 
 const Title = styled.div`

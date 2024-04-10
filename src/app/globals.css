@@ -3,18 +3,12 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-  --font: 'Poppins', sans-serif;
-  --font-text: 'Rajdhani', sans-serif;
   --clr-gold: 203, 164, 111;
   --clr-pink: 231, 156, 183;
   --clr-gray: 58, 83, 109;
   --clr-subtle-gray: 240, 240, 240;
   --clr-white: 255, 255, 255;
   --clr-torquoise: 64, 224, 208;
-
   --bgr-gradient: linear-gradient(to bottom right, rgb(44, 62, 80), rgb(248, 187, 208));
 
 }
@@ -72,7 +66,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--font);
+  font-family: var(--font-poppins);
   text-transform: uppercase;
 }
 

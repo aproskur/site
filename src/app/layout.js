@@ -1,9 +1,25 @@
-import { Inter } from 'next/font/google'
+import { Inter, Poppins, Rajdhani } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from './lib/registry'
 import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  weight: ['400', '600', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins'
+})
+
+const rajdhani = Rajdhani({
+  weight: ['400', '600', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-rajdhani'
+})
+
 
 export const metadata = {
   title: 'Anna Webdev',
@@ -14,7 +30,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${poppins.variable} ${rajdhani.variable}`}>
       <head>
         <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />

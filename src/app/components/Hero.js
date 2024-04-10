@@ -36,7 +36,7 @@ const HeroText = styled.div`
 
     p {
         font-size: 1.5rem;
-        font-family: var(--font-text);
+        font-family: var(--font-rajdhani);
         margin-bottom: 0.75em;
     }
 

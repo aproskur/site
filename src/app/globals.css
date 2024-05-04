@@ -40,6 +40,7 @@ body {
 
   /* background: linear-gradient(to bottom, rgb(44, 62, 80), rgb(248, 187, 208)); */
   background: var(--bgr-gradient);
+  background-repeat: no-repeat;
 
 
 

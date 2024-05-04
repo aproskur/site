@@ -1,16 +1,21 @@
 import { Inter, Poppins, Rajdhani } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import StyledComponentsRegistry from './lib/registry'
 import { GoogleTagManager } from '@next/third-parties/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap'
+});
+
 const poppins = Poppins({
   weight: ['400', '600', '700'],
   style: ['normal'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poppins'
-})
+});
 
 const rajdhani = Rajdhani({
   weight: ['400', '600', '700'],
@@ -18,6 +23,12 @@ const rajdhani = Rajdhani({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-rajdhani'
+});
+
+const wordGameFont = localFont({
+  src: './assets/fonts/MouseMemoirs-Regular.ttf',
+  display: 'swap',
+  variable: '--font-wordGameFont'
 })
 
 
@@ -30,7 +41,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${rajdhani.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${rajdhani.variable} ${wordGameFont.variable}`}>
       <head>
         <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />

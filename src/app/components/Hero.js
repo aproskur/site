@@ -21,6 +21,7 @@ const HeroContainer = styled.div`
 const HeroText = styled.div`
    
     line-height: 1.3;
+    font-family: 'Rajdhani', sans-serif;
 
     h1,h2 {
         font-size: 3.5rem;
@@ -100,7 +101,7 @@ function Hero() {
                 <p>Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
                 <p>  From <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>creation</span> to ongoing <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>support</span>, I'm here for your small business or collaborative team. </p>
                 <p>Here coding meets creativity!</p>
-                <Button onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
+                <Button style={{ fontFamily: "Inter,sans-serif" }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
             </HeroText>
             <HeroImage>
                 <img src='./images/work-hero-img-ai.png'></img>

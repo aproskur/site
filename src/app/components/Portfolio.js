@@ -226,7 +226,7 @@ const Portfolio = ({ id }) => {
                             {
                                 name: 'A game', content:
 
-                                    <ProjectImage src="./images/anna-webdev-game.png" alt="Project Screenshot" />
+                                    <ProjectImage src="./images/website-game-pairs.png" alt="Project Screenshot" />
 
                             },
                             {

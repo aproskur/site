@@ -6,7 +6,7 @@ const TitleContainer = styled.div`
   align-items: center;
   position: relative;
   font-family: var(--font-wordGameFont), sans-serif;
-  top: -150px;  // Adjust this value to control how much of the title is outside
+  top: -110px;  //how much of the title is outside
   left: 35%;
   transform: translateX(-50%);
 `;
@@ -39,13 +39,13 @@ const GameText = styled(SmallText)`
 
 // Usage within your component
 function GameTitle() {
-    return (
-        <TitleContainer>
-            <TheText>the</TheText>
-            <Hangman>Hangman</Hangman>
-            <GameText>game</GameText>
-        </TitleContainer>
-    );
+  return (
+    <TitleContainer>
+      <TheText>the</TheText>
+      <Hangman>Hangman</Hangman>
+      <GameText>game</GameText>
+    </TitleContainer>
+  );
 }
 
 export default GameTitle

@@ -12,7 +12,7 @@
 
     display: grid;
     grid-template-columns: 15% 15% 40% 15% 15%;
-    grid-template-rows: 15% 55% auto;
+    grid-template-rows: 20% 45% auto;
     grid-template-areas:
         ". header header header ."
         ". word word word ."

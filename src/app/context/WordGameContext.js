@@ -8,25 +8,17 @@ export function useWordGame() {
 }
 
 export const WordGameProvider = ({ children }) => {
-
-
-
-    const startGame = () => {
-        const newToGuess = getRandomWordFromCategory("Minecraft");
-        setWordToPlay(initializeWords(newToGuess));
-        setGuessedLetters(new Set());
-        setWrongGuesses(0);
-        setProgress(100);
+    const initializeWords = (phrase) => {
+        return phrase.split(' ').map(word => word.toUpperCase().split(''));
     };
 
-
-
-
-
-
-    const totalGuesses = 10; // Total wrong guesses allowed
+    const [wordToPlay, setWordToPlay] = useState([]);
+    const [guessedLetters, setGuessedLetters] = useState(new Set());
     const [wrongGuesses, setWrongGuesses] = useState(0);
-    const [progress, setProgress] = useState(100); // Progress starts at 100%
+    const [progress, setProgress] = useState(100);
+    const [category, setCategory] = useState('');
+
+    const totalGuesses = 10;
 
     function getRandomWordFromCategory(category) {
         if (category in data.categories) {
@@ -39,25 +31,26 @@ export const WordGameProvider = ({ children }) => {
         }
     }
 
-    const toGuess = getRandomWordFromCategory("Minecraft");
-    const initializeWords = (phrase) => {
-        return phrase.split(' ').map(word => word.toUpperCase().split(''));
+    const startGame = (category) => {
+        setCategory(category);
+        const newToGuess = getRandomWordFromCategory(category);
+        if (newToGuess) {
+            setWordToPlay(initializeWords(newToGuess));
+            setGuessedLetters(new Set());
+            setWrongGuesses(0);
+            setProgress(100);
+        }
     };
 
-    const [guessedLetters, setGuessedLetters] = useState(new Set());
-    const [wordToPlay, setWordToPlay] = useState(initializeWords(toGuess));
-
-    const addGuessedLetter = letter => {
+    const addGuessedLetter = (letter) => {
         setGuessedLetters(currentGuessed => {
             const updatedGuessed = new Set(currentGuessed);
             const letterUpper = letter.toUpperCase();
             updatedGuessed.add(letterUpper);
 
-            // Check if the guessed letter is in the word to play.
-            // Convert entire wordToPlay to a flat list of letters to compare easily.
-            const wordLetters = wordToPlay.flat(); // Flatten the array of arrays into a single array of letters
+            //Flatten the word arrays to compare against guessed letters
+            const wordLetters = wordToPlay.flat();
             if (!wordLetters.includes(letterUpper)) {
-                // If the letter is not included in the word, increase wrong guesses.
                 const newWrongGuesses = wrongGuesses + 1;
                 setWrongGuesses(newWrongGuesses);
                 updateProgress(newWrongGuesses);
@@ -72,16 +65,19 @@ export const WordGameProvider = ({ children }) => {
         setProgress(newProgress);
     };
 
+    //Corrected resetGame function to reuse the current category
     const resetGame = () => {
-        const newToGuess = getRandomWordFromCategory("Minecraft");
-        setWordToPlay(initializeWords(newToGuess));
-        setGuessedLetters(new Set());
-        setWrongGuesses(0);
-        setProgress(100);
+        if (category) {
+            startGame(category);  //current category to restart with the same one
+        } else {
+            console.error('No category selected. Unable to reset the game.');
+        }
     };
 
     return (
-        <WordGameContext.Provider value={{ guessedLetters, wordToPlay, addGuessedLetter, startGame, resetGame, progress }}>
+        <WordGameContext.Provider value={{
+            guessedLetters, wordToPlay, addGuessedLetter, startGame, resetGame, progress, category
+        }}>
             {children}
         </WordGameContext.Provider>
     );

@@ -7,18 +7,13 @@ const VirtualKeyboard = ({ onClick }) => {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const rowLength = Math.ceil(alphabet.length / 3);
 
-    // Split the alphabet into three rows
+    //Split the alphabet into three rows
     const rows = [
         alphabet.slice(0, rowLength),
         alphabet.slice(rowLength, rowLength * 2),
         alphabet.slice(rowLength * 2)
     ];
 
-    /*
-
-    const handleClick = (letter) => {
-        console.log(`clicked letter ${letter}`);
-    } */
 
     return (
         <Container>
@@ -38,6 +33,7 @@ const Container = styled.div`
     flex-direction: column;
     gap: 10px; 
     grid-area: keyboard;
+    margin-top: 1em;
 `;
 
 const Row = styled.div`

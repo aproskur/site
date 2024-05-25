@@ -15,6 +15,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1em;
+
 `;
 
 const MenuButton = styled.div`
@@ -26,10 +27,21 @@ const MenuButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 480px){
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const CategoryName = styled.div`
   font-size: 50px;
+
+
+  @media (max-width: 480px){
+    font-size: 30px;
+    margin-right: 1em;
+  }
 `;
 
 const ProgressBarContainer = styled.div`
@@ -40,6 +52,10 @@ const ProgressBarContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0.25em;
+
+  @media (max-width: 480px){
+    width: 100px;
+  }
 `;
 
 const ProgressBarFill = styled.div`
@@ -80,7 +96,7 @@ const HeaderWordGame = ({ onMenuClick }) => {
   return (
     <HeaderContainer>
       <Container>
-        <MenuButton onClick={onMenuClick}><MenuIcon /></MenuButton>
+        <MenuButton onClick={() => (onMenuClick())}><MenuIcon /></MenuButton>
         <CategoryName>{category}</CategoryName>
       </Container>
       <Container>

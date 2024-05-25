@@ -12,7 +12,7 @@
 
     display: grid;
     grid-template-columns: 15% 15% 40% 15% 15%;
-    grid-template-rows: 20% 45% auto;
+    grid-template-rows: 15% 55% auto;
     grid-template-areas:
         ". header header header ."
         ". word word word ."
@@ -21,6 +21,8 @@
     padding: 2em;
 
 }
+
+
 
 
 
@@ -45,11 +47,28 @@
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .background {
         background-image: url('/images/word-game-images/background-tablet.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
+
 }
 
 @media screen and (max-width: 767px) {
     .background {
         background-image: url('/images/word-game-images/background-mobile.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .wordGameContainer {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 20% 30% auto;
+        grid-template-areas:
+            "header header header header"
+            "word word word word"
+            "keyboard keyboard keyboard keyboard";
+        padding: 1em;
     }
 }

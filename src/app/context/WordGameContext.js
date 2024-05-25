@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import data from '../data/data.json';
 
 const WordGameContext = createContext();
@@ -17,6 +17,11 @@ export const WordGameProvider = ({ children }) => {
     const [wrongGuesses, setWrongGuesses] = useState(0);
     const [progress, setProgress] = useState(100);
     const [category, setCategory] = useState('');
+    const [isGameWon, setIsGameWon] = useState(false);
+    const [isGameLost, setIsGameLost] = useState(false);
+    const [isPopupVisible, setIsPopupVisible] = useState(true);
+    const [popupMode, setPopupMode] = useState('start');
+    const [isGameVisible, setIsGameVisible] = useState(false);
 
     const totalGuesses = 10;
 
@@ -39,6 +44,10 @@ export const WordGameProvider = ({ children }) => {
             setGuessedLetters(new Set());
             setWrongGuesses(0);
             setProgress(100);
+            setIsGameLost(false);
+            setIsGameWon(false);
+            setIsPopupVisible(false);
+            setIsGameVisible(true);
         }
     };
 
@@ -48,12 +57,23 @@ export const WordGameProvider = ({ children }) => {
             const letterUpper = letter.toUpperCase();
             updatedGuessed.add(letterUpper);
 
-            //Flatten the word arrays to compare against guessed letters
             const wordLetters = wordToPlay.flat();
             if (!wordLetters.includes(letterUpper)) {
                 const newWrongGuesses = wrongGuesses + 1;
                 setWrongGuesses(newWrongGuesses);
                 updateProgress(newWrongGuesses);
+
+                if (newWrongGuesses >= totalGuesses) {
+                    setIsGameLost(true);
+                    setIsPopupVisible(true);
+                    setPopupMode("lost");
+                }
+            }
+
+            if (wordLetters.every(char => updatedGuessed.has(char))) {
+                setIsGameWon(true);
+                setIsPopupVisible(true);
+                setPopupMode("win");
             }
 
             return updatedGuessed;
@@ -65,18 +85,36 @@ export const WordGameProvider = ({ children }) => {
         setProgress(newProgress);
     };
 
-    //Corrected resetGame function to reuse the current category
     const resetGame = () => {
         if (category) {
-            startGame(category);  //current category to restart with the same one
+            startGame(category);
         } else {
             console.error('No category selected. Unable to reset the game.');
         }
     };
 
+    useEffect(() => {
+        setPopupMode('start');
+        setIsPopupVisible(true);
+    }, []);
+
     return (
         <WordGameContext.Provider value={{
-            guessedLetters, wordToPlay, addGuessedLetter, startGame, resetGame, progress, category
+            guessedLetters,
+            wordToPlay,
+            addGuessedLetter,
+            startGame,
+            resetGame,
+            progress,
+            category,
+            isGameWon,
+            isGameLost,
+            isPopupVisible,
+            setIsPopupVisible,
+            popupMode,
+            setPopupMode,
+            isGameVisible,
+            setIsGameVisible
         }}>
             {children}
         </WordGameContext.Provider>

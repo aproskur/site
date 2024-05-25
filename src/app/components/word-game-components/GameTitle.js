@@ -9,6 +9,16 @@ const TitleContainer = styled.div`
   top: -110px;  //how much of the title is outside
   left: 35%;
   transform: translateX(-50%);
+
+  @media (max-width: 768px) {
+    top: -95px; 
+    left: 20%; 
+  }
+
+  @media (max-width: 480px) {
+    top: -75px; 
+    left: 40%; 
+  }
 `;
 
 const Hangman = styled.span`

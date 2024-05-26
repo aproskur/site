@@ -35,13 +35,13 @@ const SmallText = styled.span`
 
 const TheText = styled(SmallText)`
   top: 0;
-  transform: translate(-230%, -10%); // Adjust positioning to appear above Hangman
+  transform: translate(-230%, -10%); // positioning above Hangman
   text-transform: uppercase;
 `;
 
 const GameText = styled(SmallText)`
   bottom: 0;
-  transform: translate(70%, 50%); // Adjust positioning to appear below Hangman
+  transform: translate(70%, 50%); // positioning below Hangman
   text-transform: uppercase;
 `;
 

@@ -18,9 +18,9 @@ const StyledLetterContainer = styled.div`
 
 
   div.word {
-    flex: 1 0 50%;
+    flex: 1 0 60%;
     display: flex;
-    gap: 0.8em;
+    gap: 0.3rem;
     justify-content: center;
 
     @media (max-width: 480px){

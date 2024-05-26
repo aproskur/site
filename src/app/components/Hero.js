@@ -26,7 +26,7 @@ const HeroText = styled.div`
     h1,h2 {
         font-size: 3.5rem;
         margin-bottom: 0.1em;
-        font-family: 'Poppims', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 
     h3 {
@@ -34,7 +34,7 @@ const HeroText = styled.div`
         font-size: 2rem;
         color: rgb(var(--clr-gold));
         text-transform: uppercase;
-        font-family: 'Poppims', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 
     p {

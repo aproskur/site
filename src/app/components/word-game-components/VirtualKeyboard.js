@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useWordGame } from '../../context/WordGameContext';
+import { motion } from 'framer-motion';
 
-const StyledLetterKey = styled.button`
+const StyledLetterKey = styled(motion.button)`
   width: 80px;
   height: 54px;
   border-radius: 24px;
@@ -22,6 +23,7 @@ const StyledLetterKey = styled.button`
   &:disabled {
     cursor: not-allowed;
     outline: 1px solid rgb(var(--blue));
+    color: rgb(var(--blue));
   }
 
   &:focus {
@@ -30,7 +32,7 @@ const StyledLetterKey = styled.button`
 
   &:hover {
     color: #fff;
-    background-color: rgb(var(--blue));
+    background-color: ${props => props.disabled ? 'rgba(var(--dark-navy), 0.8)' : 'rgb(var(--blue))'};
   }
 
   @media (max-width: 1025px) {
@@ -79,22 +81,49 @@ const Row = styled.div`
 
 const LetterKey = ({ letter }) => {
     const { guessedLetters, addGuessedLetter } = useWordGame();
+    const [isPressed, setIsPressed] = useState(false);
 
+
+    // for animations on Key press
+    useEffect(() => {
+        if (isPressed) {
+            const timer = setTimeout(() => setIsPressed(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [isPressed]);
+
+
+    // DEBUG
     const handleClick = () => {
         console.log(`Letter ${letter} clicked`);
         addGuessedLetter(letter);
+        setIsPressed(true);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            handleClick();
+        }
     };
 
     const isGuessed = guessedLetters.has(letter);
 
     return (
-        <StyledLetterKey onClick={handleClick} disabled={isGuessed}>
+        <StyledLetterKey onClick={handleClick}
+            disabled={isGuessed}
+            onKeyDown={handleKeyDown}
+            tabIndex="0"
+            animate={isPressed ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.3 }}>
             {letter}
         </StyledLetterKey>
     );
 };
 
 const VirtualKeyboard = ({ onClick }) => {
+
+    const { guessedLetters, addGuessedLetter } = useWordGame();
+
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const rowLength = Math.ceil(alphabet.length / 3);
 
@@ -104,6 +133,21 @@ const VirtualKeyboard = ({ onClick }) => {
         alphabet.slice(rowLength, rowLength * 2),
         alphabet.slice(rowLength * 2)
     ];
+
+    // for using keyboard
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            const letter = event.key.toUpperCase();
+            if (alphabet.includes(letter)) {
+                addGuessedLetter(letter);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [addGuessedLetter]);
 
     return (
         <Container>

@@ -479,7 +479,6 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
             <Overlay $isStarting={mode === 'start'}>
                 {mode === 'start' ? <TransparentOverlay /> : null}
                 <PopupContainer $biggerPopup={mode === 'rules' || mode === "category"}>
-                    {/* Title depending on the current mode */}
                     {mode === 'start' ? (
                         <GameTitle />
                     ) : mode === 'rules' ? (
@@ -489,15 +488,12 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
                         </>
                     ) : mode === 'category' ? (
                         <>
-
                             <TransparentOverlay />
                             <CategorySelection onCategorySelect={handleStartGame} onRoundButtonClick={onRoundButtonClick} />
                         </>
                     ) : (
                         <Title>{title}</Title>
                     )}
-
-                    {/* Specific content for 'rules' mode */}
                     {mode === 'rules' ? (
                         <>
                             <TransparentOverlay />

@@ -21,10 +21,10 @@ const StyledLetter = styled.div`
 @media (max-width: 480px){
     border-radius: 10px;
     width: 30px;
-  height: 64px;
-  font-size: 2.5rem;
+    height: 64px;
+    font-size: 2.5rem;
 }
-  `;
+`;
 
 const AnimatedLetter = styled(motion.span)`
   display: inline-block;

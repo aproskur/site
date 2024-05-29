@@ -68,7 +68,7 @@ const Title = styled.h1`
   transform: translateX(-50%);
   width: 100%;
   font-family: inherit;
-  text-transform: uppercase;
+  text-transform: capitalize;
 
   @media (max-width: 480px) {
     font-size: 60px;
@@ -99,6 +99,7 @@ font-size: 90px;
   text-transform: uppercase;
   z-index: 2;
   padding: 0 20px;
+  text-transform: capitalize;
 
   @media (max-width: 480px) {
     font-size: 50px;
@@ -320,24 +321,24 @@ const CardText = styled.p`
 `;
 
 const RulesCards = ({ onRoundButtonClick }) => {
-    const cards = [
-        { number: "01", title: 'Choose a category', text: "First, choose a word category, like animals or movies. The computer then randomly selects a secret word from that topic and shows you blanks for each letter of the word." },
-        { number: "02", title: 'Guess letters', text: "Take turns guessing letters. The computer fills in the relevant blank spaces if your guess is correct. If it's wrong, you lose some health, which empties after eight incorrect guesses." },
-        { number: "03", title: 'Win or loose', text: "You win by guessing all the letters in the word before your health runs out. If the health bar empties before you guess the word, you lose." }
-    ];
+  const cards = [
+    { number: "01", title: 'Choose a category', text: "First, choose a word category, like animals or movies. The computer then randomly selects a secret word from that topic and shows you blanks for each letter of the word." },
+    { number: "02", title: 'Guess letters', text: "Take turns guessing letters. The computer fills in the relevant blank spaces if your guess is correct. If it's wrong, you lose some health, which empties after eight incorrect guesses." },
+    { number: "03", title: 'Win or loose', text: "You win by guessing all the letters in the word before your health runs out. If the health bar empties before you guess the word, you lose." }
+  ];
 
-    return (
-        <CardContainer>
-            <RoundButton onClick={onRoundButtonClick} />
-            {cards.map((card, index) => (
-                <Card key={index}>
-                    <CardNumber>{card.number}</CardNumber>
-                    <CardTitle>{card.title}</CardTitle>
-                    <CardText>{card.text}</CardText>
-                </Card>
-            ))}
-        </CardContainer>
-    );
+  return (
+    <CardContainer>
+      <RoundButton onClick={onRoundButtonClick} />
+      {cards.map((card, index) => (
+        <Card key={index}>
+          <CardNumber>{card.number}</CardNumber>
+          <CardTitle>{card.title}</CardTitle>
+          <CardText>{card.text}</CardText>
+        </Card>
+      ))}
+    </CardContainer>
+  );
 };
 
 const CategoryContainer = styled.div`
@@ -347,6 +348,14 @@ const CategoryContainer = styled.div`
   gap: 1em;
   z-index: 4;
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media (max-width: 1000px){
+    max-height: 80vh;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
 `;
 
 const CategoryGrid = styled.div`
@@ -379,20 +388,26 @@ const CategoryGrid = styled.div`
 const CategoryTitle = styled(OrdinaryTitle)`
   text-align: center;
   margin-bottom: 1em;
+  text-transform: capitalize;
 
   @media (max-width: 480px){
     font-size: 40px;
+  }
+
+  @media (max-width: 380px){
+    font-size: 35px;
   }
 `;
 
 const CategoryButton = styled(Button)`
   padding: 1em 2em;
   min-width: 300px;
+  
 
   @media (max-width: 480px){
-    padding: 1em;
+    font-size: 25px;
     min-width: unset;
-    width: 100%;
+    max-width: 95%;
   }
 `;
 
@@ -409,145 +424,145 @@ const CategoryRoundButton = styled(RoundButton)`
 const categories = ["Minecraft", "Movies", "Countries", "Capital Cities", "Sports", "Animals"];
 
 const CategorySelection = ({ onCategorySelect, onRoundButtonClick }) => (
-    <CategoryContainer>
-        <CategoryTitle>Pick a Category</CategoryTitle>
-        <CategoryRoundButton onClick={onRoundButtonClick} />
-        <CategoryGrid>
-            {categories.map((category, index) => (
-                <CategoryButton key={index} color='rgb(var(--blue))' onClick={() => onCategorySelect(category)}>
-                    {category}
-                </CategoryButton>
-            ))}
-        </CategoryGrid>
-    </CategoryContainer>
+  <CategoryContainer>
+    <CategoryTitle>Pick a Category</CategoryTitle>
+    <CategoryRoundButton onClick={onRoundButtonClick} />
+    <CategoryGrid>
+      {categories.map((category, index) => (
+        <CategoryButton key={index} color='rgb(var(--blue))' onClick={() => onCategorySelect(category)}>
+          {category}
+        </CategoryButton>
+      ))}
+    </CategoryGrid>
+  </CategoryContainer>
 );
 
 
 
 function Popup({ isVisible, onClose, mode, handleMode }) {
 
-    const { startGame, resetGame } = useWordGame();
+  const { startGame, resetGame } = useWordGame();
 
 
-    const onRoundButtonClick = () => {
-        handleMode("start");
-    };
+  const onRoundButtonClick = () => {
+    handleMode("start");
+  };
 
-    const handleStartGame = (category) => {
-        startGame(category);
-        onClose();
-    };
+  const handleStartGame = (category) => {
+    startGame(category);
+    onClose();
+  };
 
-    // Define buttons for different game states
-    let buttons = [
-        { label: 'Continue', onClick: () => onClose(), color: 'rgb(var(--blue))' },
-        /*  { label: 'New Category', onClick: initiateCategorySelection, color: 'rgb(var(--blue))' } */
-        { label: 'Quit Game', onClick: () => { resetGame(); onClose(); }, type: 'gradient' }
+  // Define buttons for different game states
+  let buttons = [
+    { label: 'Continue', onClick: () => onClose(), color: 'rgb(var(--blue))' },
+    /*  { label: 'New Category', onClick: initiateCategorySelection, color: 'rgb(var(--blue))' } */
+    { label: 'Quit Game', onClick: () => { resetGame(); onClose(); }, type: 'gradient' }
+  ];
+
+  let title = "";
+
+
+  if (mode === 'start') {
+    buttons = [
+      { label: 'How to Play', onClick: () => { handleMode("rules") }, color: 'rgb(var(--blue))' }
     ];
+  } else if (mode === 'rules') {
+    title = 'How to play'
+  } else if (mode === 'win') {
+    title = 'You won'
+    buttons = [
+      { label: "Play Again", onClick: () => { resetGame(); onClose(); }, color: 'rgb(var(--blue))' },
+      { label: "Change Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
+      { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
+    ];
+  } else if (mode === 'lost') {
+    title = "You lost"
+    buttons = [
+      { label: "Play Again", onClick: () => { resetGame(); onClose(); }, color: 'rgb(var(--blue))' },
+      { label: "Change Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
+      { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
+    ]
+  } else if (mode === 'pause') {
+    title = "Paused"
+    buttons = [
+      { label: "Continue", onClick: () => { onClose(); }, color: 'rgb(var(--blue))' },
+      { label: "New Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
+      { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
+    ]
 
-    let title = "";
-
-
-    if (mode === 'start') {
-        buttons = [
-            { label: 'How to Play', onClick: () => { handleMode("rules") }, color: 'rgb(var(--blue))' }
-        ];
-    } else if (mode === 'rules') {
-        title = 'How to play'
-    } else if (mode === 'win') {
-        title = 'You won'
-        buttons = [
-            { label: "Play Again", onClick: () => { resetGame(); onClose(); }, color: 'rgb(var(--blue))' },
-            { label: "Change Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
-            { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
-        ];
-    } else if (mode === 'lost') {
-        title = "You lost"
-        buttons = [
-            { label: "Play Again", onClick: () => { resetGame(); onClose(); }, color: 'rgb(var(--blue))' },
-            { label: "Change Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
-            { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
-        ]
-    } else if (mode === 'pause') {
-        title = "Paused"
-        buttons = [
-            { label: "Continue", onClick: () => { onClose(); }, color: 'rgb(var(--blue))' },
-            { label: "New Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
-            { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
-        ]
-
-    }
+  }
 
 
-    const svg = <svg xmlns="http://www.w3.org/2000/svg" width="67" height="64" fill="none" viewBox="0 0 67 64">
-        <g filter="url(#a)">
-            <path fill="#fff" d="m3.381 33.397-.283-1.845C.658 15.62-.563 7.654 4.026 3.32 8.616-1.013 16.31.84 31.7 4.545l2.035.49c21.007 5.058 31.51 7.587 33.051 15.019 1.541 7.431-7.06 14.08-24.26 27.376l-1.753 1.355c-13.98 10.808-20.972 16.212-27.15 13.67-6.18-2.543-7.534-11.382-10.242-29.058Z" />
-        </g>
-        <defs>
-            <filter id="a" width="66.038" height="62.264" x=".925" y=".811" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                <feOffset dy="-6" />
-                <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
-                <feColorMatrix values="0 0 0 0 0.141176 0 0 0 0 0.188235 0 0 0 0 0.254902 0 0 0 1 0" />
-                <feBlend in2="shape" result="effect1_innerShadow_15_637" />
-            </filter>
-        </defs>
-    </svg>
+  const svg = <svg xmlns="http://www.w3.org/2000/svg" width="67" height="64" fill="none" viewBox="0 0 67 64">
+    <g filter="url(#a)">
+      <path fill="#fff" d="m3.381 33.397-.283-1.845C.658 15.62-.563 7.654 4.026 3.32 8.616-1.013 16.31.84 31.7 4.545l2.035.49c21.007 5.058 31.51 7.587 33.051 15.019 1.541 7.431-7.06 14.08-24.26 27.376l-1.753 1.355c-13.98 10.808-20.972 16.212-27.15 13.67-6.18-2.543-7.534-11.382-10.242-29.058Z" />
+    </g>
+    <defs>
+      <filter id="a" width="66.038" height="62.264" x=".925" y=".811" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+        <feOffset dy="-6" />
+        <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+        <feColorMatrix values="0 0 0 0 0.141176 0 0 0 0 0.188235 0 0 0 0 0.254902 0 0 0 1 0" />
+        <feBlend in2="shape" result="effect1_innerShadow_15_637" />
+      </filter>
+    </defs>
+  </svg>
 
 
-    return (
-        isVisible ? (
-            <Overlay $isStarting={mode === 'start'}>
-                {mode === 'start' ? <TransparentOverlay /> : null}
-                <PopupContainer $biggerPopup={mode === 'rules' || mode === "category"}>
-                    {mode === 'start' ? (
-                        <GameTitle />
-                    ) : mode === 'rules' ? (
-                        <>
-                            <TransparentOverlay />
-                            <OrdinaryTitle>How to Play</OrdinaryTitle>
-                        </>
-                    ) : mode === 'category' ? (
-                        <>
-                            <TransparentOverlay />
-                            <CategorySelection onCategorySelect={handleStartGame} onRoundButtonClick={onRoundButtonClick} />
-                        </>
-                    ) : (
-                        <Title>{title}</Title>
-                    )}
-                    {mode === 'rules' ? (
-                        <>
-                            <TransparentOverlay />
-                            <RulesCards onRoundButtonClick={onRoundButtonClick} />
-                        </>
-                    ) : (
-                        <>
-                            {/* Exclude PlayButton in win, lost, pause, and category modes */}
-                            {mode !== 'win' && mode !== 'lost' && mode !== 'pause' && mode !== 'category' && (
-                                <div>
-                                    <PlayButton key="start-game" onClick={() => handleMode('category')}>{svg}</PlayButton>
-                                </div>
-                            )}
+  return (
+    isVisible ? (
+      <Overlay $isStarting={mode === 'start'}>
+        {mode === 'start' ? <TransparentOverlay /> : null}
+        <PopupContainer $biggerPopup={mode === 'rules' || mode === "category"}>
+          {mode === 'start' ? (
+            <GameTitle />
+          ) : mode === 'rules' ? (
+            <>
+              <TransparentOverlay />
+              <OrdinaryTitle>How to Play</OrdinaryTitle>
+            </>
+          ) : mode === 'category' ? (
+            <>
+              <TransparentOverlay />
+              <CategorySelection onCategorySelect={handleStartGame} onRoundButtonClick={onRoundButtonClick} />
+            </>
+          ) : (
+            <Title>{title}</Title>
+          )}
+          {mode === 'rules' ? (
+            <>
+              <TransparentOverlay />
+              <RulesCards onRoundButtonClick={onRoundButtonClick} />
+            </>
+          ) : (
+            <>
+              {/* Exclude PlayButton in win, lost, pause, and category modes */}
+              {mode !== 'win' && mode !== 'lost' && mode !== 'pause' && mode !== 'category' && (
+                <div>
+                  <PlayButton key="start-game" onClick={() => handleMode('category')}>{svg}</PlayButton>
+                </div>
+              )}
 
-                            {/*Exclude all buttons if in "category" mode*/}
-                            {mode !== 'category' && buttons.map((button, index) => (
-                                button.type === 'gradient' ?
-                                    <GradientButton key={index} onClick={button.onClick}>
-                                        {button.label}
-                                    </GradientButton>
-                                    :
-                                    <Button key={index} color={button.color} onClick={button.onClick}>
-                                        {button.label}
-                                    </Button>
-                            ))}
-                        </>
-                    )}
-                </PopupContainer>
-            </Overlay>
-        ) : null
-    );
+              {/*Exclude all buttons if in "category" mode*/}
+              {mode !== 'category' && buttons.map((button, index) => (
+                button.type === 'gradient' ?
+                  <GradientButton key={index} onClick={button.onClick}>
+                    {button.label}
+                  </GradientButton>
+                  :
+                  <Button key={index} color={button.color} onClick={button.onClick}>
+                    {button.label}
+                  </Button>
+              ))}
+            </>
+          )}
+        </PopupContainer>
+      </Overlay>
+    ) : null
+  );
 }
 
 export default Popup;

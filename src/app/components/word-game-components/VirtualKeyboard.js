@@ -123,7 +123,7 @@ const LetterKey = ({ letter }) => {
 
 const VirtualKeyboard = ({ onClick }) => {
 
-  const { guessedLetters, addGuessedLetter } = useWordGame();
+  const { guessedLetters, addGuessedLetter, isGameVisible } = useWordGame();
 
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const rowLength = Math.ceil(alphabet.length / 3);
@@ -138,6 +138,7 @@ const VirtualKeyboard = ({ onClick }) => {
   // for using keyboard
   useEffect(() => {
     const handleKeyPress = (event) => {
+      if (!isGameVisible) return;
       const letter = event.key.toUpperCase();
       if (alphabet.includes(letter)) {
         addGuessedLetter(letter);

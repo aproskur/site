@@ -156,6 +156,11 @@ const Button = styled.button`
   &:active {
     transform: scale(0.95);
   }
+
+  @media (max-width: 500px){
+    width: 200px;
+    font-size: 20px;
+  }
 `;
 
 const GradientButton = styled(Button)`
@@ -220,27 +225,23 @@ const RoundButton = styled.button`
   cursor: pointer;
   outline: none;
   position: absolute;
-  top: -190px;
-  left: -200px;
+  top: 80px;
+  left: 50px;
+  z-index: 20;
+
 
   @media (max-width: 768px) {
-    top: -360px;
-    left: -10px;
+    top: 10px;
+    left: 10px;
   }
 
   @media (max-width: 480px){
+    top: 50px;
+    left: 10px;
     width: 40px;
     height: 40px;
-    top: -120px;
-    left: 5px;
   }
 
-  @media (max-width: 385px){
-    width: 40px;
-    height: 40px;
-    top: -120px;
-    left: 5px;
-  }
 `;
 
 
@@ -259,7 +260,8 @@ const CardContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-
+    padding-top: 1em;
+    overflow-y:scroll;
   }
 
 `;
@@ -293,6 +295,8 @@ const Card = styled.div`
     grid-template-areas:
     "number title"
     "text text";
+    min-height: 300px;
+    padding: 1em;
   }
 `;
 
@@ -326,7 +330,7 @@ const CardTitle = styled.h3`
   @media (max-width: 768px) {
     grid-area: title;
     text-align: left;
-    font-size: 25px;
+    font-size: 20px;
   }
 `;
 
@@ -353,16 +357,19 @@ const RulesCards = ({ onRoundButtonClick }) => {
   ];
 
   return (
-    <CardContainer>
+    <>
       <RoundButton onClick={onRoundButtonClick} />
-      {cards.map((card, index) => (
-        <Card key={index}>
-          <CardNumber>{card.number}</CardNumber>
-          <CardTitle>{card.title}</CardTitle>
-          <CardText>{card.text}</CardText>
-        </Card>
-      ))}
-    </CardContainer>
+      <CardContainer>
+
+        {cards.map((card, index) => (
+          <Card key={index}>
+            <CardNumber>{card.number}</CardNumber>
+            <CardTitle>{card.title}</CardTitle>
+            <CardText>{card.text}</CardText>
+          </Card>
+        ))}
+      </CardContainer>
+    </>
   );
 };
 

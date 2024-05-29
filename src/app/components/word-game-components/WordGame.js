@@ -18,6 +18,11 @@ const StyledLetterContainer = styled.div`
   padding: 2em;
 
 
+  @media (max-width: 480px){
+   padding: .2em;
+  }
+
+
   div.word {
     flex: 1 0 60%;
     display: flex;

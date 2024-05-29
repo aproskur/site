@@ -42,14 +42,14 @@ const StyledLetterKey = styled(motion.button)`
   }
 
   @media (max-width: 480px) {
-    width: 32px;
+    width: 25px;
     height: 54px;
     border-radius: 10px;
   }
 
 
   @media (max-width: 375px) {
-    width: 26px;
+    width: 21px;
     height: 54px;
     border-radius: 10px;
   }
@@ -61,6 +61,7 @@ const Container = styled.div`
   gap: 10px;
   grid-area: keyboard;
   margin-top: 1em;
+  margin: 0 auto;
 
 
   @media (max-width: 480px) {
@@ -80,86 +81,86 @@ const Row = styled.div`
 `;
 
 const LetterKey = ({ letter }) => {
-    const { guessedLetters, addGuessedLetter } = useWordGame();
-    const [isPressed, setIsPressed] = useState(false);
+  const { guessedLetters, addGuessedLetter } = useWordGame();
+  const [isPressed, setIsPressed] = useState(false);
 
 
-    // for animations on Key press
-    useEffect(() => {
-        if (isPressed) {
-            const timer = setTimeout(() => setIsPressed(false), 300);
-            return () => clearTimeout(timer);
-        }
-    }, [isPressed]);
+  // for animations on Key press
+  useEffect(() => {
+    if (isPressed) {
+      const timer = setTimeout(() => setIsPressed(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isPressed]);
 
 
-    // DEBUG
-    const handleClick = () => {
-        console.log(`Letter ${letter} clicked`);
-        addGuessedLetter(letter);
-        setIsPressed(true);
-    };
+  // DEBUG
+  const handleClick = () => {
+    console.log(`Letter ${letter} clicked`);
+    addGuessedLetter(letter);
+    setIsPressed(true);
+  };
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-            handleClick();
-        }
-    };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleClick();
+    }
+  };
 
-    const isGuessed = guessedLetters.has(letter);
+  const isGuessed = guessedLetters.has(letter);
 
-    return (
-        <StyledLetterKey onClick={handleClick}
-            disabled={isGuessed}
-            onKeyDown={handleKeyDown}
-            tabIndex="0"
-            animate={isPressed ? { scale: [1, 1.1, 1] } : {}}
-            transition={{ duration: 0.3 }}>
-            {letter}
-        </StyledLetterKey>
-    );
+  return (
+    <StyledLetterKey onClick={handleClick}
+      disabled={isGuessed}
+      onKeyDown={handleKeyDown}
+      tabIndex="0"
+      animate={isPressed ? { scale: [1, 1.1, 1] } : {}}
+      transition={{ duration: 0.3 }}>
+      {letter}
+    </StyledLetterKey>
+  );
 };
 
 const VirtualKeyboard = ({ onClick }) => {
 
-    const { guessedLetters, addGuessedLetter } = useWordGame();
+  const { guessedLetters, addGuessedLetter } = useWordGame();
 
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const rowLength = Math.ceil(alphabet.length / 3);
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const rowLength = Math.ceil(alphabet.length / 3);
 
-    // Split the alphabet into three rows
-    const rows = [
-        alphabet.slice(0, rowLength),
-        alphabet.slice(rowLength, rowLength * 2),
-        alphabet.slice(rowLength * 2)
-    ];
+  // Split the alphabet into three rows
+  const rows = [
+    alphabet.slice(0, rowLength),
+    alphabet.slice(rowLength, rowLength * 2),
+    alphabet.slice(rowLength * 2)
+  ];
 
-    // for using keyboard
-    useEffect(() => {
-        const handleKeyPress = (event) => {
-            const letter = event.key.toUpperCase();
-            if (alphabet.includes(letter)) {
-                addGuessedLetter(letter);
-            }
-        };
+  // for using keyboard
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      const letter = event.key.toUpperCase();
+      if (alphabet.includes(letter)) {
+        addGuessedLetter(letter);
+      }
+    };
 
-        document.addEventListener('keydown', handleKeyPress);
-        return () => {
-            document.removeEventListener('keydown', handleKeyPress);
-        };
-    }, [addGuessedLetter]);
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [addGuessedLetter]);
 
-    return (
-        <Container>
-            {rows.map((row, index) => (
-                <Row key={index}>
-                    {row.split('').map(letter => (
-                        <LetterKey key={letter} letter={letter} onClick={onClick} />
-                    ))}
-                </Row>
-            ))}
-        </Container>
-    );
+  return (
+    <Container>
+      {rows.map((row, index) => (
+        <Row key={index}>
+          {row.split('').map(letter => (
+            <LetterKey key={letter} letter={letter} onClick={onClick} />
+          ))}
+        </Row>
+      ))}
+    </Container>
+  );
 };
 
 export default VirtualKeyboard;

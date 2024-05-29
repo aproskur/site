@@ -9,9 +9,9 @@ const Overlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: ${({ $isStarting }) => ($isStarting ? 'transparent' : 'rgba(var(--dark-navy), 0.8)')}; // Adjust background color as needed
-  background-image: ${({ $isStarting }) => ($isStarting ? 'url("/images/word-game-images/background-desktop.svg")' : 'none')}; // Toggle the image
-  background-size: ${({ $isStarting }) => ($isStarting ? 'cover' : 'auto')}; // Use contain only if starting
+  background-color: ${({ $isStarting }) => ($isStarting ? 'transparent' : 'rgba(var(--dark-navy), 0.8)')}; 
+  background-image: ${({ $isStarting }) => ($isStarting ? 'url("/images/word-game-images/background-desktop.svg")' : 'none')}; 
+  background-size: ${({ $isStarting }) => ($isStarting ? 'cover' : 'auto')}; 
   background-repeat: no-repeat; 
   background-position: center;
   display: flex;
@@ -25,7 +25,7 @@ const PopupContainer = styled.div`
   width: ${({ $biggerPopup }) => ($biggerPopup ? '100%' : '500px')};
   height: ${({ $biggerPopup }) => ($biggerPopup ? '100vh' : 'auto')};
   background: ${({ $biggerPopup }) => ($biggerPopup ? 'url("/images/word-game-images/background-desktop.svg")' : 'rgba(var(--dark-navy), 0.8)')};
-  background-size: ${({ $biggerPopup }) => ($biggerPopup ? 'cover' : 'auto')}; // Use contain only if starting
+  background-size: ${({ $biggerPopup }) => ($biggerPopup ? 'cover' : 'auto')}; 
   background-repeat: no-repeat; 
   background-position: center;
   border-radius: 20px;
@@ -77,6 +77,14 @@ const Title = styled.h1`
     top: -40px;
     left: 25%;
   }
+
+  @media (max-width: 385px) {
+    font-size: 50px;
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+    top: -40px;
+    left: 25%;
+  }
 `;
 
 const OrdinaryTitle = styled.h1`
@@ -96,6 +104,14 @@ font-size: 90px;
     font-size: 50px;
     margin-left: 1.5em;
     margin-bottom: 1em;
+  }
+
+  @media (max-width: 385px) {
+    font-size: 40px;
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+    top: -40px;
+    left: 25%;
   }
 `;
 
@@ -187,6 +203,13 @@ const RoundButton = styled.button`
   }
 
   @media (max-width: 480px){
+    width: 40px;
+    height: 40px;
+    top: -120px;
+    left: 5px;
+  }
+
+  @media (max-width: 385px){
     width: 40px;
     height: 40px;
     top: -120px;

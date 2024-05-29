@@ -140,6 +140,10 @@
                 "selected": false
             },
             {
+                "name": "Bridgertons",
+                "selected": false
+            },
+            {
                 "name": "The Sopranos",
                 "selected": false
             },
@@ -810,6 +814,50 @@
             {
                 "name": "Nether Portal",
                 "selected": false
+            },
+            {
+                "name": "Armadillo",
+                "selected": false
+            },
+            {
+                "name": "Sniffer",
+                "selected": "false"
+            },
+            {
+                "name": "Trial Chamber",
+                "selected": "false"
+            },
+            {
+                "name": "Cherry Grove",
+                "selected": "false"
+            },
+            {
+                "name": "Vault",
+                "selected": "false"
+            },
+            {
+                "name": "Ominous bottle",
+                "selected": "false"
+            },
+            {
+                "name": "Woodland mansion",
+                "selected": "false"
+            },
+            {
+                "name": "Wind charge",
+                "selected": "false"
+            },
+            {
+                "name": "Fire aspect",
+                "selected": "false"
+            },
+            {
+                "name": "Orange terracotta",
+                "selected": "false"
+            },
+            {
+                "name": "Minecraft",
+                "selected": "false"
             }
         ]
     }

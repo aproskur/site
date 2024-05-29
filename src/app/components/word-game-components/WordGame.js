@@ -15,17 +15,21 @@ const StyledLetterContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  padding: 2em;
 
 
   div.word {
     flex: 1 0 60%;
     display: flex;
+    
     gap: 0.3rem;
     justify-content: center;
 
     @media (max-width: 480px){
         flex: 1 0 100%;
-        gap: 0.5em;
+        flex-wrap: wrap;
+        gap: 0.2em;
+        padding: .2rem;
       }
   }
 

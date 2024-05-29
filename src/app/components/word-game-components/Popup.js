@@ -102,13 +102,11 @@ font-size: 90px;
   @media (max-width: 480px) {
     font-size: 50px;
     margin-left: 1.5em;
-    margin-bottom: 1em;
   }
 
   @media (max-width: 385px) {
     font-size: 40px;
     margin-left: 1.5em;
-    margin-bottom: 1em;
     top: -40px;
     left: 25%;
   }
@@ -257,11 +255,13 @@ const CardContainer = styled.div`
   background-color: rgba(--var(dark-navy), 0.5);
   z-index: 2;
   position: relative;
+  height: calc(100vh - 20px); 
 
   @media (max-width: 768px) {
     flex-direction: column;
     padding-top: 1em;
     overflow-y:scroll;
+    padding-top: 25em; /* fixes for chrome,spolis for firefox */
   }
 
 `;
@@ -360,7 +360,6 @@ const RulesCards = ({ onRoundButtonClick }) => {
     <>
       <RoundButton onClick={onRoundButtonClick} />
       <CardContainer>
-
         {cards.map((card, index) => (
           <Card key={index}>
             <CardNumber>{card.number}</CardNumber>
@@ -422,10 +421,12 @@ const CategoryTitle = styled(OrdinaryTitle)`
 
   @media (max-width: 480px){
     font-size: 40px;
+    margin-bottom: 1em;
   }
 
   @media (max-width: 380px){
     font-size: 35px;
+    
   }
 `;
 
@@ -449,7 +450,7 @@ height: 150px;
     font-size: 25px;
     min-width: unset;
     max-width: 95%;
-
+    height: 100px;
   }
 `;
 
@@ -534,7 +535,7 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
       { label: 'How to Play', onClick: () => { handleMode("rules") }, color: 'rgb(var(--blue))' }
     ];
   } else if (mode === 'rules') {
-    title = 'How to play'
+    title = ''
   } else if (mode === 'win') {
     title = 'You won'
     buttons = [

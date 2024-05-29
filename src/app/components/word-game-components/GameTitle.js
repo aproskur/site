@@ -6,7 +6,7 @@ const TitleContainer = styled.div`
   align-items: center;
   position: relative;
   font-family: var(--font-wordGameFont), sans-serif;
-  top: -110px;  //how much of the title is outside
+  top: -100px;  //how much of the title is outside
   left: 35%;
   transform: translateX(-50%);
 

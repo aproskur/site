@@ -24,18 +24,16 @@ const Overlay = styled.div`
 const PopupContainer = styled.div`
   width: ${({ $biggerPopup }) => ($biggerPopup ? '100%' : '500px')};
   height: ${({ $biggerPopup }) => ($biggerPopup ? '100vh' : 'auto')};
-  background: ${({ $biggerPopup }) => ($biggerPopup ? 'url("/images/word-game-images/background-desktop.svg")' : 'rgba(var(--dark-navy), 0.8)')};
-  background-size: ${({ $biggerPopup }) => ($biggerPopup ? 'cover' : 'auto')}; 
+  background: ${({ $biggerPopup }) => ($biggerPopup ? 'url("/images/word-game-images/background-desktop.svg")' : 'url("/images/word-game-images/PopupSmall.png")')};
+  background-size: ${({ $biggerPopup }) => ($biggerPopup ? 'cover' : 'contain')}; 
   background-repeat: no-repeat; 
   background-position: center;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   position: relative;
-  overflow: visible;
   gap: 1em;
   padding: 3em 2em;
   z-index: 2;
@@ -55,20 +53,20 @@ const PopupContainer = styled.div`
 
 
 const Title = styled.h1`
-  font-size: 90px;
-  font-weight: bold;
-  background-image: linear-gradient(to bottom, #67B6FF, #FFFFFF);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-align: center;
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  font-family: inherit;
-  text-transform: capitalize;
+font-size: 90px;
+font-weight: bold;
+background-image: linear-gradient(to bottom, #67B6FF, #FFFFFF);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+text-align: center;
+position: absolute;
+top: -40px;
+left: 50%;
+transform: translateX(-50%);
+width: 100%;
+font-family: inherit;
+text-transform: capitalize;
 
   @media (max-width: 480px) {
     font-size: 60px;
@@ -129,22 +127,30 @@ const TransparentOverlay = styled.div`
 
 
 const Button = styled.button`
-  width: 80%;
-  padding: 10px 20px;
+  background-color: transparent;
+  background-image: url('../images/word-game-images/ButtonDefault.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  border-radius: 20px;
-  background: ${props => props.color || '#fff'};
+  width: 300px;
+  padding: .65em .75em;
+
+
   color: #fff;
   font-size: 30px;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.1s ease-in-out;
   font-family: inherit;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(.95);
+    background-image: url('../images/word-game-images/ButtonHover.png');
   }
 
   &:active {
@@ -154,14 +160,26 @@ const Button = styled.button`
 
 const GradientButton = styled(Button)`
   background: linear-gradient(to bottom, #FE71FE, #7199FF);
-  color: #fff;
+  background-image: url('../images/word-game-images/GradientButtonDefault.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+
+  &:hover {
+    background-image: url('../images/word-game-images/GradientButtonHover.png');
+  }
+
+
 `;
 const PlayButton = styled.button`
   background: radial-gradient(circle at top, #FE71FE, #7199FF);
+  background-image: url('../images/word-game-images/StartGameButton.png');
+  background-size: 150px 150px;
   border: 1px solid black;
   border-radius: 50%; 
-  width: 200px; 
-  height: 200px; 
+  width: 150px; 
+  height: 150px; 
   cursor: pointer;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), inset 0 -4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -172,6 +190,7 @@ const PlayButton = styled.button`
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), inset 0 -4px 8px rgba(0, 0, 0, 0.1);
+    background-image: url('../images/word-game-images/StartButtonHover.png');
   }
 
   &:active {
@@ -182,6 +201,12 @@ const PlayButton = styled.button`
   svg {
     width: 50%; 
     height: auto;
+  }
+
+  @media (max-width: 450px) {
+    background-size: 100px 100px;
+    width: 100px; 
+    height: 100px; 
   }
 `;
 
@@ -345,10 +370,8 @@ const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
   z-index: 4;
   position: relative;
-  overflow-y: auto;
   overflow-x: hidden;
 
   @media (max-width: 1000px){
@@ -363,7 +386,7 @@ const CategoryGrid = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1em;
+  gap: .75em;
   width: 100%;
 
   @media (min-width: 769px) {
@@ -387,8 +410,8 @@ const CategoryGrid = styled.div`
 
 const CategoryTitle = styled(OrdinaryTitle)`
   text-align: center;
-  margin-bottom: 1em;
   text-transform: capitalize;
+  margin-bottom: .25em;
 
   @media (max-width: 480px){
     font-size: 40px;
@@ -400,14 +423,26 @@ const CategoryTitle = styled(OrdinaryTitle)`
 `;
 
 const CategoryButton = styled(Button)`
-  padding: 1em 2em;
-  min-width: 300px;
-  
+background-image: url('../images/word-game-images/CategoryButtonDefault.png');
+background-size: contain;
+background-position: center;
+background-repat:no-repat;
+background-color: transparent;
+border-radius: 5px;
+padding: 10px 20px;
+height: 150px;
+
+
+&:hover {
+  background-image: url('../images/word-game-images/ButtonCategoryHoverNew.png');
+}
+
 
   @media (max-width: 480px){
     font-size: 25px;
     min-width: unset;
     max-width: 95%;
+
   }
 `;
 
@@ -436,6 +471,30 @@ const CategorySelection = ({ onCategorySelect, onRoundButtonClick }) => (
     </CategoryGrid>
   </CategoryContainer>
 );
+
+const TitleContainer = styled.div`
+  background-image: url('../images/word-game-images/HangmanGroup.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 125px;
+  margin-top: -120px;
+  margin-left: 140px;
+
+
+  @media (max-width: 600px) {
+    height: 80px;
+    margin-top: -60px;
+    margin-left: 140px;
+  }
+`;
+
+
+const MainGameTitle = () => (
+  <TitleContainer>
+
+  </TitleContainer>
+)
 
 
 
@@ -477,7 +536,7 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
       { label: "Quit Game", onClick: () => { handleMode("start") }, type: 'gradient' }
     ];
   } else if (mode === 'lost') {
-    title = "You lost"
+    title = "You lose"
     buttons = [
       { label: "Play Again", onClick: () => { resetGame(); onClose(); }, color: 'rgb(var(--blue))' },
       { label: "Change Category", onClick: () => { handleMode("category") }, color: 'rgb(var(--blue))' },
@@ -518,7 +577,7 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
         {mode === 'start' ? <TransparentOverlay /> : null}
         <PopupContainer $biggerPopup={mode === 'rules' || mode === "category"}>
           {mode === 'start' ? (
-            <GameTitle />
+            <MainGameTitle />
           ) : mode === 'rules' ? (
             <>
               <TransparentOverlay />

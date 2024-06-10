@@ -136,8 +136,6 @@ const Button = styled.button`
   border: none;
   width: 300px;
   padding: .65em .75em;
-
-
   color: #fff;
   font-size: 30px;
   letter-spacing: 2px;
@@ -158,6 +156,15 @@ const Button = styled.button`
   @media (max-width: 500px){
     width: 200px;
     font-size: 20px;
+  }
+
+  @media (max-width: 350px){
+    width: 180px;
+    font-size: 18px;
+    
+    &:last-child {
+      margin-bottom: 1em;
+    }
   }
 `;
 
@@ -211,6 +218,12 @@ const PlayButton = styled.button`
     width: 100px; 
     height: 100px; 
   }
+
+  @media (max-width: 350px) {
+    background-size: 80px 80px;
+    width: 80px; 
+    height: 80px; 
+  }
 `;
 
 const RoundButton = styled.button`
@@ -240,10 +253,8 @@ const RoundButton = styled.button`
     height: 40px;
   }
 
+
 `;
-
-
-
 
 
 
@@ -385,6 +396,11 @@ const CategoryContainer = styled.div`
     margin-bottom: 1em;
     margin-top: 1em;
   }
+
+  @media (max-width: 350px){
+    margin-bottom: .5em;
+    margin-top: .5em;
+  }
 `;
 
 const CategoryGrid = styled.div`
@@ -426,6 +442,11 @@ const CategoryTitle = styled(OrdinaryTitle)`
 
   @media (max-width: 380px){
     font-size: 35px;
+    
+  }
+
+  @media (max-width: 350px){
+    font-size: 30px;
     
   }
 `;
@@ -494,6 +515,12 @@ const TitleContainer = styled.div`
     height: 80px;
     margin-top: -60px;
     margin-left: 140px;
+  }
+
+  @media (max-width: 350px) {
+    height: 70px;
+    margin-top: -15px;
+    margin-left: 120px;
   }
 `;
 

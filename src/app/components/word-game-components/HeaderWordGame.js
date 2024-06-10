@@ -32,6 +32,11 @@ const MenuButton = styled.div`
     width: 50px;
     height: 50px;
   }
+
+  @media (max-width: 350px){
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const CategoryName = styled.div`
@@ -41,6 +46,11 @@ const CategoryName = styled.div`
   @media (max-width: 480px){
     font-size: 30px;
     margin-right: 1em;
+  }
+
+  @media (max-width: 350px){
+    font-size: 26px;
+    margin-right: .65em;
   }
 `;
 
@@ -55,6 +65,10 @@ const ProgressBarContainer = styled.div`
 
   @media (max-width: 480px){
     width: 100px;
+  }
+
+  @media (max-width: 350px){
+    width: 90px;
   }
 `;
 

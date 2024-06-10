@@ -2,6 +2,16 @@
 'use client'
 import styled from 'styled-components';
 import TabbedContainer from './TabbedContainer'
+import Image from 'next/image';
+import ludesignWebP from '../../../public/images/ludesign.webp';
+import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp'
+import artWebP from '../../../public/images/artinspiration.webp'
+import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg'
+import sozoJPG from '../../../public/images/sozo-main.jpg'
+import sozoPortfolioJPG from '../../../public/images/sozo-portfolio.jpg'
+import webdevWebP from '../../../public/images/anna-webdev.webp'
+import webdevGamePNG from '../../../public/images/website-game-pairs.png'
+
 
 
 const SuperContainer = styled.div` 
@@ -64,6 +74,7 @@ const ProjectImage = styled.img`
   display: block;
 `;
 
+
 const ProjectInfo = styled.div`
   width: 100%;
   height: 50vh;
@@ -97,8 +108,27 @@ const ProjectDescription = styled.p`
   color: #333;
 `;
 
+
+
+// Image for portfolio
+
+const PortfolioImage = ({ alt, src, width, height }) => {
+    return (
+        <Image
+            src={src}
+            alt={alt}
+            placeholder="blur"
+            width={width}
+            height={height}
+        />
+
+
+    );
+}
 // Portfolio component
 const Portfolio = ({ id }) => {
+
+
     return (
         <SuperContainer id={id}>
             <h2>SOME WORKS</h2>
@@ -108,15 +138,20 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page', content:
-
-                                    <ProjectImage src="./images/ludesign.png" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={ludesignWebP}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Portfolio Page', content:
 
-                                    <ProjectImage src="./images/ludesign-portfolio-2.jpg" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={ludesignPortfolioWebP}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Approach', content:
@@ -147,14 +182,20 @@ const Portfolio = ({ id }) => {
                             {
                                 name: 'Main Page', content:
 
-                                    <ProjectImage src="./images/sozo-main.jpg" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={sozoJPG}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Portfolio Page', content:
 
-                                    <ProjectImage src="./images/sozo-portfolio.jpg" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={sozoPortfolioJPG}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Approach', content:
@@ -184,14 +225,20 @@ const Portfolio = ({ id }) => {
                             {
                                 name: 'Main Page', content:
 
-                                    <ProjectImage src="./images/artinspiration.png" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={artWebP}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Portfolio Page', content:
 
-                                    <ProjectImage src="./images/artinspiration-picture-page.jpg" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={artPortfolioJPG}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Approach', content:
@@ -220,14 +267,20 @@ const Portfolio = ({ id }) => {
                             {
                                 name: 'Main Page', content:
 
-                                    <ProjectImage src="./images/anna-webdev-main-page.png" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={webdevWebP}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'A game', content:
 
-                                    <ProjectImage src="./images/website-game-pairs.png" alt="Project Screenshot" />
-
+                                    <PortfolioImage
+                                        src={webdevGamePNG}
+                                        alt={"Project Screenshot"}
+                                        width={600}
+                                    />
                             },
                             {
                                 name: 'Approach', content:

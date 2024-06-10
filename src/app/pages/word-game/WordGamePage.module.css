@@ -60,12 +60,12 @@
     }
 
     .wordGameContainer {
-        grid-template-columns: 5% 90% 5%;
+        grid-template-columns: 100%;
         grid-template-rows: 20% 40% auto;
         grid-template-areas:
-            "header header header"
-            ". word ."
-            "keyboard keyboard keyboard";
+            "header"
+            "word"
+            "keyboard";
         padding: 1em;
     }
 }

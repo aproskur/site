@@ -105,9 +105,6 @@ function Hero() {
                 <p>Here coding meets creativity!</p>
                 <Button style={{ fontFamily: "Inter,sans-serif" }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
             </HeroText>
-            <HeroImage>
-                <img src='./images/work-hero-img-ai.png'></img>
-            </HeroImage>
         </HeroContainer>
     );
 }

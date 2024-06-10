@@ -1,5 +1,6 @@
 
 'use client'
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TabbedContainer from './TabbedContainer'
 import Image from 'next/image';
@@ -113,6 +114,19 @@ const ProjectDescription = styled.p`
 // Image for portfolio
 
 const PortfolioImage = ({ alt, src, width, height }) => {
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Fixing distorted images on tab switch
+
+    useEffect(() => {
+        setIsLoaded(false); // Reset loading state when src changes
+    }, [src]);
+
+    const handleImageLoad = () => {
+        setIsLoaded(true); // Set loading state to true when image is loaded
+    };
+
     return (
         <Image
             src={src}

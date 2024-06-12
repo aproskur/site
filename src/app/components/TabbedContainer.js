@@ -58,7 +58,7 @@ const TabbedContainer = ({ tabs }) => {
 
   return (
     <div>
-      <TabWrapper>
+      <TabWrapper role="tablist">
         {tabs.map(tab => (
           <TabButton
             key={tab.name}

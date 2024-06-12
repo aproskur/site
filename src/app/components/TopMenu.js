@@ -246,7 +246,7 @@ const TopMenu = () => {
                     </MenuItems>
                 </UseClientMenu>
 
-                <HamburgerIcon onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
+                <HamburgerIcon role="button" onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
                     <span>
                         <div></div>
                         <div></div>

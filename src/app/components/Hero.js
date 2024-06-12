@@ -29,7 +29,7 @@ const HeroText = styled.div`
         font-family: 'Poppins', sans-serif;
     }
 
-    h3 {
+    h2 {
         margin-bottom: .75em;
         font-size: 2rem;
         color: rgb(var(--clr-gold));
@@ -98,7 +98,7 @@ function Hero() {
         <HeroContainer>
             <HeroText>
                 <h1>WEB DEVELOPER </h1>
-                <h3>Based in Cardiff, working worldwide</h3>
+                <h2>Based in Cardiff, working worldwide</h2>
                 <p> Hi, my name is Anna and I am a freelance web developer.</p>
                 <p>Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
                 <p>  From <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>creation</span> to ongoing <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>support</span>, I'm here for your small business or collaborative team. </p>

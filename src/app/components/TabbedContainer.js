@@ -4,11 +4,12 @@ import styled from 'styled-components';
 const TabWrapper = styled.div`
   display: flex;
   justify-content: left;
-  border-bottom: 1px solid transparent; 
+  border-bottom: 1px solid transparent;
 `;
+
 const TabButton = styled.button`
   border: 1px solid #ddd;
-  border-bottom: none; 
+  border-bottom: none;
   padding: 10px 20px;
   cursor: pointer;
   border-top-left-radius: 10px;
@@ -18,11 +19,10 @@ const TabButton = styled.button`
   color: rgb(var(--clr-white));
 
   &:focus {
-    outline: none; 
-    box-shadow: 0 0 0 2px #007bff;  
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
   }
 
-  // Styles for the active tab
   ${({ $active }) =>
     $active &&
     `
@@ -33,16 +33,13 @@ const TabButton = styled.button`
 `;
 
 const TabContentContainer = styled.div`
-height: 50vh;
-overflow-y: scroll;
+  height: 50vh;
+  overflow-y: scroll;
 `;
-
 
 const TabbedContainer = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(tabs[0].name);
 
-
-  //accessibility. Moving through tabs with keyboard
   const handleKeyDown = (e, tabName) => {
     const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
     let newIndex = currentIndex;
@@ -58,7 +55,6 @@ const TabbedContainer = ({ tabs }) => {
 
     setActiveTab(tabs[newIndex].name);
   };
-
 
   return (
     <div>
@@ -86,4 +82,3 @@ const TabbedContainer = ({ tabs }) => {
 };
 
 export default TabbedContainer;
-

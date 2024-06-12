@@ -35,8 +35,8 @@ const Footer = () => {
     <FooterContainer>
       <CopyrightText>&copy; {currentYear} ANNA WEBDEV</CopyrightText>
       <SocialIcons>
-        <SocialIcon href="https://www.linkedin.com/in/anna-proskurina-b08337281/" className="fab fa-linkedin"></SocialIcon>
-        <SocialIcon href="mailto:annapro.webdev@gmail.com" className="fa fa-envelope"></SocialIcon>
+        <SocialIcon href="https://www.linkedin.com/in/anna-proskurina-b08337281/" className="fab fa-linkedin"><span className="sr-only">LinkedIn Profile</span></SocialIcon>
+        <SocialIcon href="mailto:annapro.webdev@gmail.com" className="fa fa-envelope"><span className="sr-only">Email Anna</span></SocialIcon>
       </SocialIcons>
     </FooterContainer>
   );

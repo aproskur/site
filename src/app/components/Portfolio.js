@@ -1,50 +1,47 @@
-
-'use client'
-import React, { useState, useEffect } from 'react';
+'use client';
+import React from 'react';
 import styled from 'styled-components';
-import TabbedContainer from './TabbedContainer'
-import Image from 'next/image';
+import TabbedContainer from './TabbedContainer';
+import NextImage from 'next/image';
 import ludesignWebP from '../../../public/images/ludesign.webp';
-import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp'
-import artWebP from '../../../public/images/artinspiration.webp'
-import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg'
-import sozoJPG from '../../../public/images/sozo-main.jpg'
-import sozoPortfolioJPG from '../../../public/images/sozo-portfolio.jpg'
-import webdevWebP from '../../../public/images/anna-webdev.webp'
-import webdevGamePNG from '../../../public/images/website-game-pairs.png'
+import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp';
+import artWebP from '../../../public/images/artinspiration.webp';
+import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg';
+import sozoJPG from '../../../public/images/sozo-main.jpg';
+import sozoPortfolioJPG from '../../../public/images/sozo-portfolio.jpg';
+import webdevWebP from '../../../public/images/anna-webdev.webp';
+import webdevGamePNG from '../../../public/images/website-game-pairs.png';
 
+const SuperContainer = styled.div`
+  background: url('./images/watercolor.png');
+  background-repeat: repeat;
+  background-size: cover;
 
-
-const SuperContainer = styled.div` 
-background: url('./images/watercolor.png');
-background-repeat: repeat; 
-background-size: cover;
-
-h2 {
+  h2 {
     font-size: 3rem;
     margin-top: 1em;
     text-align: center;
     color: rgb(var(--clr-gold));
-}`
+  }
+`;
 
 const PortfolioItemWrapper = styled.div`
-    width: 50%;
+  width: 50%;
 
-    @media (max-width: 1200px) {
-       width: 80%;
-      }
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 `;
 
 const PortfolioContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   margin-bottom: 3em;
 
   @media (max-width: 1200px) {
     flex-direction: column-reverse;
   }
- 
 `;
 
 const ProjectCard = styled.div`
@@ -60,22 +57,6 @@ const ProjectCard = styled.div`
   }
 `;
 
-const ProjectImageContainer = styled.div`
-    width: 50%;
-    height: 50vh;
-    margin-top: 2em;
-    overflow-y: scroll;
-
-`;
-
-
-const ProjectImage = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-`;
-
-
 const ProjectInfo = styled.div`
   width: 100%;
   height: 50vh;
@@ -90,15 +71,16 @@ const ProjectInfo = styled.div`
   }
 
   a {
-    color: #0066cc; 
-    text-decoration: none; 
-    transition: color 0.3s, text-decoration 0.3s; 
-a:hover, a:focus {
-    color: #004499; 
-    text-decoration: underline; 
-}
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration 0.3s;
 
-
+    &:hover,
+    &:focus {
+      color: #004499;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const ProjectTitle = styled.h3`
@@ -109,40 +91,14 @@ const ProjectDescription = styled.p`
   color: #333;
 `;
 
-
-
-// Image for portfolio
-
+// Simplified Image for portfolio
 const PortfolioImage = ({ alt, src, width, height }) => {
+    console.log(`Loading image: ${src}`); // Debugging log
+    return <NextImage src={src} alt={alt} width={width} height={height} />;
+};
 
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    // Fixing distorted images on tab switch
-
-    useEffect(() => {
-        setIsLoaded(false); // Reset loading state when src changes
-    }, [src]);
-
-    const handleImageLoad = () => {
-        setIsLoaded(true); // Set loading state to true when image is loaded
-    };
-
-    return (
-        <Image
-            src={src}
-            alt={alt}
-            placeholder="blur"
-            width={width}
-            height={height}
-        />
-
-
-    );
-}
 // Portfolio component
 const Portfolio = ({ id }) => {
-
-
     return (
         <SuperContainer id={id}>
             <h2>SOME WORKS</h2>
@@ -151,33 +107,58 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page', content:
+                                name: 'Main Page',
+                                content: (
                                     <PortfolioImage
                                         src={ludesignWebP}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Portfolio Page', content:
-
+                                name: 'Portfolio Page',
+                                content: (
                                     <PortfolioImage
                                         src={ludesignPortfolioWebP}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Approach', content:
-
+                                name: 'Approach',
+                                content: (
                                     <ProjectInfo>
-                                        <p>The website <a href='https://ludesign.info' rel="nofollow noopener noreferrer">ludesign.info</a> showcases the work of Ludmila Stepashina, a talented designer and illustrator. This site serves as a professional portfolio highlighting her skills and projects.</p>
-
-                                        <p>Built with HTML, CSS, and JavaScript, and utilizing Bootstrap for responsive design, the website offers a clean, modern look and a user-friendly experience. Its layout is intuitive, making it easy for visitors to navigate and explore Ludmila's work.</p>
-
-                                        <p>The use of high-quality images effectively showcases her portfolio, highlighting the range and depth of her design capabilities. The overall design, including the color scheme and typography, aligns seamlessly with her professional branding and style.</p>
+                                        <p>
+                                            The website{' '}
+                                            <a
+                                                href="https://ludesign.info"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                ludesign.info
+                                            </a>{' '}
+                                            showcases the work of Ludmila Stepashina, a talented
+                                            designer and illustrator. This site serves as a
+                                            professional portfolio highlighting her skills and
+                                            projects.
+                                        </p>
+                                        <p>
+                                            Built with HTML, CSS, and JavaScript, and utilizing
+                                            Bootstrap for responsive design, the website offers a
+                                            clean, modern look and a user-friendly experience. Its
+                                            layout is intuitive, making it easy for visitors to
+                                            navigate and explore Ludmila's work.
+                                        </p>
+                                        <p>
+                                            The use of high-quality images effectively showcases her
+                                            portfolio, highlighting the range and depth of her design
+                                            capabilities. The overall design, including the color
+                                            scheme and typography, aligns seamlessly with her
+                                            professional branding and style.
+                                        </p>
                                     </ProjectInfo>
-
+                                ),
                             },
                         ]}
                     />
@@ -194,33 +175,52 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page', content:
-
+                                name: 'Main Page',
+                                content: (
                                     <PortfolioImage
                                         src={sozoJPG}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Portfolio Page', content:
-
+                                name: 'Portfolio Page',
+                                content: (
                                     <PortfolioImage
                                         src={sozoPortfolioJPG}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Approach', content:
-
+                                name: 'Approach',
+                                content: (
                                     <ProjectInfo>
-                                        <p>The website <a href="https://sozodesign.ru" rel="nofollow noopener noreferrer">sozodesign.ru</a> is a well-crafted WordPress site, customized to showcase design and interior decoration services. It features an aesthetically pleasing and modern design, enhanced by HTML, CSS, JavaScript, and PHP.</p>
-
-                                        <p>With its responsive layout, the site ensures seamless navigation and viewing on various devices. JavaScript enhancements provide advanced user interaction, while PHP customizations contribute to dynamic content functionality, demonstrating a harmonious blend of design and technical expertise in web development.</p>
-
+                                        <p>
+                                            The website{' '}
+                                            <a
+                                                href="https://sozodesign.ru"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                sozodesign.ru
+                                            </a>{' '}
+                                            is a well-crafted WordPress site, customized to showcase
+                                            design and interior decoration services. It features an
+                                            aesthetically pleasing and modern design, enhanced by
+                                            HTML, CSS, JavaScript, and PHP.
+                                        </p>
+                                        <p>
+                                            With its responsive layout, the site ensures seamless
+                                            navigation and viewing on various devices. JavaScript
+                                            enhancements provide advanced user interaction, while PHP
+                                            customizations contribute to dynamic content
+                                            functionality, demonstrating a harmonious blend of design
+                                            and technical expertise in web development.
+                                        </p>
                                     </ProjectInfo>
-
+                                ),
                             },
                         ]}
                     />
@@ -228,7 +228,7 @@ const Portfolio = ({ id }) => {
                 <ProjectCard>
                     <ProjectTitle>Portfolio</ProjectTitle>
                     <ProjectDescription>
-                        Wordpress, Customization, CSS, JavaScript, PHP
+                        WordPress, Customization, CSS, JavaScript, PHP
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>
@@ -237,32 +237,51 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page', content:
-
+                                name: 'Main Page',
+                                content: (
                                     <PortfolioImage
                                         src={artWebP}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Portfolio Page', content:
-
+                                name: 'Portfolio Page',
+                                content: (
                                     <PortfolioImage
                                         src={artPortfolioJPG}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Approach', content:
-
+                                name: 'Approach',
+                                content: (
                                     <ProjectInfo>
-                                        <p>The website <a href="https://www.art-inspiration.ch" rel="nofollow noopener noreferrer">www.art-inspiration.ch</a> represents a custom adaptation of a WordPress theme, designed to create a unique and artistic online gallery. It incorporates interactive elements through custom JavaScript, adding depth to the user experience.</p>
-
-                                        <p>Offering a distinctive approach to layout and design, the site effectively showcases art pieces, leveraging a responsive framework for seamless viewing on various devices. This project is a testament to the fusion of creative design and interactive web technologies.</p>
+                                        <p>
+                                            The website{' '}
+                                            <a
+                                                href="https://www.art-inspiration.ch"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                www.art-inspiration.ch
+                                            </a>{' '}
+                                            represents a custom adaptation of a WordPress theme,
+                                            designed to create a unique and artistic online gallery.
+                                            It incorporates interactive elements through custom
+                                            JavaScript, adding depth to the user experience.
+                                        </p>
+                                        <p>
+                                            Offering a distinctive approach to layout and design, the
+                                            site effectively showcases art pieces, leveraging a
+                                            responsive framework for seamless viewing on various
+                                            devices. This project is a testament to the fusion of
+                                            creative design and interactive web technologies.
+                                        </p>
                                     </ProjectInfo>
-
+                                ),
                             },
                         ]}
                     />
@@ -270,7 +289,7 @@ const Portfolio = ({ id }) => {
                 <ProjectCard>
                     <ProjectTitle>Portfolio</ProjectTitle>
                     <ProjectDescription>
-                        Wordpress, CSS, JavaScript
+                        WordPress, CSS, JavaScript
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>
@@ -279,38 +298,50 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page', content:
-
+                                name: 'Main Page',
+                                content: (
                                     <PortfolioImage
                                         src={webdevWebP}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'A game', content:
-
+                                name: 'A game',
+                                content: (
                                     <PortfolioImage
                                         src={webdevGamePNG}
-                                        alt={"Project Screenshot"}
+                                        alt="Project Screenshot"
                                         width={600}
                                     />
+                                ),
                             },
                             {
-                                name: 'Approach', content:
-
+                                name: 'Approach',
+                                content: (
                                     <ProjectInfo>
-                                        <p><a href='https://annawedev.pro'>annawebdev.pro</a> is created for myself  This website is where my coding adventures unfold.</p>
-
-                                        <p>Crafted it with React and styled using Styled Components</p>
-
-                                        <p>Explore my projects, each a labor of passion and a testament to my skills in web development.</p>
-
-                                        <p>But it's not all serious business here! Have some fun with <a href="https://annawebdev.pro/game">Memo game</a>, a quirky addition to spice things up. </p>
-
-                                        <p>Responsive, intuitive, and a dash of personality – that's the essence of my site.</p>
+                                        <p>
+                                            <a
+                                                href="https://webdev-projects.example.com"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                WebDev Projects
+                                            </a>{' '}
+                                            is a collection of web development projects demonstrating
+                                            skills in HTML, CSS, JavaScript, and game development.
+                                            Each project is designed with a focus on functionality,
+                                            user experience, and coding best practices.
+                                        </p>
+                                        <p>
+                                            The showcase includes various interactive applications,
+                                            such as games developed using JavaScript, highlighting a
+                                            blend of creativity and technical proficiency. These
+                                            projects not only illustrate coding capabilities but also
+                                            an understanding of interactive and engaging web content.
+                                        </p>
                                     </ProjectInfo>
-
+                                ),
                             },
                         ]}
                     />
@@ -318,14 +349,10 @@ const Portfolio = ({ id }) => {
                 <ProjectCard>
                     <ProjectTitle>Portfolio</ProjectTitle>
                     <ProjectDescription>
-                        React.js, styled components
+                        HTML, CSS, JavaScript, Game Development
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>
-
-
-
-
         </SuperContainer>
     );
 };

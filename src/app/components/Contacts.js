@@ -162,7 +162,7 @@ const ContactList = styled.ul`
 `;
 
 const StyledParagraph = styled.p`
-font-size: 10px;
+font-size: .8rem;
 margin-bottom: 18px;
 
 a {
@@ -328,6 +328,7 @@ const Contact = ({ id }) => {
           <StyledInput
             type="text"
             value={name}
+            aria-label="name"
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
           />
@@ -336,6 +337,7 @@ const Contact = ({ id }) => {
         <FieldWrapper style={{ gridArea: 'email' }}>
           <StyledInput
             type="email"
+            aria-label="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your Email"
@@ -345,6 +347,7 @@ const Contact = ({ id }) => {
         <FieldWrapper style={{ gridArea: 'message' }}>
           <StyledTextArea
             type="text"
+            aria-label="message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Your Message"

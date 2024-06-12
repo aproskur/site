@@ -1,21 +1,19 @@
-'use client'
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import Tools from './Tools'
-import { useState } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import Tools from './Tools';
 
 const ToggleContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
+
 const ToggleOption = styled.div`
   cursor: pointer;
   padding: 5px;
   margin: 5px;
-  border-bottom: ${({ $isActive }) => $isActive ? '1px solid rgb(var(--clr-torquoise));' : 'none'};
+  border-bottom: ${({ $isActive }) =>
+    $isActive ? '1px solid rgb(var(--clr-torquoise));' : 'none'};
 `;
-
 
 const StyledService = styled.div`
   padding: 20px 0px;
@@ -25,9 +23,7 @@ const StyledService = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
 
-  
   h2 {
     color: #fff;
     margin-bottom: 15px;
@@ -39,8 +35,8 @@ const StyledService = styled.div`
   h3 {
     text-transform: uppercase;
     text-align: center;
-    margin-top: .9em; 
-    margin-bottom: .75em;  
+    margin-top: 0.9em;
+    margin-bottom: 0.75em;
   }
 
   p {
@@ -53,19 +49,17 @@ const StyledService = styled.div`
   }
 
   ul {
-    list-style-type: none; 
-    padding: 0; 
+    list-style-type: none;
+    padding: 0;
   }
 
   li {
-    color: #fff; 
-    line-height: 1.6; 
-    padding: 0.5em 0; 
+    color: #fff;
+    line-height: 1.6;
+    padding: 0.5em 0;
     border-bottom: 1px solid rgba(var(--clr-white), 0.2);
   }
 `;
-
-
 
 const StyledServiceContainer = styled.div`
   width: 70%;
@@ -81,21 +75,35 @@ const StyledServiceContainer = styled.div`
 `;
 
 const StyledShortDescription = styled.div`
-display:flex;
-padding-top: 3.5em;
-padding-bottom: 3.5em;
-@media (max-width: 635px) {
-  flex-direction: column;
-  align-items: center;
+  display: flex;
+  padding-top: 3.5em;
+  padding-bottom: 3.5em;
 
-  strong {
-    font-size: .75em;
+  @media (max-width: 635px) {
+    flex-direction: column;
+    align-items: center;
+
+    strong {
+      font-size: 0.75em;
+    }
   }
-}
-`
+`;
 
 const Service = ({ id }) => {
   const [descriptionLength, setDescriptionLength] = useState('long');
+  const shortOptionRef = useRef(null);
+  const longOptionRef = useRef(null);
+
+  useEffect(() => {
+    // Set focus to the body when the component mounts
+    document.body.focus();
+  }, []); // Run this effect only once, when the component mounts
+
+  const handleKeyDown = (event, option) => {
+    if (event.key === 'Enter') {
+      setDescriptionLength(option);
+    }
+  };
 
   const longDescription = (
     <>
@@ -124,12 +132,14 @@ const Service = ({ id }) => {
 
   const shortDescription = (
     <>
-      <StyledShortDescription><p><strong>Efficient Web Development & Support: </strong></p> <p>&nbsp; I build and support websites</p></StyledShortDescription>
+      <StyledShortDescription>
+        <p>
+          <strong>Efficient Web Development & Support: </strong>
+        </p>
+        <p>&nbsp; I build and support websites</p>
+      </StyledShortDescription>
     </>
-
   );
-
-
 
   return (
     <>
@@ -137,11 +147,25 @@ const Service = ({ id }) => {
         <StyledServiceContainer>
           <h2>WHAT I DO</h2>
           <ToggleContainer>
-            <ToggleOption $isActive={descriptionLength === 'short'} onClick={() => setDescriptionLength('short')}>
+            <ToggleOption
+              role="button"
+              $isActive={descriptionLength === 'short'}
+              onClick={() => setDescriptionLength('short')}
+              ref={shortOptionRef}
+              tabIndex={0}
+              onKeyDown={(event) => handleKeyDown(event, 'short')}
+            >
               Short
             </ToggleOption>
             <span> | </span>
-            <ToggleOption $isActive={descriptionLength === 'long'} onClick={() => setDescriptionLength('long')}>
+            <ToggleOption
+              role="button"
+              $isActive={descriptionLength === 'long'}
+              onClick={() => setDescriptionLength('long')}
+              ref={longOptionRef}
+              tabIndex={0}
+              onKeyDown={(event) => handleKeyDown(event, 'long')}
+            >
               Long
             </ToggleOption>
           </ToggleContainer>
@@ -149,7 +173,6 @@ const Service = ({ id }) => {
         </StyledServiceContainer>
       </StyledService>
       <Tools />
-      {/*descriptionLength === 'short' ? <Tools /> : null*/}
     </>
   );
 };

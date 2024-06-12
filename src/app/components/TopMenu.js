@@ -239,10 +239,10 @@ const TopMenu = () => {
                 <UseClientMenu>
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Contact</a></MenuItem>
-                        <MenuItem><a href="/game" aria-label="play a memo game">Fun</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} role="button" aria-label="View services section">Services</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">Projects</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">Contact</a></MenuItem>
+                        <MenuItem><a href="/game" role="button" aria-label="play a memo game">Fun</a></MenuItem>
                     </MenuItems>
                 </UseClientMenu>
 

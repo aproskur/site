@@ -30,13 +30,15 @@ const StyledService = styled.div`
     text-align: center;
     text-transform: uppercase;
     font-size: 3rem;
+    font-family: var(--font-poppins-bold);
   }
 
   h3 {
     text-transform: uppercase;
     text-align: center;
-    margin-top: 0.9em;
-    margin-bottom: 0.75em;
+    margin-top: 2em;
+    margin-bottom: 0.35em;
+    font-family: var(--font-poppins-bold);
   }
 
   p {

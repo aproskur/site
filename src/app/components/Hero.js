@@ -21,20 +21,19 @@ const HeroContainer = styled.div`
 const HeroText = styled.div`
    
     line-height: 1.3;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-rajdhani);
 
     h1,h2 {
         font-size: 3.5rem;
         margin-bottom: 0.1em;
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-poppins-bold);
     }
 
-    h2 {
+    h2{
         margin-bottom: .75em;
         font-size: 2rem;
         color: rgb(var(--clr-gold));
         text-transform: uppercase;
-        font-family: 'Poppins', sans-serif;
     }
 
     p {

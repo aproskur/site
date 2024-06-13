@@ -15,6 +15,11 @@ const ToolsContainer = styled.div`
     h2 {
         padding: 1em;
         text-align: center;
+        font-size: 3rem;
+        font-family: var(--font-poppins-bold);
+        @media (max-width: 500px) {
+      font-size: 2.5rem;
+    }
     }
 `;
 

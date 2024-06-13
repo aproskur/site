@@ -1,4 +1,5 @@
-import { Inter, Poppins, Rajdhani } from 'next/font/google'
+
+import { Inter, Poppins, Rajdhani, Archivo_Narrow } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import StyledComponentsRegistry from './lib/registry'
@@ -6,8 +7,10 @@ import Script from 'next/script'
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap'
+  display: 'swap',
+  variable: '--font-inter'
 });
+
 
 const poppins = Poppins({
   weight: ['400', '600', '700'],
@@ -25,11 +28,43 @@ const rajdhani = Rajdhani({
   variable: '--font-rajdhani'
 });
 
+const archivoNarrow = Archivo_Narrow({
+  weight: ['400', '600', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-archivo-narrow'
+});
+
 const wordGameFont = localFont({
   src: './assets/fonts/MouseMemoirs-Regular.ttf',
   display: 'swap',
   variable: '--font-wordGameFont'
-})
+});
+
+const styledText = localFont({
+  src: './assets/fonts/Rajdhani/Rajdhani-Regular.ttf',
+  display: 'swap',
+  variable: '--font-rajdhani'
+});
+
+const poppinsRegular = localFont(
+  {
+    src: './assets/fonts/Poppins/Poppins-Regular.ttf',
+    display: 'swap',
+    variable: '--font-poppins'
+  }
+);
+
+const poppinsSemibold = localFont({
+  src: './assets/fonts/Poppins/Poppins-Bold.ttf',
+  display: 'swap',
+  variable: '--font-poppins-bold'
+});
+
+
+
+
 
 export const metadata = {
   title: 'Anna Webdev',
@@ -41,7 +76,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${rajdhani.variable} ${wordGameFont.variable}`}>
+    <html lang="en" className={`${poppinsSemibold.variable} ${poppinsRegular.variable} ${rajdhani.variable} ${wordGameFont.variable} ${archivoNarrow.variable} ${inter.variable} ${styledText.variable}`}>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" async />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" async />

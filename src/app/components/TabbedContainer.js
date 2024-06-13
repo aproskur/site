@@ -14,7 +14,7 @@ const TabButton = styled.button`
   cursor: pointer;
   border-top-left-radius: 10px;
   border-top-right-radius: 3px;
-  font-family: "Rajdhani", sans-serif;
+  font-family: var(--font-rajdhani);
   background: var(--bgr-gradient);
   color: rgb(var(--clr-white));
 

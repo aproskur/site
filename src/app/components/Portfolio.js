@@ -22,6 +22,9 @@ const SuperContainer = styled.div`
     margin-top: 1em;
     text-align: center;
     color: rgb(var(--clr-gold));
+    font-family: var(--font-poppins-bold);
+    margin-bottom: .75em;
+
   }
 `;
 

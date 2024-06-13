@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import dynamic from "next/dynamic";
-import Button from './Button';
+'use client';
 
-const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
+import Button from './Button';
+import ReCAPTCHAComponent from './ReCAPTCHAComponent';
 
 const StyledContainer = styled.div`
   background-color: rgb(var(--clr-subtle-gray));
@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-font-family: var(--font-poppins);
+  font-family: var(--font-poppins);
 
   h2 {
     font-size: 3rem;
@@ -48,8 +48,6 @@ const StyledContactsContainer = styled.div`
   align-items: center;
   margin-top: 1em;
 
-  
-
   @media (max-width: 800px) {
     width: 90%;
   }
@@ -59,9 +57,9 @@ const StyledContactsContainer = styled.div`
   }
 
   h2 {
-  font-family: var(--font-poppins-bold);
-  font-size: 3rem;
-  margin-bottom: .75em;
+    font-family: var(--font-poppins-bold);
+    font-size: 3rem;
+    margin-bottom: .75em;
   }
 `;
 
@@ -116,7 +114,7 @@ const StyledInput = styled.input`
   }
 
   &:focus {
-    outline:  2px solid rgb(var(--clr-pink)); 
+    outline: 2px solid rgb(var(--clr-pink)); 
   }
 `;
 
@@ -134,7 +132,7 @@ const StyledTextArea = styled.textarea`
   color: rgb(var(--clr-gray));
 
   &:focus {
-    outline:  2px solid rgb(var(--clr-pink)); 
+    outline: 2px solid rgb(var(--clr-pink)); 
   }
 `;
 
@@ -196,192 +194,187 @@ const StyledErrorFormMessage = styled(StyledMessage)`
 `;
 
 const Contact = ({ id }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-    const [nameError, setNameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [messageError, setMessageError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [messageError, setMessageError] = useState('');
 
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [isRecaptchaVisible, setIsRecaptchaVisible] = useState(false);
-    const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
-    const validateForm = () => {
-        let isValid = true;
+  const recaptchaRef = useRef();
 
-        if (!name) {
-            setNameError("Please enter your name");
-            isValid = false;
-        } else {
-            setNameError("");
-        }
+  const validateForm = () => {
+    let isValid = true;
 
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!email) {
-            setEmailError("Please enter your email");
-            isValid = false;
-        } else if (!emailRegex.test(email)) {
-            setEmailError("Please enter a valid email address");
-            isValid = false;
-        } else {
-            setEmailError("");
-        }
-
-        if (!message.trim()) {
-            setMessageError("Please enter your message");
-            isValid = false;
-        } else {
-            setMessageError("");
-        }
-
-        if (!recaptchaToken) {
-            setErrorMessage("Please complete the reCAPTCHA");
-            isValid = false;
-        }
-
-        return isValid;
+    if (!name) {
+      setNameError("Please enter your name");
+      isValid = false;
+    } else {
+      setNameError("");
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const isFormValid = validateForm();
-
-        if (!isFormValid || isSubmitting) {
-            return;
-        }
-
-        const formData = {
-            name,
-            email,
-            message,
-            recaptchaToken
-        };
-        setIsSubmitting(true);
-
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-email`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
-
-            setSuccessMessage("Message sent successfully!");
-
-            setName('');
-            setEmail('');
-            setMessage('');
-            setRecaptchaToken(null); // Reset reCAPTCHA token
-        } catch (error) {
-            console.error('Error during fetch request:', error);
-            setErrorMessage('Error sending message: ' + error.message);
-        } finally {
-            setIsSubmitting(false);
-
-            setTimeout(() => {
-                setSuccessMessage('');
-                setErrorMessage('');
-            }, 5000);
-        }
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!email) {
+      setEmailError("Please enter your email");
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
     }
 
-    const handleRecaptcha = (value) => {
-        setRecaptchaToken(value);
+    if (!message.trim()) {
+      setMessageError("Please enter your message");
+      isValid = false;
+    } else {
+      setMessageError("");
+    }
+
+    if (!recaptchaToken) {
+      setErrorMessage("Please complete the reCAPTCHA");
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!recaptchaToken) {
+      if (recaptchaRef.current) {
+        recaptchaRef.current.execute();
+      }
+    }
+
+    const isFormValid = validateForm();
+
+    if (!isFormValid || isSubmitting) {
+      return;
+    }
+
+    const formData = {
+      name,
+      email,
+      message,
+      recaptchaToken
     };
+    setIsSubmitting(true);
 
-    const handleInteraction = () => {
-        setIsRecaptchaVisible(true);
-    };
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    return (
-        <StyledContainer id={id}>
-            <StyledContactsContainer>
-                <h2>Contact Me</h2>
-                <p><strong>For Small Businesses & Individual Entrepreneurs: </strong>Need a website that captures the essence of your business? I specialize in creating custom, engaging websites that help small businesses and entrepreneurs stand out and grow.</p>
-                <p><strong>For Startups  Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
-                <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
-                <p><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
-                <p>Feel free to reach out to me via email <a style={{ color: 'rgb(var(--clr-gold))' }} href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
-                    &nbsp; or use a contact form below</p>
-            </StyledContactsContainer>
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-            <StyledForm onSubmit={handleSubmit}>
-                <FieldWrapper style={{ gridArea: 'name' }}>
-                    <StyledInput
-                        type="text"
-                        value={name}
-                        aria-label="name"
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Your Name"
-                        onFocus={handleInteraction}
-                    />
-                    <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
-                </FieldWrapper>
-                <FieldWrapper style={{ gridArea: 'email' }}>
-                    <StyledInput
-                        type="email"
-                        aria-label="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Your Email"
-                        onFocus={handleInteraction}
-                    />
-                    <StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>
-                </FieldWrapper>
-                <FieldWrapper style={{ gridArea: 'message' }}>
-                    <StyledTextArea
-                        type="text"
-                        aria-label="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Your Message"
-                        onFocus={handleInteraction}
-                    />
-                    <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
-                </FieldWrapper>
-                {isRecaptchaVisible && (
-                    <ReCAPTCHA
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        size="invisible"
-                        onChange={handleRecaptcha}
-                    />
-                )}
-                <GridButton style={{ gridArea: 'button' }} type="submit" onClick={handleSubmit} aria-label="send message">
-                    {isSubmitting ? "Sending message..." : "Send message"}
-                </GridButton>
-            </StyledForm>
-            {successMessage && (
-                <StyledSuccessFormMessage>
-                    <p>{successMessage}</p>
-                </StyledSuccessFormMessage>
-            )}
+      const result = await response.json();
 
-            {errorMessage && (
-                <StyledErrorFormMessage>
-                    <p>{errorMessage}</p>
-                </StyledErrorFormMessage>
-            )}
+      setSuccessMessage("Message sent successfully!");
 
-            <StyledParagraph>This site is protected by reCAPTCHA and the
-                <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
-                <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
-            </StyledParagraph>
-        </StyledContainer>
-    );
+      setName('');
+      setEmail('');
+      setMessage('');
+      setRecaptchaToken(null); // Reset reCAPTCHA token
+      if (recaptchaRef.current) recaptchaRef.current.reset();
+    } catch (error) {
+      console.error('Error during fetch request:', error);
+      setErrorMessage('Error sending message: ' + error.message);
+    } finally {
+      setIsSubmitting(false);
+
+      setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+      }, 5000);
+    }
+  }
+
+  const handleRecaptcha = (value) => {
+    setRecaptchaToken(value);
+  };
+
+  return (
+    <StyledContainer id={id}>
+      <StyledContactsContainer>
+        <h2>Contact Me</h2>
+        <p><strong>For Small Businesses & Individual Entrepreneurs: </strong>Need a website that captures the essence of your business? I specialize in creating custom, engaging websites that help small businesses and entrepreneurs stand out and grow.</p>
+        <p><strong>For Startups & Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
+        <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
+        <p><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
+        <p>Feel free to reach out to me via email <a style={{ color: 'rgb(var(--clr-gold))' }} href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
+          &nbsp; or use a contact form below</p>
+      </StyledContactsContainer>
+
+      <StyledForm onSubmit={handleSubmit}>
+        <FieldWrapper style={{ gridArea: 'name' }}>
+          <StyledInput
+            type="text"
+            value={name}
+            aria-label="name"
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
+          />
+          <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
+        </FieldWrapper>
+        <FieldWrapper style={{ gridArea: 'email' }}>
+          <StyledInput
+            type="email"
+            aria-label="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your Email"
+          />
+          <StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>
+        </FieldWrapper>
+        <FieldWrapper style={{ gridArea: 'message' }}>
+          <StyledTextArea
+            type="text"
+            aria-label="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Your Message"
+          />
+          <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
+        </FieldWrapper>
+        <ReCAPTCHAComponent onTokenChange={handleRecaptcha} />
+        <GridButton style={{ gridArea: 'button' }} type="submit" aria-label="send message">
+          {isSubmitting ? "Sending message..." : "Send message"}
+        </GridButton>
+      </StyledForm>
+      {successMessage && (
+        <StyledSuccessFormMessage>
+          <p>{successMessage}</p>
+        </StyledSuccessFormMessage>
+      )}
+
+      {errorMessage && (
+        <StyledErrorFormMessage>
+          <p>{errorMessage}</p>
+        </StyledErrorFormMessage>
+      )}
+
+      <StyledParagraph>This site is protected by reCAPTCHA and the
+        <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
+        <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+      </StyledParagraph>
+    </StyledContainer>
+  );
 };
 
 export default Contact;

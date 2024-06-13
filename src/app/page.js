@@ -3,10 +3,11 @@ import styles from './page.module.css'
 import TopMenu from './components/TopMenu'
 import Hero from './components/Hero'
 import Watermark from './components/Watermark'
-import Service from './components/Service'
-import Portfolio from './components/Portfolio'
-import Contact from './components/Contacts'
-import Footer from './components/Footer'
+import dynamic from 'next/dynamic';
+const DynamicService = dynamic(() => import('./components/Service'));
+const DynamicPortfolio = dynamic(() => import('./components/Portfolio'));
+const DynamicContact = dynamic(() => import('./components/Contacts'));
+const DynamicFooter = dynamic(() => import('./components/Footer'));
 
 
 
@@ -23,10 +24,10 @@ export default function Home() {
       <TopMenu />
       <main className={styles.main}>
         <Hero />
-        <Service id="services" />
-        <Portfolio id="projects" />
-        <Contact id="contact-anna" />
-        <Footer />
+        <DynamicService id="services" />
+        <DynamicPortfolio id="projects" />
+        <DynamicContact id="contact-anna" />
+        <DynamicFooter />
       </main >
 
     </>

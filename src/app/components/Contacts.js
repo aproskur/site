@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import dynamic from "next/dynamic";
-import { useState } from 'react';
-import Button from './Button'
-
+import Button from './Button';
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
 
@@ -16,10 +14,10 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  h2{
+  h2 {
     font-size: 3rem;
 
-    @media (max-width: 500px){
+    @media (max-width: 500px) {
       font-size: 2.5rem;
     }
   }
@@ -38,24 +36,23 @@ const StyledContainer = styled.div`
     text-transform: uppercase;
     color: rgb(var(--clr-gold));
   }
-
 `;
 
 const StyledContactsContainer = styled.div`
-width: 70%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-top: 1em;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
 
-@media (max-width: 800px) {
-  width: 90%;
-}
+  @media (max-width: 800px) {
+    width: 90%;
+  }
 
-div {
-  padding: 1em 1em;
-}
+  div {
+    padding: 1em 1em;
+  }
 `;
 
 const FieldWrapper = styled.div`
@@ -64,37 +61,34 @@ const FieldWrapper = styled.div`
   margin: 10px 0;
 `;
 
-
 const StyledErrorMessage = styled.span`
   font-size: 0.8rem;
   margin: ${({ $show }) => ($show ? '5px 0' : '0')};
   height: ${({ $show }) => ($show ? 'auto' : '0')};
-  overflow: hidden; // Ensures content does not spill out when height is 0
+  overflow: hidden;
   margin: 0px 15px;
 `;
 
 const StyledForm = styled.form`
-    display: grid;
-    width: 100%; 
-    max-width: 600px;
-    padding: 10px;
-    margin: 20px 10px;
-    grid-template-areas: 
+  display: grid;
+  width: 100%; 
+  max-width: 600px;
+  padding: 10px;
+  margin: 20px 10px;
+  grid-template-areas: 
     "name"
     "email"
     "message"
     "button";
 
-
-    @media (min-width: 600px) { 
-      grid-template-columns: 1fr 1fr; 
-      grid-template-areas: 
-        "name email"
-        "message message"
-        "button button";
-    }
+  @media (min-width: 600px) { 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-areas: 
+      "name email"
+      "message message"
+      "button button";
+  }
 `;
-
 
 const StyledInput = styled.input`
   padding: 10px;
@@ -106,7 +100,6 @@ const StyledInput = styled.input`
   background-color: inherit;
   font-family: var(--font);
   color: rgb(var(--clr-gray));
-  
 
   &:last-of-type {
     grid-area: email; 
@@ -117,14 +110,13 @@ const StyledInput = styled.input`
   }
 `;
 
-
 const StyledTextArea = styled.textarea`
   padding: 10px;
   margin: 10px 5px;
   border: 2px solid rgb(var(--clr-gold));
   border-radius: 10px;
-  height: 100px; // Larger height for the textarea
-  width: calc(100% - 10px); // Ensure it occupies the full width
+  height: 100px;
+  width: calc(100% - 10px);
   resize: vertical; 
   grid-area: message;
   background-color: inherit;
@@ -141,7 +133,6 @@ const GridButton = styled(Button)`
   justify-self: center;
   padding: .5em 1em;
 `;
-
 
 const ContactList = styled.ul`
   list-style: none;
@@ -165,20 +156,19 @@ const ContactList = styled.ul`
 `;
 
 const StyledParagraph = styled.p`
-font-size: .8rem;
-margin-bottom: 18px;
+  font-size: .8rem;
+  margin-bottom: 18px;
 
-a {
-  color: rgb(var(--clr-gold));
-}
+  a {
+    color: rgb(var(--clr-gold));
+  }
 `;
 
 const StyledMessage = styled.div`
-display: flex;
-padding: 5px;
-text-transform: uppercase;
-font-size: 0.75rem;
-
+  display: flex;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 `;
 
 const StyledSuccessFormMessage = styled(StyledMessage)`
@@ -200,8 +190,6 @@ const Contact = ({ id }) => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-
-  //State for error messages
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [messageError, setMessageError] = useState('');
@@ -209,17 +197,14 @@ const Contact = ({ id }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-
-
-  // State for tracking form submission status. Added to avoid multiple submissions
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [isRecaptchaVisible, setIsRecaptchaVisible] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
   const validateForm = () => {
     let isValid = true;
 
-    // Validate name
     if (!name) {
       setNameError("Please enter your name");
       isValid = false;
@@ -227,10 +212,7 @@ const Contact = ({ id }) => {
       setNameError("");
     }
 
-    // Validate email
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-
     if (!email) {
       setEmailError("Please enter your email");
       isValid = false;
@@ -241,13 +223,18 @@ const Contact = ({ id }) => {
       setEmailError("");
     }
 
-    // Validate message
     if (!message.trim()) {
       setMessageError("Please enter your message");
       isValid = false;
     } else {
       setMessageError("");
     }
+
+    if (!recaptchaToken) {
+      setErrorMessage("Please complete the reCAPTCHA");
+      isValid = false;
+    }
+
     return isValid;
   }
 
@@ -260,17 +247,15 @@ const Contact = ({ id }) => {
       return;
     }
 
-    // Form data
     const formData = {
       name,
       email,
-      message
+      message,
+      recaptchaToken
     };
     setIsSubmitting(true);
 
-    // Sending data to the server
     try {
-
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-email`, {
         method: 'POST',
         headers: {
@@ -279,46 +264,38 @@ const Contact = ({ id }) => {
         body: JSON.stringify(formData),
       });
 
-
-
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
       const result = await response.json();
 
-
-      //TODO
       setSuccessMessage("Message sent successfully!");
 
-      // Reset form fields
       setName('');
       setEmail('');
       setMessage('');
+      setRecaptchaToken(null); // Reset reCAPTCHA token
     } catch (error) {
       console.error('Error during fetch request:', error);
       setErrorMessage('Error sending message: ' + error.message);
     } finally {
-      setIsSubmitting(false); // Reset submission status
+      setIsSubmitting(false);
 
       setTimeout(() => {
         setSuccessMessage('');
         setErrorMessage('');
       }, 5000);
-
     }
   }
 
-
-  //TODO!!!
   const handleRecaptcha = (value) => {
-    console.log("Captcha value:", value);
+    setRecaptchaToken(value);
   };
 
   const handleInteraction = () => {
     setIsRecaptchaVisible(true);
   };
-
 
   return (
     <StyledContainer id={id}>

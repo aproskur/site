@@ -1,9 +1,11 @@
 
-import { Inter, Poppins, Rajdhani, Archivo_Narrow } from 'next/font/google'
-import localFont from 'next/font/local'
-import './globals.css'
-import StyledComponentsRegistry from './lib/registry'
-import Script from 'next/script'
+import { Inter, Poppins, Rajdhani, Archivo_Narrow } from 'next/font/google';
+import localFont from 'next/font/local';
+import './globals.css';
+import StyledComponentsRegistry from './lib/registry';
+import Script from 'next/script';
+import CSSLoader from './components/CSSLoader';
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,11 +77,15 @@ export const metadata = {
 
 
 export default function RootLayout({ children }) {
+
+
   return (
     <html lang="en" className={`${poppinsSemibold.variable} ${poppinsRegular.variable} ${rajdhani.variable} ${wordGameFont.variable} ${archivoNarrow.variable} ${inter.variable} ${styledText.variable}`}>
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" async />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" async />
+        <noscript>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        </noscript>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -96,6 +102,7 @@ export default function RootLayout({ children }) {
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
         </noscript>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <CSSLoader />
       </body>
     </html>
   )

@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from "next/dynamic";
 import { useState } from 'react';
 import Button from './Button'
-import ReCAPTCHA from "react-google-recaptcha";
+
+
+const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
 
 const StyledContainer = styled.div`
   background-color: rgb(var(--clr-subtle-gray));
@@ -211,6 +214,8 @@ const Contact = ({ id }) => {
   // State for tracking form submission status. Added to avoid multiple submissions
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [isRecaptchaVisible, setIsRecaptchaVisible] = useState(false);
+
   const validateForm = () => {
     let isValid = true;
 
@@ -310,6 +315,10 @@ const Contact = ({ id }) => {
     console.log("Captcha value:", value);
   };
 
+  const handleInteraction = () => {
+    setIsRecaptchaVisible(true);
+  };
+
 
   return (
     <StyledContainer id={id}>
@@ -331,6 +340,7 @@ const Contact = ({ id }) => {
             aria-label="name"
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
+            onFocus={handleInteraction}
           />
           <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
         </FieldWrapper>
@@ -341,8 +351,9 @@ const Contact = ({ id }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your Email"
+            onFocus={handleInteraction}
           />
-          {<StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>}
+          <StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>
         </FieldWrapper>
         <FieldWrapper style={{ gridArea: 'message' }}>
           <StyledTextArea
@@ -351,15 +362,20 @@ const Contact = ({ id }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Your Message"
+            onFocus={handleInteraction}
           />
           <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
         </FieldWrapper>
-        <ReCAPTCHA
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-          size="invisible"
-          onChange={handleRecaptcha}
-        />
-        <GridButton style={{ gridArea: 'button' }} type="submit" onClick={handleSubmit} aria-label="send message"> {isSubmitting ? "Sending message..." : "Send message"}</GridButton>
+        {isRecaptchaVisible && (
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            size="invisible"
+            onChange={handleRecaptcha}
+          />
+        )}
+        <GridButton style={{ gridArea: 'button' }} type="submit" onClick={handleSubmit} aria-label="send message">
+          {isSubmitting ? "Sending message..." : "Send message"}
+        </GridButton>
       </StyledForm>
       {successMessage && (
         <StyledSuccessFormMessage>
@@ -372,7 +388,6 @@ const Contact = ({ id }) => {
           <p>{errorMessage}</p>
         </StyledErrorFormMessage>
       )}
-
 
       <StyledParagraph>This site is protected by reCAPTCHA and the
         <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and

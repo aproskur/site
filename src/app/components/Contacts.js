@@ -264,7 +264,7 @@ const Contact = ({ id }) => {
       return;
     }
 
-    const token = await executeRecaptcha("form-submit");
+    const token = await executeRecaptcha("form_submit");
 
     // Pass token to validateForm if needed
     const isValid = validateForm(token, name, email, message);

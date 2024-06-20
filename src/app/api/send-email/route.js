@@ -3,14 +3,44 @@ import validator from 'validator';
 import sanitizeHtml from 'sanitize-html';
 import { NextResponse } from 'next/server';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
-
+import axios from 'axios';
 
 // Set up the rate limiter
 const rateLimiter = new RateLimiterMemory({
     points: 5, // Maximum number of requests
     duration: 15 * 60, // Per window time in seconds (15 minutes)
-    // Other options can be added if needed
 });
+
+// Google reCAPTCHA verification function
+async function verifyRecaptcha(token) {
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const url = `https://www.google.com/recaptcha/api/siteverify`;
+
+    const params = new URLSearchParams();
+    params.append('secret', secretKey);
+    params.append('response', token);
+
+    try {
+        const response = await axios.post(url, params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        const { success, score } = response.data;
+        if (success) {
+            console.log(`reCAPTCHA verification successful with score: ${score}`);
+            return true;
+        } else {
+            console.log('reCAPTCHA verification failed');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error verifying reCAPTCHA:', error.message);
+        return false;
+    }
+}
+
 
 // Middleware for rate limiting
 async function rateLimitMiddleware(req, res) {
@@ -26,17 +56,23 @@ async function rateLimitMiddleware(req, res) {
     }
 }
 
-
-
-//API endpoint handler
+// API endpoint handler
 export async function POST(request) {
-
     const rateLimitResult = await rateLimitMiddleware(request);
     if (rateLimitResult) return rateLimitResult;
 
-    const body = await request.json();
-    const { name, email, message } = body;
+    const { token, name, email, message } = await request.json();
 
+    // Verify reCAPTCHA
+    const recaptchaValid = await verifyRecaptcha(token);
+    if (!recaptchaValid) {
+        return new NextResponse(JSON.stringify({ error: 'reCAPTCHA verification failed' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+    // Validate other form fields (name, email, message)
     if (!name || validator.isEmpty(name)) {
         return new NextResponse(JSON.stringify({ error: 'Name is required' }), {
             status: 400,
@@ -66,17 +102,18 @@ export async function POST(request) {
         });
     }
 
+    // Sanitize inputs
     const sanitizedEmail = sanitizeHtml(email, {
         allowedTags: [], // Allow no HTML tags in email
-        allowedAttributes: {} // Allow no HTML attributes
+        allowedAttributes: {}, // Allow no HTML attributes
     });
 
     const sanitizedMessage = sanitizeHtml(message, {
         allowedTags: ['b', 'i', 'em', 'strong', 'p', 'ul', 'ol', 'li'], // Example: Allow basic formatting tags
-        allowedAttributes: {} // No attributes allowed
+        allowedAttributes: {}, // No attributes allowed
     });
 
-    // Set up your nodemailer transporter
+    // Set up nodemailer transporter
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -115,5 +152,3 @@ export async function POST(request) {
         });
     }
 }
-
-

@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import axios from 'axios';
 import styled from 'styled-components';
 import Button from './Button';
-import ReCAPTCHAComponent from './ReCAPTCHAComponent';
+
 
 const StyledContainer = styled.div`
   background-color: rgb(var(--clr-subtle-gray));
@@ -207,14 +209,16 @@ const Contact = ({ id }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
-  const recaptchaRef = useRef();
 
-  const validateForm = () => {
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+
+  const validateForm = (token, name, email, message) => {
     let isValid = true;
 
-    if (!name) {
+    if (!name || typeof name !== 'string' || name.trim() === '') {
       setNameError("Please enter your name");
       isValid = false;
     } else {
@@ -222,7 +226,7 @@ const Contact = ({ id }) => {
     }
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!email) {
+    if (!email || email.trim() === '') {
       setEmailError("Please enter your email");
       isValid = false;
     } else if (!emailRegex.test(email)) {
@@ -232,82 +236,80 @@ const Contact = ({ id }) => {
       setEmailError("");
     }
 
-    if (!message.trim()) {
+    if (!message || message.trim() === '') {
       setMessageError("Please enter your message");
       isValid = false;
     } else {
       setMessageError("");
     }
 
-    if (!recaptchaToken) {
+    if (!token) {
       setErrorMessage("Please complete the reCAPTCHA");
       isValid = false;
+    } else {
+      setErrorMessage(""); // Clear error message if token is present
     }
 
     return isValid;
-  }
+  };
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!recaptchaToken) {
-      if (recaptchaRef.current) {
-        recaptchaRef.current.execute();
-      }
-    }
-
-    const isFormValid = validateForm();
-
-    if (!isFormValid || isSubmitting) {
+    if (!executeRecaptcha) {
+      console.error("Execute recaptcha not yet available");
       return;
     }
 
-    const formData = {
-      name,
-      email,
-      message,
-      recaptchaToken
-    };
+    const token = await executeRecaptcha("form-submit");
+
+    // Pass token to validateForm if needed
+    const isValid = validateForm(token, name, email, message);
+
+    if (!isValid) {
+      setErrorMessage('Please complete all required fields.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      console.log('Sending data:', { token, name, email, message });
+
+      const response = await axios.post('/api/send-email', {
+        token,
+        name,
+        email,
+        message,
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (response.status === 200) {
+        setSuccessMessage('Your message has been sent successfully!');
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setErrorMessage('Failed to send message. Please try again later.');
       }
-
-      const result = await response.json();
-
-      setSuccessMessage("Message sent successfully!");
-
-      setName('');
-      setEmail('');
-      setMessage('');
-      setRecaptchaToken(null); // Reset reCAPTCHA token
-      if (recaptchaRef.current) recaptchaRef.current.reset();
     } catch (error) {
-      console.error('Error during fetch request:', error);
-      setErrorMessage('Error sending message: ' + error.message);
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        setErrorMessage(`Failed to send message: ${error.response.data.error}`);
+      } else {
+        console.error('Error message:', error.message);
+        setErrorMessage('Failed to send message. Please try again later.');
+      }
     } finally {
       setIsSubmitting(false);
-
-      setTimeout(() => {
-        setSuccessMessage('');
-        setErrorMessage('');
-      }, 5000);
     }
-  }
-
-  const handleRecaptcha = (value) => {
-    setRecaptchaToken(value);
   };
+
+
+
 
   return (
     <StyledContainer id={id}>
@@ -352,28 +354,32 @@ const Contact = ({ id }) => {
           />
           <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
         </FieldWrapper>
-        <ReCAPTCHAComponent onTokenChange={handleRecaptcha} />
         <GridButton style={{ gridArea: 'button' }} type="submit" aria-label="send message">
           {isSubmitting ? "Sending message..." : "Send message"}
         </GridButton>
-      </StyledForm>
-      {successMessage && (
-        <StyledSuccessFormMessage>
-          <p>{successMessage}</p>
-        </StyledSuccessFormMessage>
-      )}
 
-      {errorMessage && (
-        <StyledErrorFormMessage>
-          <p>{errorMessage}</p>
-        </StyledErrorFormMessage>
-      )}
+      </StyledForm>
+      {
+        successMessage && (
+          <StyledSuccessFormMessage>
+            <p>{successMessage}</p>
+          </StyledSuccessFormMessage>
+        )
+      }
+
+      {
+        errorMessage && (
+          <StyledErrorFormMessage>
+            <p>{errorMessage}</p>
+          </StyledErrorFormMessage>
+        )
+      }
 
       <StyledParagraph>This site is protected by reCAPTCHA and the
         <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
         <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
       </StyledParagraph>
-    </StyledContainer>
+    </StyledContainer >
   );
 };
 

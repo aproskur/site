@@ -1,31 +1,26 @@
-'use client';
-
-import React, { useRef, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-
-const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), { ssr: false });
+import React, { useEffect } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const ReCAPTCHAComponent = ({ onTokenChange }) => {
-    const recaptchaRef = useRef(null);
-
-    const handleRecaptchaChange = (value) => {
-        onTokenChange(value);
-    };
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     useEffect(() => {
-        if (recaptchaRef.current) {
-            recaptchaRef.current.reset();
-        }
-    }, []);
+        const loadRecaptcha = async () => {
+            if (executeRecaptcha) {
+                try {
+                    const token = await executeRecaptcha('contactFormSubmission');
+                    console.log('ReCAPTCHA token:', token);
+                    onTokenChange(token); // Pass token to parent component
+                } catch (error) {
+                    console.error('Error executing reCAPTCHA:', error);
+                }
+            }
+        };
 
-    return (
-        <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            size="invisible"
-            onChange={handleRecaptchaChange}
-        />
-    );
+        loadRecaptcha();
+    }, [executeRecaptcha, onTokenChange]);
+
+    return null;
 };
 
 export default ReCAPTCHAComponent;

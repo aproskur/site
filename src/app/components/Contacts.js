@@ -277,8 +277,6 @@ const Contact = ({ id }) => {
     setIsSubmitting(true);
 
     try {
-      console.log('Sending data:', { token, name, email, message });
-
       const response = await axios.post('/api/send-email', {
         token,
         name,

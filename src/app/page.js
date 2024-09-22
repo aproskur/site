@@ -1,5 +1,4 @@
 'use client'
-import styles from './page.module.css'
 import Watermark from './components/Watermark'
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';

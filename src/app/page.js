@@ -1,11 +1,11 @@
 'use client'
 import styles from './page.module.css'
-import TopMenu from './components/TopMenu'
-import Hero from './components/Hero'
 import Watermark from './components/Watermark'
 import dynamic from 'next/dynamic';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
+const DynamicTopMenu = dynamic(() => import('./components/TopMenu'));
+const DynamicHero = dynamic(() => import('./components/Hero'));
 const DynamicService = dynamic(() => import('./components/Service'));
 const DynamicPortfolio = dynamic(() => import('./components/Portfolio'));
 const DynamicContact = dynamic(() => import('./components/Contacts'), { ssr: false });
@@ -25,9 +25,9 @@ export default function Home() {
 
   return (
     <>
-      <TopMenu />
+      <DynamicTopMenu />
       <main className={styles.main}>
-        <Hero />
+        <DynamicHero />
         <DynamicService id="services" />
         <DynamicPortfolio id="projects" />
         <DynamicContact id="contact-anna" />

@@ -1,10 +1,22 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Button from './Button';
+import { useGoogleReCaptcha, GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+
+const Contact = ({ id }) => {
+
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <ContactForm id={id} />
+    </GoogleReCaptchaProvider>
+  );
+};
+
 
 
 const StyledContainer = styled.div`
@@ -195,7 +207,11 @@ const StyledErrorFormMessage = styled(StyledMessage)`
   }
 `;
 
-const Contact = ({ id }) => {
+const ContactForm = () => {
+
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -209,10 +225,6 @@ const Contact = ({ id }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
-
-
-  const { executeRecaptcha } = useGoogleReCaptcha();
 
 
   const validateForm = (token, name, email, message) => {
@@ -310,7 +322,7 @@ const Contact = ({ id }) => {
 
 
   return (
-    <StyledContainer id={id}>
+    <StyledContainer>
       <StyledContactsContainer>
         <h2>Contact Me</h2>
         <p><strong>For Small Businesses & Individual Entrepreneurs: </strong>Need a website that captures the essence of your business? I specialize in creating custom, engaging websites that help small businesses and entrepreneurs stand out and grow.</p>

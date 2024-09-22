@@ -134,7 +134,6 @@ export async function POST(request) {
     try {
         await transporter.sendMail(mailOptions);
         console.log('Email sent successfully');
-        // Use NextResponse for the response
         return new NextResponse(JSON.stringify({ message: 'Email sent successfully' }), {
             status: 200,
             headers: {
@@ -143,7 +142,6 @@ export async function POST(request) {
         });
     } catch (error) {
         console.error('Error sending email:', error);
-        // Use NextResponse for error handling
         return new NextResponse(JSON.stringify({ message: 'Error in sending email' }), {
             status: 500,
             headers: {

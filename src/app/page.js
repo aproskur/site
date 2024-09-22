@@ -8,7 +8,7 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 const DynamicService = dynamic(() => import('./components/Service'));
 const DynamicPortfolio = dynamic(() => import('./components/Portfolio'));
-const DynamicContact = dynamic(() => import('./components/Contacts'));
+const DynamicContact = dynamic(() => import('./components/Contacts'), { ssr: false });
 const DynamicFooter = dynamic(() => import('./components/Footer'));
 
 
@@ -16,7 +16,7 @@ const DynamicFooter = dynamic(() => import('./components/Footer'));
 export default function Home() {
 
 
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  //const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   const words = ['CODE', 'CODE', 'CODE', 'CODE', 'CODE'];
   const colors = ['rgba(var(--clr-white), 0.2)', 'rgba(var(--clr-gold), .7);',
@@ -25,16 +25,14 @@ export default function Home() {
 
   return (
     <>
-      <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
-        <TopMenu />
-        <main className={styles.main}>
-          <Hero />
-          <DynamicService id="services" />
-          <DynamicPortfolio id="projects" />
-          <DynamicContact id="contact-anna" />
-          <DynamicFooter />
-        </main >
-      </GoogleReCaptchaProvider>
+      <TopMenu />
+      <main className={styles.main}>
+        <Hero />
+        <DynamicService id="services" />
+        <DynamicPortfolio id="projects" />
+        <DynamicContact id="contact-anna" />
+        <DynamicFooter />
+      </main >
 
     </>
   )

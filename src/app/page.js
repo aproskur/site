@@ -18,8 +18,6 @@ const StyledMainContainer = styled.main`
 export default function Home() {
 
 
-  //const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-
   const words = ['CODE', 'CODE', 'CODE', 'CODE', 'CODE'];
   const colors = ['rgba(var(--clr-white), 0.2)', 'rgba(var(--clr-gold), .7);',
     'rgba(var(--clr-pink), 0.7);', 'rgba(var(--clr-white), 0.2)', 'rgba(var(--clr-white), 0.2)'];

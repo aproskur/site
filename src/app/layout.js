@@ -92,18 +92,31 @@ export const metadata = {
 export default function RootLayout({ children }) {
 
 
+  //trying to add "lazy" load triggered by user interaction without useEffect
+  const insertGTM = `
+  (function() {
+    function loadGTM() {
+      var gtmScript = document.createElement('script');
+      gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=G-W5ZZY1CWBH';
+      gtmScript.async = true;
+      gtmScript.defer = true;
+      document.head.appendChild(gtmScript);
+    }
+
+    // Add event listener for user interaction (click or scroll)
+    window.addEventListener('click', loadGTM, { once: true });
+    window.addEventListener('scroll', loadGTM, { once: true });
+  })();
+`;
+
+
   return (
     <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>
-        <Script id="google-tag-manager" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true; j.defer=true; j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','G-W5ZZY1CWBH');
-          `}
-        </Script>
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=G-W5ZZY1CWBH"
+            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
+        </noscript>
       </head>
       <body>
         <noscript>

@@ -95,7 +95,6 @@ const ProjectDescription = styled.p`
 
 // Simplified Image for portfolio
 const PortfolioImage = ({ alt, src, width, height }) => {
-    console.log(`Loading image: ${src}`); // Debugging log
     return <NextImage src={src} alt={alt} width={width} height={height} />;
 };
 

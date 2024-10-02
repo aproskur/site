@@ -1,41 +1,44 @@
 
-import { Inter, Poppins, Rajdhani, Archivo_Narrow } from 'next/font/google';
+//import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import StyledComponentsRegistry from './lib/registry';
 import Script from 'next/script';
 
-
+/*
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter'
-});
+}); */
 
-
-const poppins = Poppins({
-  weight: ['400', '600', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-poppins'
-});
-
-const rajdhani = Rajdhani({
-  weight: ['400', '600', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-rajdhani'
-});
-
-const archivoNarrow = Archivo_Narrow({
-  weight: ['400', '600', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
+const archivoNarrowFont = localFont({
+  src: [
+    {
+      path: './assets/fonts/archivo-narrow/static/ArchivoNarrow-Regular.ttf',
+      weight: '400', // Normal weight
+      style: 'normal'
+    },
+    {
+      path: './assets/fonts/archivo-narrow/static/ArchivoNarrow-Medium.ttf',
+      weight: '500', // Medium weight
+      style: 'normal'
+    },
+    {
+      path: './assets/fonts/archivo-narrow/static/ArchivoNarrow-SemiBold.ttf',
+      weight: '600', // SemiBold weight
+      style: 'normal'
+    },
+    {
+      path: './assets/fonts/archivo-narrow/static/ArchivoNarrow-Bold.ttf',
+      weight: '700', // Bold weight
+      style: 'normal'
+    }
+  ],
   display: 'swap',
   variable: '--font-archivo-narrow'
 });
+
 
 const wordGameFont = localFont({
   src: './assets/fonts/MouseMemoirs-Regular.ttf',
@@ -49,22 +52,30 @@ const styledText = localFont({
   variable: '--font-rajdhani'
 });
 
-const poppinsRegular = localFont(
-  {
-    src: './assets/fonts/Poppins/Poppins-Regular.ttf',
-    display: 'swap',
-    variable: '--font-poppins'
-  }
-);
 
-const poppinsSemibold = localFont({
-  src: './assets/fonts/Poppins/Poppins-Bold.ttf',
+
+
+const poppinsFont = localFont({
+  src: [
+    {
+      path: './assets/fonts/Poppins/Poppins-Regular.ttf',
+      weight: '400', // Regular weight
+      style: 'normal'
+    },
+    {
+      path: './assets/fonts/Poppins/Poppins-SemiBold.ttf',
+      weight: '600', // SemiBold weight
+      style: 'normal'
+    },
+    {
+      path: './assets/fonts/Poppins/Poppins-Bold.ttf',
+      weight: '700', // Bold weight
+      style: 'normal'
+    }
+  ],
   display: 'swap',
-  variable: '--font-poppins-bold'
+  variable: '--font-poppins'
 });
-
-
-
 
 
 export const metadata = {
@@ -79,12 +90,10 @@ export default function RootLayout({ children }) {
 
 
   return (
-    <html lang="en" className={`${poppinsSemibold.variable} ${poppinsRegular.variable} ${rajdhani.variable} ${wordGameFont.variable} ${archivoNarrow.variable} ${inter.variable} ${styledText.variable}`}>
+    <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>
-        <noscript>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-        </noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -95,7 +104,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body>
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=G-W5ZZY1CWBH"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>

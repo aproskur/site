@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 
 const Nav = styled.nav`
+font-family: var(--font-poppins);
     display: flex;
     flex-direction: row;
     position: sticky;
@@ -144,7 +145,6 @@ const MenuItems = styled.ul.attrs({
 const MenuItem = styled.li`
     list-style-type: none;
     text-transform: uppercase;  
-    font-weight: bold;
   --clr-torquoise: 64, 224, 208;
   color: rgb(var(--clr-torquoise));
 `;

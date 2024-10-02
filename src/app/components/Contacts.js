@@ -27,7 +27,6 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: var(--font-poppins);
 
   h2 {
     font-size: 3rem;
@@ -41,7 +40,6 @@ const StyledContainer = styled.div`
   h2,
   h3 {
     color: rgb(var(--clr-gold));
-    font-family: var(--font-poppins-bold);
   }
 
   p {
@@ -71,7 +69,6 @@ const StyledContactsContainer = styled.div`
   }
 
   h2 {
-    font-family: var(--font-poppins-bold);
     font-size: 3rem;
     margin-bottom: .75em;
   }
@@ -92,6 +89,7 @@ const StyledErrorMessage = styled.span`
 `;
 
 const StyledForm = styled.form`
+font-family: var(--font-poppins);
   display: grid;
   width: 100%; 
   max-width: 600px;

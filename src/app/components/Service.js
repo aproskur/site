@@ -8,6 +8,7 @@ const ToggleContainer = styled.div`
 `;
 
 const ToggleOption = styled.div`
+font-family: var(--font-poppins);
   cursor: pointer;
   padding: 5px;
   margin: 5px;
@@ -16,6 +17,7 @@ const ToggleOption = styled.div`
 `;
 
 const StyledService = styled.div`
+ font-family: var(--font-poppins);
   padding: 20px 0px;
   background: rgb(var(--clr-gray));
   width: 100%;
@@ -30,7 +32,6 @@ const StyledService = styled.div`
     text-align: center;
     text-transform: uppercase;
     font-size: 3rem;
-    font-family: var(--font-poppins-bold);
   }
 
   h3 {
@@ -38,7 +39,6 @@ const StyledService = styled.div`
     text-align: center;
     margin-top: 2em;
     margin-bottom: 0.35em;
-    font-family: var(--font-poppins-bold);
   }
 
   p {

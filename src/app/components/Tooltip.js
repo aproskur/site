@@ -7,16 +7,17 @@ const TooltipContainer = styled.div`
 `;
 
 const TooltipText = styled.div`
+font-family: var(--font-rajdhani);
   visibility: hidden;
   width: 120px;
   background: var(--bgr-gradient);
   color: white;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 2px 0;
   position: absolute;
   z-index: 1;
-  bottom: 100%;
+  bottom: 110%;
   left: 50%;
   margin-left: -60px;
 

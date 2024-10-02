@@ -26,7 +26,6 @@ const HeroText = styled.div`
     h1,h2 {
         font-size: 3.5rem;
         margin-bottom: 0.1em;
-        font-family: var(--font-poppins-bold);
     }
 
     h2{

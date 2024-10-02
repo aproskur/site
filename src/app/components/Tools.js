@@ -16,7 +16,6 @@ const ToolsContainer = styled.div`
         padding: 1em;
         text-align: center;
         font-size: 3rem;
-        font-family: var(--font-poppins-bold);
         @media (max-width: 500px) {
       font-size: 2.5rem;
     }

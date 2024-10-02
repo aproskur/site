@@ -65,7 +65,7 @@ const StyledContainer = styled.div`
     color: rgb(var(--clr-gold));
   }
 
-  div {
+  div:last-child{
   text-align: center;}
 `;
 

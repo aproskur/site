@@ -2,6 +2,37 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+
+function EmailIcon() {
+  return (
+    <a
+      href="mailto:annapro.webdev@gmail.com"
+      aria-label="Email Anna"
+    >
+      <FontAwesomeIcon icon={faEnvelope} size="1x" />
+      <span className="sr-only">Email Anna</span>
+    </a>
+  )
+}
+
+function LinkedInIcon() {
+  return (
+    <div>
+      <a
+        href="https://www.linkedin.com/in/anna-proskurina-b08337281/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn Profile"
+      >
+        <FontAwesomeIcon icon={faLinkedin} size="1x" />
+      </a>
+    </div>
+  )
+}
+
 const FooterContainer = styled.footer`
   background-color: #555769; 
   color: rgb(var(--clr-torquoise));
@@ -15,9 +46,11 @@ const CopyrightText = styled.p`
 
 const SocialIcons = styled.div`
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 `;
 
-const SocialIcon = styled.a`
+const SocialIcon = styled.div`
   font-size: 20px;
   margin: 0 10px;
   color: rgb(var(--clr-torquoise));
@@ -35,8 +68,8 @@ const Footer = () => {
     <FooterContainer>
       <CopyrightText>&copy; {currentYear} ANNA WEBDEV</CopyrightText>
       <SocialIcons>
-        <SocialIcon href="https://www.linkedin.com/in/anna-proskurina-b08337281/" className="fab fa-linkedin"><span className="sr-only">LinkedIn Profile</span></SocialIcon>
-        <SocialIcon href="mailto:annapro.webdev@gmail.com" className="fa fa-envelope"><span className="sr-only">Email Anna</span></SocialIcon>
+        <SocialIcon><LinkedInIcon /></SocialIcon>
+        <SocialIcon><EmailIcon /></SocialIcon>
       </SocialIcons>
     </FooterContainer>
   );

@@ -10,7 +10,6 @@ const TooltipText = styled.div`
 font-family: var(--font-rajdhani);
   visibility: hidden;
   width: 120px;
-  background: var(--bgr-gradient);
   color: white;
   text-align: center;
   border-radius: 6px;

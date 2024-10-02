@@ -4,6 +4,9 @@ import localFont from 'next/font/local';
 import './globals.css';
 import StyledComponentsRegistry from './lib/registry';
 import Script from 'next/script';
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 /*
 const inter = Inter({
@@ -92,8 +95,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

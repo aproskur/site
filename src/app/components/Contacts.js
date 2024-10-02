@@ -1,21 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Button from './Button';
 import { useGoogleReCaptcha, GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 const Contact = ({ id }) => {
-
+  const [loadRecaptcha, setLoadRecaptcha] = useState(false);
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
+  const handleFocus = () => {
+    if (!loadRecaptcha) {
+      setLoadRecaptcha(true); // Load reCAPTCHA only when form is focused
+    }
+  };
+
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
-      <ContactForm id={id} />
-    </GoogleReCaptchaProvider>
+    <>
+      {loadRecaptcha ? (
+        <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+          <ContactForm id={id} />
+        </GoogleReCaptchaProvider>
+      ) : (
+        // Trigger reCAPTCHA load on form interaction
+        <ContactForm id={id} onFocus={handleFocus} />
+      )}
+    </>
   );
 };
+
 
 
 
@@ -205,10 +219,13 @@ const StyledErrorFormMessage = styled(StyledMessage)`
   }
 `;
 
-const ContactForm = () => {
+const ContactForm = ({ onFocus }) => {
 
 
   const { executeRecaptcha } = useGoogleReCaptcha();
+
+  // Define recaptchaReady state
+  const [recaptchaReady, setRecaptchaReady] = useState(false);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -222,6 +239,13 @@ const ContactForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Ensure recaptcha is loaded before enabling the submit button
+  useEffect(() => {
+    if (executeRecaptcha) {
+      setRecaptchaReady(true); // reCAPTCHA is available
+    }
+  }, [executeRecaptcha]);
 
 
 
@@ -269,11 +293,17 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure reCAPTCHA is available before submission
+    if (!recaptchaReady) {
+      setErrorMessage("reCAPTCHA not yet loaded. Please try again in a moment.");
+      return;
+    }
+
+    // Call reCAPTCHA only if executeRecaptcha is available
     if (!executeRecaptcha) {
       console.error("Execute recaptcha not yet available");
       return;
     }
-
     const token = await executeRecaptcha("form_submit");
 
     // Pass token to validateForm if needed
@@ -339,6 +369,7 @@ const ContactForm = () => {
             aria-label="name"
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
+            onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
         </FieldWrapper>
@@ -349,6 +380,7 @@ const ContactForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your Email"
+            onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>
         </FieldWrapper>
@@ -359,6 +391,7 @@ const ContactForm = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Your Message"
+            onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
         </FieldWrapper>

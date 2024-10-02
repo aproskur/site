@@ -64,6 +64,9 @@ const StyledContainer = styled.div`
     text-transform: uppercase;
     color: rgb(var(--clr-gold));
   }
+
+  div {
+  text-align: center;}
 `;
 
 const StyledContactsContainer = styled.div`
@@ -192,6 +195,7 @@ const ContactList = styled.ul`
 const StyledParagraph = styled.p`
   font-size: .8rem;
   margin-bottom: 18px;
+  padding: 1em 1em;
 
   a {
     color: rgb(var(--clr-gold));
@@ -415,11 +419,13 @@ const ContactForm = ({ onFocus }) => {
           </StyledErrorFormMessage>
         )
       }
+      <div>
+        <StyledParagraph>This site is protected by reCAPTCHA and the
+          <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
+          <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+        </StyledParagraph>
+      </div>
 
-      <StyledParagraph>This site is protected by reCAPTCHA and the
-        <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
-        <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
-      </StyledParagraph>
     </StyledContainer >
   );
 };

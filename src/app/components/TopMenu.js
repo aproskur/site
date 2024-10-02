@@ -7,7 +7,6 @@ import Image from 'next/image'
 
 
 const Nav = styled.nav`
-font-family: var(--font-poppins);
     display: flex;
     flex-direction: row;
     position: sticky;
@@ -22,18 +21,17 @@ font-family: var(--font-poppins);
 `;
 
 const Logo = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1; 
-    flex-basis: auto; 
+  flex-grow: 0;
+  flex-shrink: 1; 
+  flex-basis: auto; 
 
   
+  width: 300px;
+  height: auto;
 
-    @media (max-width: 400px) {
-        img {
-            width: 200px;
-        }
-    }
+
 `;
+
 
 const HamburgerIcon = styled.div`
     display: none;

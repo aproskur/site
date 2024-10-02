@@ -40,7 +40,7 @@ h3 {
 }
 
 p {
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins), Arial, sans-serif;
 }
 
 

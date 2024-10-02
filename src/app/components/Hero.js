@@ -21,7 +21,7 @@ const HeroContainer = styled.div`
 const HeroText = styled.div`
    
     line-height: 1.3;
-    font-family: var(--font-rajdhani);
+    font-family: var(--font-rajdhani), Arial, sans-serif;
 
     h1,h2 {
         font-size: 3.5rem;

@@ -8,10 +8,6 @@
   --clr-white: 255, 255, 255;
   --clr-torquoise: 64, 224, 208;
   --bgr-gradient: linear-gradient(to bottom right, rgb(44, 62, 80), rgb(248, 187, 208));
-
-
-
-
 }
 
 
@@ -25,19 +21,15 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins), Arial, sans-serif;
 
 }
-
-
 
 body {
   color: rgb(255, 255, 255);
   font-size: 1.25rem;
   background: var(--bgr-gradient);
   background-repeat: no-repeat;
-
-
 }
 
 h1,

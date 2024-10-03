@@ -31,11 +31,16 @@ const TooltipText = styled.div`
     border-style: solid;
     border-color: #6f677a transparent transparent transparent;
   }
+  }
 `;
 
 const TooltipContainer = styled.div`
-  position: relative;
-  display: inline-block;
+position: relative;
+  display: flex; /* Make it a flex container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Optional: Set width if needed */
+
 
   &:focus ${TooltipText} {
     visibility: visible;
@@ -102,6 +107,7 @@ const IconsContainer = styled.div`
     grid-template-columns: repeat(3, 1fr); /* 3 tooltips per row */
     width: 100%;
     gap: 1em;
+    row-gap: 2.5em; 
     padding: 1em; 
   }
 `;

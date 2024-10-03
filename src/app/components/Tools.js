@@ -64,9 +64,6 @@ const Tooltip = ({ children, text, id }) => {
     );
 };
 
-
-
-
 const ToolsContainer = styled.div`
     background: rgb(44, 62, 80);
     display: flex;
@@ -83,6 +80,7 @@ const ToolsContainer = styled.div`
       font-size: 2.5rem;
     }
     }
+    
 `;
 
 const IconsContainer = styled.div`
@@ -100,10 +98,11 @@ const IconsContainer = styled.div`
   }
 
     @media (max-width: 600px) {
-    padding: 1em;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 tooltips per row */
-    width: 100%; 
+    width: 100%;
+    gap: 1em;
+    padding: 1em; 
   }
 `;
 

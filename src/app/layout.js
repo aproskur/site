@@ -87,11 +87,7 @@ export const metadata = {
 
 }
 
-
-
 export default function RootLayout({ children }) {
-
-
   return (
     <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>

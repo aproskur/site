@@ -13,7 +13,8 @@ import webdevWebP from '../../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../../public/images/website-game-pairs.png';
 
 const SuperContainer = styled.div`
-  background: url('./images/watercolor.png');
+  //background: url('./images/watercolor.png');
+  background-color: rgb(230, 230, 230);
   background-repeat: repeat;
   background-size: cover;
 

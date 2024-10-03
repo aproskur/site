@@ -237,7 +237,7 @@ const TopMenu = () => {
     return (
         <>
             <Nav>
-                <Logo><Image src='/images/logo-torquoise.png' layout="fill" alt="Anna WEBDEV" /></Logo>
+                <Logo><Image src='/images/logo-torquoise.png' fill alt="Anna WEBDEV" /></Logo>
                 <UseClientMenu>
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}

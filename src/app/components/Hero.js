@@ -15,6 +15,7 @@ const HeroContainer = styled.div`
 
   @media (max-width: 1000px){
     flex-direction: column;
+    padding: .35em;
 }
 `;
 
@@ -46,14 +47,12 @@ const HeroText = styled.div`
     }
 
     @media (max-width: 600px){
-        h1,h2 {
+        h1 {
             font-size: 2.25rem;
         }
 
-        h3 {
-            font-size: 1.75rem;
-        p {
-            font-size: 1.5rem;
+        h2 {
+        font-size: 1.75rem !important;
         }
     }
 
@@ -61,6 +60,15 @@ const HeroText = styled.div`
     @media (max-width: 1000px){
         width: 100%;
     }
+
+
+    @media (max-width: 600px){
+               button {
+            display: block;
+            margin: 0 auto; 
+        }
+            }
+
 
 `;
 
@@ -101,7 +109,7 @@ function Hero() {
                 <p>Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
                 <p>  From <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>creation</span> to ongoing <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>support</span>, I'm here for your small business or collaborative team. </p>
                 <p>Here coding meets creativity!</p>
-                <Button style={{ fontFamily: "Inter,sans-serif" }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
+                <Button style={{ fontFamily: 'var(--font-poppins)' }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
             </HeroText>
         </HeroContainer>
     );

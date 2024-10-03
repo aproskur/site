@@ -1,13 +1,15 @@
 'use client'
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-
+const TooltipContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
 
 const TooltipText = styled.div`
-  font-family: var(--font-rajdhani);
-  visibility: ${props => (props.$visible ? 'visible' : 'hidden')};
-  opacity: ${props => (props.$visible ? 1 : 0)};
+font-family: var(--font-rajdhani);
+  visibility: hidden;
   width: 120px;
   color: white;
   text-align: center;
@@ -18,7 +20,6 @@ const TooltipText = styled.div`
   bottom: 110%;
   left: 50%;
   margin-left: -60px;
-  transition: opacity 0.2s;
 
   /* Tooltip arrow */
   &::after {
@@ -31,43 +32,22 @@ const TooltipText = styled.div`
     border-style: solid;
     border-color: #6f677a transparent transparent transparent;
   }
-  }
-`;
 
-const TooltipContainer = styled.div`
-position: relative;
-  display: flex; /* Make it a flex container */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  width: 100%; /* Optional: Set width if needed */
-
-
-  &:focus ${TooltipText} {
+  ${TooltipContainer}:hover & {
     visibility: visible;
   }
 `;
 
-
-
-const Tooltip = ({ children, text, id }) => {
-    const [isVisible, setIsVisible] = useState(false);
-
+const Tooltip = ({ children, text }) => {
     return (
-        <TooltipContainer
-            tabIndex="0"
-            aria-describedby={id}
-            onFocus={() => setIsVisible(true)}
-            onBlur={() => setIsVisible(false)}
-            onMouseEnter={() => setIsVisible(true)}
-            onMouseLeave={() => setIsVisible(false)}
-        >
+        <TooltipContainer>
             {children}
-            <TooltipText id={id} $visible={isVisible}>
-                {text}
-            </TooltipText>
+            <TooltipText>{text}</TooltipText>
         </TooltipContainer>
     );
 };
+
+
 
 const ToolsContainer = styled.div`
     background: rgb(44, 62, 80);
@@ -85,7 +65,6 @@ const ToolsContainer = styled.div`
       font-size: 2.5rem;
     }
     }
-    
 `;
 
 const IconsContainer = styled.div`
@@ -101,24 +80,17 @@ const IconsContainer = styled.div`
     width: 90%;
     gap: 3em;
   }
-
-    @media (max-width: 600px) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 tooltips per row */
-    width: 100%;
-    gap: 1em;
-    row-gap: 2.5em; 
-    padding: 1em; 
-  }
 `;
+
 
 const Tools = () => {
 
+
     return (
-        <ToolsContainer >
+        <ToolsContainer>
             <h2>Tools & Experience</h2>
             <IconsContainer>
-                <Tooltip text="HTML5" tabIndex="0">
+                <Tooltip text="HTML5">
                     <svg viewBox="0 0 128 128" width="80" height="80">
                         <path fill="#FFF" d="M9.032 2l10.005 112.093 44.896 12.401 45.02-12.387L118.968 2H9.032zm89.126 26.539l-.627 7.172L97.255 39H44.59l1.257 14h50.156l-.336 3.471-3.233 36.119-.238 2.27L64 102.609v.002l-.034.018-28.177-7.423L33.876 74h13.815l.979 10.919L63.957 89H64v-.546l15.355-3.875L80.959 67H33.261l-3.383-38.117L29.549 25h68.939l-.33 3.539z"></path>
                     </svg>
@@ -179,6 +151,7 @@ const Tools = () => {
                     </svg>
                 </Tooltip>
             </IconsContainer>
+
         </ToolsContainer>
     );
 };

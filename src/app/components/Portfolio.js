@@ -263,15 +263,9 @@ const Portfolio = ({ id }) => {
                                 content: (
                                     <ProjectInfo>
                                         <p>
-                                            The website{' '}
-                                            <a
-                                                href="https://www.art-inspiration.ch"
-                                                rel="nofollow noopener noreferrer"
-                                            >
-                                                www.art-inspiration.ch
-                                            </a>{' '}
+                                            The website art inspiration is an artist's portfolio
                                             represents a custom adaptation of a WordPress theme,
-                                            designed to create a unique and artistic online gallery.
+                                            designed to create an online gallery.
                                             It incorporates interactive elements through custom
                                             JavaScript, adding depth to the user experience.
                                         </p>
@@ -325,22 +319,22 @@ const Portfolio = ({ id }) => {
                                     <ProjectInfo>
                                         <p>
                                             <a
-                                                href="https://webdev-projects.example.com"
+                                                href="https://annawebdev.pro"
                                                 rel="nofollow noopener noreferrer"
                                             >
-                                                WebDev Projects
+                                                annawebdev.pro
                                             </a>{' '}
-                                            is a collection of web development projects demonstrating
-                                            skills in HTML, CSS, JavaScript, and game development.
+                                            This website is a personal portfolio for a freelance web developer offering a variety of web services.
+                                            It demonstrates a collection of web development projects showcasing
+                                            skills in HTML, CSS, JavaScript, React, Wordpress and game development.
                                             Each project is designed with a focus on functionality,
                                             user experience, and coding best practices.
                                         </p>
                                         <p>
-                                            The showcase includes various interactive applications,
-                                            such as games developed using JavaScript, highlighting a
-                                            blend of creativity and technical proficiency. These
-                                            projects not only illustrate coding capabilities but also
-                                            an understanding of interactive and engaging web content.
+                                            The website itself is build with React, using Styled Components,and implements
+                                            some standard security features to ensure secure communication between the user and the website.
+                                            This site is mobile and SEO-friendly.
+                                            It includes a portfolio section, services overview, a contact form, and a fun section with a game, all crafted to highlight full-stack development skills while maintaining scalability for future growth.
                                         </p>
                                     </ProjectInfo>
                                 ),

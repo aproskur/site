@@ -258,6 +258,7 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={300}
+                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
@@ -265,6 +266,7 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={650}
+                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
                                     />
                                 ),
                             },

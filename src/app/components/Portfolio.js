@@ -128,6 +128,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Main Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="main-page"
                                         src={ludesignWebP}
                                         alt="Desktop Screenshot"
                                         width={300}
@@ -135,6 +136,7 @@ const Portfolio = ({ id }) => {
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="main-page-mobile"
                                         src={ludesignWebP}
                                         alt="Desktop Screenshot"
                                         width={650}
@@ -146,6 +148,7 @@ const Portfolio = ({ id }) => {
                                 name: isMobile ? 'XS' : 'Mobile',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="ludesign-mobile"
                                         src={ludesignMainMobile}
                                         alt="Mobile Screenshot"
                                         width={300}
@@ -153,6 +156,7 @@ const Portfolio = ({ id }) => {
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="ludesign-mobile-d"
                                         src={ludesignMainMobile}
                                         alt="Desktop Screenshot"
                                         width={200}
@@ -164,6 +168,7 @@ const Portfolio = ({ id }) => {
                                 name: 'Portfolio Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="ludesign-portfolio-mobile"
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={300}
@@ -171,6 +176,7 @@ const Portfolio = ({ id }) => {
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="ludesign-portfolio-mobile-desktop"
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={650}
@@ -230,12 +236,14 @@ const Portfolio = ({ id }) => {
                                 name: 'Main Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="sozo-main-mobile"
                                         src={sozoJPG}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="sozo-main-desktop"
                                         src={sozoJPG}
                                         alt="Project Screenshot"
                                         width={650}
@@ -246,12 +254,14 @@ const Portfolio = ({ id }) => {
                                 name: 'Portfolio Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="sozo-portfolio-mobile"
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="sozo-portfolio-desktop"
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={650}
@@ -304,12 +314,14 @@ const Portfolio = ({ id }) => {
                                 name: 'Main Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="art-main-mobile"
                                         src={artWebP}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="art-main-desktop"
                                         src={artWebP}
                                         alt="Project Screenshot"
                                         width={650}
@@ -320,12 +332,14 @@ const Portfolio = ({ id }) => {
                                 name: 'Portfolio Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="art-portfolio-mobile"
                                         src={artPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="art-portfolio-desktop"
                                         src={artPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={650}
@@ -371,12 +385,14 @@ const Portfolio = ({ id }) => {
                                 name: 'Main Page',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="webdev-main-mobile"
                                         src={webdevWebP}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="webdev-main-desktop"
                                         src={webdevWebP}
                                         alt="Project Screenshot"
                                         width={650}
@@ -387,12 +403,14 @@ const Portfolio = ({ id }) => {
                                 name: 'A game',
                                 content: isMobile ? (
                                     <PortfolioImage
+                                        key="webdev-game-mobile"
                                         src={webdevGamePNG}
                                         alt="Project Screenshot"
                                         width={300}
                                     />
                                 ) : (
                                     <PortfolioImage
+                                        key="webdev-game-desktop"
                                         src={webdevGamePNG}
                                         alt="Project Screenshot"
                                         width={650}

@@ -4,19 +4,26 @@ import styled from 'styled-components';
 import TabbedContainer from './TabbedContainer';
 import NextImage from 'next/image';
 import ludesignWebP from '../../../public/images/ludesign.webp';
+import ludesignMainMobile from '../../../public/images/ludesign-main-mobile.webp';
+import ludesignPortfolioMobile from '../../../public/images/ludesign-portfolio-page-mobile.webp'
 import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp';
 import artWebP from '../../../public/images/artinspiration.webp';
+import artMainMobile from '../../../public/images/artinspiration-main-mobile.webp';
 import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg';
+import artPortfolioUnitMobile from '../../../public/images/artinspiration-portfoliounit-mobile.webp';
 import sozoJPG from '../../../public/images/sozo-main.jpg';
 import sozoPortfolioJPG from '../../../public/images/sozo-portfolio.jpg';
+import sozoMainMobile from '../../../public/images/sozo-main-mobile.webp';
+import sozoPortfolioMobile from '../../../public/images/sozo-portfolio-mobile.webp';
 import webdevWebP from '../../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../../public/images/website-game-pairs.png';
+import useMobile from '../hooks/useMobile';
 
 const SuperContainer = styled.div`
   //background: url('./images/watercolor.png');
   background-color: rgb(230, 230, 230);
   background-repeat: repeat;
-  background-size: cover;
+  background-size: contain;
 
   h2 {
     font-size: 3rem;
@@ -101,6 +108,8 @@ const PortfolioImage = ({ alt, src, width, height }) => {
 
 // Portfolio component
 const Portfolio = ({ id }) => {
+    const isMobile = useMobile();
+
     return (
         <SuperContainer id={id}>
             <h2>SOME WORKS</h2>
@@ -110,26 +119,54 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={ludesignWebP}
-                                        alt="Project Screenshot"
-                                        width={600}
+                                        alt="Desktop Screenshot"
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={ludesignWebP}
+                                        alt="Desktop Screenshot"
+                                        width={650}
+                                    />
+                                ),
+                            },
+                            {
+                                name: isMobile ? 'XS' : 'Mobile',
+                                content: isMobile ? (
+                                    <PortfolioImage
+                                        src={ludesignMainMobile}
+                                        alt="Mobile Screenshot"
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={ludesignMainMobile}
+                                        alt="Desktop Screenshot"
+                                        width={200}
                                     />
                                 ),
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={ludesignPortfolioWebP}
+                                        alt="Project Screenshot"
+                                        width={650}
                                     />
                                 ),
                             },
                             {
-                                name: 'Approach',
+                                name: isMobile ? 'Way' : 'Approach',
                                 content: (
                                     <ProjectInfo>
                                         <p>
@@ -178,21 +215,33 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={sozoJPG}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
                                     />
-                                ),
+                                ) : (
+                                    <PortfolioImage
+                                        src={sozoJPG}
+                                        alt="Project Screenshot"
+                                        width={650}
+                                    />
+                                )
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={sozoPortfolioJPG}
+                                        alt="Project Screenshot"
+                                        width={650}
                                     />
                                 ),
                             },
@@ -240,23 +289,35 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={artWebP}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={artWebP}
+                                        alt="Project Screenshot"
+                                        width={650}
                                     />
                                 ),
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={artPortfolioJPG}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
                                     />
-                                ),
+                                ) : (
+                                    <PortfolioImage
+                                        src={artPortfolioJPG}
+                                        alt="Project Screenshot"
+                                        width={650}
+                                    />
+                                )
                             },
                             {
                                 name: 'Approach',
@@ -295,21 +356,33 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={webdevWebP}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={webdevWebP}
+                                        alt="Project Screenshot"
+                                        width={650}
                                     />
                                 ),
                             },
                             {
                                 name: 'A game',
-                                content: (
+                                content: isMobile ? (
                                     <PortfolioImage
                                         src={webdevGamePNG}
                                         alt="Project Screenshot"
-                                        width={600}
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        src={webdevGamePNG}
+                                        alt="Project Screenshot"
+                                        width={650}
                                     />
                                 ),
                             },

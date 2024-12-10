@@ -23,6 +23,10 @@ const TabButton = styled.button`
     box-shadow: 0 0 0 2px #007bff;
   }
 
+     @media (max-width: 768px) {
+    flex: 1;
+  }
+
   ${({ $active }) =>
     $active &&
     `
@@ -35,6 +39,10 @@ const TabButton = styled.button`
 const TabContentContainer = styled.div`
   height: 50vh;
   overflow-y: scroll;
+
+    @media (max-width: 768px) {
+    height: 60vh; 
+  }
 `;
 
 const TabbedContainer = ({ tabs }) => {

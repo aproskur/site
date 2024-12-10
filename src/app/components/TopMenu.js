@@ -24,7 +24,7 @@ const Logo = styled.div`
   flex-grow: 0;
   flex-shrink: 1; 
   flex-basis: auto; 
-    position: relative; /* Required for Next.js Image component to work with layout="fill" */
+  position: relative; 
   width: 300px; 
   height: 43px; 
   
@@ -237,7 +237,12 @@ const TopMenu = () => {
     return (
         <>
             <Nav>
-                <Logo><Image src='/images/logo-torquoise.png' fill alt="Anna WEBDEV" /></Logo>
+                <Logo>  <Image
+                    src="/images/logo-torquoise.png"
+                    fill
+                    sizes="(max-width: 850px) 250px, 300px"
+                    alt="Anna WEBDEV"
+                /></Logo>
                 <UseClientMenu>
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}

@@ -104,7 +104,8 @@ const ProjectDescription = styled.p`
 
 
 const PortfolioImage = ({ alt, src, width, height }) => {
-    return <NextImage src={src} alt={alt} width={width} height={height} />;
+    return <NextImage src={src} alt={alt} width={width} height={height} placeholder="blur"
+        blurDataURL={blurDataURL} />;
 };
 
 
@@ -141,7 +142,6 @@ const Portfolio = ({ id }) => {
                                         src={ludesignMainMobile}
                                         alt="Mobile Screenshot"
                                         width={300}
-                                        placeholder="blur"
                                         blurDataURL={blurredLudesignMobile}
                                     />
                                 ) : (
@@ -149,7 +149,6 @@ const Portfolio = ({ id }) => {
                                         src={ludesignMainMobile}
                                         alt="Desktop Screenshot"
                                         width={200}
-                                        placeholder="blur"
                                         blurDataURL={blurredLudesignMobile}
                                     />
                                 ),

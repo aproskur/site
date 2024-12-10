@@ -101,12 +101,12 @@ const ProjectDescription = styled.p`
   color: #333;
 `;
 
-// Simplified Image for portfolio
+
 const PortfolioImage = ({ alt, src, width, height }) => {
     return <NextImage src={src} alt={alt} width={width} height={height} />;
 };
 
-// Portfolio component
+
 const Portfolio = ({ id }) => {
     const isMobile = useMobile();
 

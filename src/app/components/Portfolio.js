@@ -5,7 +5,6 @@ import TabbedContainer from './TabbedContainer';
 import NextImage from 'next/image';
 import ludesignWebP from '../../../public/images/ludesign.webp';
 import ludesignMainMobile from '../../../public/images/ludesign-main-mobile.webp';
-import ludesignPortfolioMobile from '../../../public/images/ludesign-portfolio-page-mobile.webp'
 import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp';
 import artWebP from '../../../public/images/artinspiration.webp';
 import artMainMobile from '../../../public/images/artinspiration-main-mobile.webp';

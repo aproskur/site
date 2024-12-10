@@ -103,9 +103,14 @@ const ProjectDescription = styled.p`
 `;
 
 
-const PortfolioImage = ({ alt, src, width, height }) => {
-    return <NextImage src={src} alt={alt} width={width} height={height} placeholder="blur"
-        blurDataURL={blurDataURL} />;
+const PortfolioImage = ({ alt, src, width, height, blurDataURL }) => {
+    return <NextImage
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        placeholder={blurDataURL ? "blur" : "empty"}
+        blurDataURL={blurDataURL || undefined} />
 };
 
 
@@ -126,12 +131,14 @@ const Portfolio = ({ id }) => {
                                         src={ludesignWebP}
                                         alt="Desktop Screenshot"
                                         width={300}
+                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
                                         src={ludesignWebP}
                                         alt="Desktop Screenshot"
                                         width={650}
+                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
                                     />
                                 ),
                             },
@@ -142,14 +149,14 @@ const Portfolio = ({ id }) => {
                                         src={ludesignMainMobile}
                                         alt="Mobile Screenshot"
                                         width={300}
-                                        blurDataURL={blurredLudesignMobile}
+                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
                                         src={ludesignMainMobile}
                                         alt="Desktop Screenshot"
                                         width={200}
-                                        blurDataURL={blurredLudesignMobile}
+                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
                                     />
                                 ),
                             },
@@ -160,16 +167,14 @@ const Portfolio = ({ id }) => {
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={300}
-                                        placeholder="blur"
-                                        blurDataURL={blurredLudesignPortfolio}
+                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={650}
-                                        placeholder="blur"
-                                        blurDataURL={blurredLudesignPortfolio}
+                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
                                     />
                                 ),
                             },

@@ -5,7 +5,9 @@ import TabbedContainer from './TabbedContainer';
 import NextImage from 'next/image';
 import ludesignWebP from '../../../public/images/ludesign.webp';
 import ludesignMainMobile from '../../../public/images/ludesign-main-mobile.webp';
+import blurredLudesignMobile from '../../../public/images/blurred-ludesign-main-mobile.webp';
 import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp';
+import blurredLudesignPortfolio from '../../../public/images/blurred-ludesign-portfolio.webp';
 import artWebP from '../../../public/images/artinspiration.webp';
 import artMainMobile from '../../../public/images/artinspiration-main-mobile.webp';
 import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg';
@@ -139,12 +141,16 @@ const Portfolio = ({ id }) => {
                                         src={ludesignMainMobile}
                                         alt="Mobile Screenshot"
                                         width={300}
+                                        placeholder="blur"
+                                        blurDataURL={blurredLudesignMobile}
                                     />
                                 ) : (
                                     <PortfolioImage
                                         src={ludesignMainMobile}
                                         alt="Desktop Screenshot"
                                         width={200}
+                                        placeholder="blur"
+                                        blurDataURL={blurredLudesignMobile}
                                     />
                                 ),
                             },
@@ -155,12 +161,16 @@ const Portfolio = ({ id }) => {
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={300}
+                                        placeholder="blur"
+                                        blurDataURL={blurredLudesignPortfolio}
                                     />
                                 ) : (
                                     <PortfolioImage
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
                                         width={650}
+                                        placeholder="blur"
+                                        blurDataURL={blurredLudesignPortfolio}
                                     />
                                 ),
                             },

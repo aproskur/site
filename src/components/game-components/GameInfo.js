@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import InfoItem from "./InfoItem";
-import { useGameSettings } from "@/app/context/GameSettingsContext";
-import useWindowSize from '@/app/hooks/useWindowSize';
+import { useGameSettings } from "@/context/GameSettingsContext";
+import useWindowSize from '@/hooks/useWindowSize';
 
 
 const GameInfoContainer = styled.div`

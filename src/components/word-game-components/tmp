@@ -4,35 +4,24 @@ import styled from 'styled-components';
 import TabbedContainer from './TabbedContainer';
 import NextImage from 'next/image';
 import ludesignWebP from '../../../public/images/ludesign.webp';
-import ludesignMainMobile from '../../../public/images/ludesign-main-mobile.webp';
-import blurredLudesignMobile from '../../../public/images/blurred-ludesign-main-mobile.webp';
 import ludesignPortfolioWebP from '../../../public/images/ludesign-portfolio.webp';
-import blurredLudesignPortfolio from '../../../public/images/blurred-ludesign-portfolio.webp';
 import artWebP from '../../../public/images/artinspiration.webp';
-import artMainMobile from '../../../public/images/artinspiration-main-mobile.webp';
 import artPortfolioJPG from '../../../public/images/artinspiration-picture-page.jpg';
-import artPortfolioUnitMobile from '../../../public/images/artinspiration-portfoliounit-mobile.webp';
 import sozoJPG from '../../../public/images/sozo-main.jpg';
 import sozoPortfolioJPG from '../../../public/images/sozo-portfolio.jpg';
-import sozoMainMobile from '../../../public/images/sozo-main-mobile.webp';
-import sozoPortfolioMobile from '../../../public/images/sozo-portfolio-mobile.webp';
 import webdevWebP from '../../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../../public/images/website-game-pairs.png';
-import useMobile from '../hooks/useMobile';
 
 const SuperContainer = styled.div`
-  //background: url('./images/watercolor.png');
-  background-color: rgb(230, 230, 230);
+  background: url('./images/watercolor.png');
   background-repeat: repeat;
-  background-size: contain;
+  background-size: cover;
 
   h2 {
     font-size: 3rem;
     margin-top: 1em;
     text-align: center;
     color: rgb(var(--clr-gold));
-    margin-bottom: .75em;
-
   }
 `;
 
@@ -102,21 +91,14 @@ const ProjectDescription = styled.p`
   color: #333;
 `;
 
-
-const PortfolioImage = ({ alt, src, width, height, blurDataURL }) => {
-    return <NextImage
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        placeholder={blurDataURL ? "blur" : "empty"}
-        blurDataURL={blurDataURL || undefined} />
+// Simplified Image for portfolio
+const PortfolioImage = ({ alt, src, width, height }) => {
+    console.log(`Loading image: ${src}`); // Debugging log
+    return <NextImage src={src} alt={alt} width={width} height={height} />;
 };
 
-
+// Portfolio component
 const Portfolio = ({ id }) => {
-    const isMobile = useMobile();
-
     return (
         <SuperContainer id={id}>
             <h2>SOME WORKS</h2>
@@ -126,66 +108,26 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="main-page"
                                         src={ludesignWebP}
-                                        alt="Desktop Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="main-page-mobile"
-                                        src={ludesignWebP}
-                                        alt="Desktop Screenshot"
-                                        width={650}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ),
-                            },
-                            {
-                                name: isMobile ? 'XS' : 'Mobile',
-                                content: isMobile ? (
-                                    <PortfolioImage
-                                        key="ludesign-mobile"
-                                        src={ludesignMainMobile}
-                                        alt="Mobile Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="ludesign-mobile-d"
-                                        src={ludesignMainMobile}
-                                        alt="Desktop Screenshot"
-                                        width={200}
-                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
+                                        alt="Project Screenshot"
+                                        width={600}
                                     />
                                 ),
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="ludesign-portfolio-mobile"
                                         src={ludesignPortfolioWebP}
                                         alt="Project Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="ludesign-portfolio-mobile-desktop"
-                                        src={ludesignPortfolioWebP}
-                                        alt="Project Screenshot"
-                                        width={650}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
+                                        width={600}
                                     />
                                 ),
                             },
                             {
-                                name: isMobile ? 'Way' : 'Approach',
+                                name: 'Approach',
                                 content: (
                                     <ProjectInfo>
                                         <p>
@@ -234,39 +176,21 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="sozo-main-mobile"
                                         src={sozoJPG}
                                         alt="Project Screenshot"
-                                        width={300}
+                                        width={600}
                                     />
-                                ) : (
-                                    <PortfolioImage
-                                        key="sozo-main-desktop"
-                                        src={sozoJPG}
-                                        alt="Project Screenshot"
-                                        width={650}
-                                    />
-                                )
+                                ),
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="sozo-portfolio-mobile"
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="sozo-portfolio-desktop"
-                                        src={sozoPortfolioJPG}
-                                        alt="Project Screenshot"
-                                        width={650}
-                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
+                                        width={600}
                                     />
                                 ),
                             },
@@ -314,48 +238,38 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="art-main-mobile"
                                         src={artWebP}
                                         alt="Project Screenshot"
-                                        width={300}
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="art-main-desktop"
-                                        src={artWebP}
-                                        alt="Project Screenshot"
-                                        width={650}
+                                        width={600}
                                     />
                                 ),
                             },
                             {
                                 name: 'Portfolio Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="art-portfolio-mobile"
                                         src={artPortfolioJPG}
                                         alt="Project Screenshot"
-                                        width={300}
+                                        width={600}
                                     />
-                                ) : (
-                                    <PortfolioImage
-                                        key="art-portfolio-desktop"
-                                        src={artPortfolioJPG}
-                                        alt="Project Screenshot"
-                                        width={650}
-                                    />
-                                )
+                                ),
                             },
                             {
                                 name: 'Approach',
                                 content: (
                                     <ProjectInfo>
                                         <p>
-                                            The website art inspiration is an artist's portfolio
+                                            The website{' '}
+                                            <a
+                                                href="https://www.art-inspiration.ch"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                www.art-inspiration.ch
+                                            </a>{' '}
                                             represents a custom adaptation of a WordPress theme,
-                                            designed to create an online gallery.
+                                            designed to create a unique and artistic online gallery.
                                             It incorporates interactive elements through custom
                                             JavaScript, adding depth to the user experience.
                                         </p>
@@ -385,37 +299,21 @@ const Portfolio = ({ id }) => {
                         tabs={[
                             {
                                 name: 'Main Page',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="webdev-main-mobile"
                                         src={webdevWebP}
                                         alt="Project Screenshot"
-                                        width={300}
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="webdev-main-desktop"
-                                        src={webdevWebP}
-                                        alt="Project Screenshot"
-                                        width={650}
+                                        width={600}
                                     />
                                 ),
                             },
                             {
                                 name: 'A game',
-                                content: isMobile ? (
+                                content: (
                                     <PortfolioImage
-                                        key="webdev-game-mobile"
                                         src={webdevGamePNG}
                                         alt="Project Screenshot"
-                                        width={300}
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="webdev-game-desktop"
-                                        src={webdevGamePNG}
-                                        alt="Project Screenshot"
-                                        width={650}
+                                        width={600}
                                     />
                                 ),
                             },
@@ -425,22 +323,22 @@ const Portfolio = ({ id }) => {
                                     <ProjectInfo>
                                         <p>
                                             <a
-                                                href="https://annawebdev.pro"
+                                                href="https://webdev-projects.example.com"
                                                 rel="nofollow noopener noreferrer"
                                             >
-                                                annawebdev.pro
+                                                WebDev Projects
                                             </a>{' '}
-                                            This website is a personal portfolio for a freelance web developer offering a variety of web services.
-                                            It demonstrates a collection of web development projects showcasing
-                                            skills in HTML, CSS, JavaScript, React, Wordpress and game development.
+                                            is a collection of web development projects demonstrating
+                                            skills in HTML, CSS, JavaScript, and game development.
                                             Each project is designed with a focus on functionality,
                                             user experience, and coding best practices.
                                         </p>
                                         <p>
-                                            The website itself is build with React, using Styled Components,and implements
-                                            some standard security features to ensure secure communication between the user and the website.
-                                            This site is mobile and SEO-friendly.
-                                            It includes a portfolio section, services overview, a contact form, and a fun section with a game, all crafted to highlight full-stack development skills while maintaining scalability for future growth.
+                                            The showcase includes various interactive applications,
+                                            such as games developed using JavaScript, highlighting a
+                                            blend of creativity and technical proficiency. These
+                                            projects not only illustrate coding capabilities but also
+                                            an understanding of interactive and engaging web content.
                                         </p>
                                     </ProjectInfo>
                                 ),

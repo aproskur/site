@@ -2,7 +2,7 @@
 //import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import StyledComponentsRegistry from './lib/registry';
+import StyledComponentsRegistry from '../lib/registry';
 import Script from 'next/script';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'

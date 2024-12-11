@@ -321,7 +321,7 @@ const ContactForm = ({ onFocus }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('/api/send-email', {
+      const response = await axios.post('../api/send-email', {
         token,
         name,
         email,

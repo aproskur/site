@@ -1,14 +1,14 @@
 'use client'
-import Watermark from './components/Watermark'
+import Watermark from '../components/Watermark'
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-const DynamicTopMenu = dynamic(() => import('./components/TopMenu'));
-const DynamicHero = dynamic(() => import('./components/Hero'));
-const DynamicService = dynamic(() => import('./components/Service'));
-const DynamicPortfolio = dynamic(() => import('./components/Portfolio'));
-const DynamicContact = dynamic(() => import('./components/Contacts'), { ssr: false });
-const DynamicFooter = dynamic(() => import('./components/Footer'));
+const DynamicTopMenu = dynamic(() => import('../components/TopMenu'));
+const DynamicHero = dynamic(() => import('../components/Hero'));
+const DynamicService = dynamic(() => import('../components/Service'));
+const DynamicPortfolio = dynamic(() => import('../components/Portfolio'));
+const DynamicContact = dynamic(() => import('../components/Contacts'), { ssr: false });
+const DynamicFooter = dynamic(() => import('../components/Footer'));
 
 const StyledMainContainer = styled.main`
   display: flex;

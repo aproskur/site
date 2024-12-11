@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useWordGame } from '../../context/WordGameContext';
-import HeaderWordGame from '../../components/word-game-components/HeaderWordGame';
-import GameLetter from '../../components/word-game-components/Letter';
-import VirtualKeyboard from '../../components/word-game-components/VirtualKeyboard';
-import Popup from '../../components/word-game-components/Popup';
-import styles from '../../pages/word-game/WordGamePage.module.css';
+import HeaderWordGame from './HeaderWordGame';
+import GameLetter from './Letter';
+import VirtualKeyboard from './VirtualKeyboard';
+import Popup from './Popup';
+import styles from '../../app/pages/word-game/WordGamePage.module.css';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
 

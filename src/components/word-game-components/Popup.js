@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useWordGame } from '@/app/context/WordGameContext';
-import GameTitle from '../../components/word-game-components/GameTitle';
+import { useWordGame } from '@/context/WordGameContext';
+import GameTitle from './GameTitle';
 
 const Overlay = styled.div`
   position: fixed;

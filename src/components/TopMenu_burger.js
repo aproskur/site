@@ -1,14 +1,10 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components'
-import useWindowSize from '@/app/hooks/useWindowSize';
-import Image from 'next/image'
-
 
 
 const Nav = styled.nav`
     display: flex;
-    flex-direction: row;
     position: sticky;
     top: 0;
     width: 100%;
@@ -21,26 +17,16 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.div`
-  flex-grow: 0;
-  flex-shrink: 1; 
-  flex-basis: auto; 
-  position: relative; 
-  width: 300px; 
-  height: 43px; 
-  
+    flex-grow: 0;
+    flex-shrink: 1; // Allow it to shrink if needed
+    flex-basis: auto; // Adjust as needed
 
-
-  @media (max-width: 850px) {
-    width: 250px; 
-    height: 37px; 
-  }
+    img {
+       
+    }
 `;
 
-
 const HamburgerIcon = styled.div`
-    display: none;
-
-    @media (max-width: 850px){
     display: flex;
     gap: 0.5em;
     justify-content: space-between;
@@ -84,19 +70,8 @@ const HamburgerIcon = styled.div`
         @media (min-width: 501px) {
             display: inline;
         }
-    }
 `;
 
-const UseClientMenu = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-
-    @media (max-width: 850px) {
-        display: flex;
-        flex-direction: column;
-    }
-`;
 
 const slideDown = keyframes`
     from { transform: translateY(-100%); opacity: 0; }
@@ -112,9 +87,9 @@ const slideUp = keyframes`
 const MenuItems = styled.ul.attrs({
     id: 'offCanvasMenu'
 })`
-    display: flex;
-    visibility: ${({ $isOpen, $isAnimating, $width }) => ($isOpen || $isAnimating || $width > 850) ? 'visible' : 'hidden'};
-    opacity: ${({ $isOpen, $width }) => ($isOpen || $width > 850) ? 1 : 0};    
+    display: ${props => props.$isOpen || props.$isAnimating ? 'flex' : 'none'};
+    visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+    opacity: ${props => props.$isOpen ? 1 : 0};
     overflow: hidden;
     gap: 1em;
     justify-content: flex-end;
@@ -122,33 +97,33 @@ const MenuItems = styled.ul.attrs({
     transition: opacity 0.4s ease, max-height 0.4s ease;
     animation: ${props => props.$isOpen ? css`${slideDown} 0.4s ease forwards` :
         props.$isAnimating ? css`${slideUp} 0.4s ease forwards` : 'none'};
-  
-    @media (max-width: 850px) {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 7em 1em;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: linear-gradient(to bottom, rgb(44, 62, 80), rgb(248, 187, 208));
-      z-index: 10;
-      transform: translateX(-100%);
-      transition: transform 0.4s ease;
-    }
-  `;
 
+
+        @media (max-width: 768px) { 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 7em 1em;
+            align-items: center;
+            position: fixed; // To cover the entire screen
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; // Full viewport height         
+            background: linear-gradient(to bottom, rgb(44, 62, 80), rgb(248, 187, 208));
+            z-index: 10; 
+            transform: translateX(-100%); // Start off-screen
+            transition: transform 0.4s ease;
+
+ 
+        }
+`;
 
 const MenuItem = styled.li`
     list-style-type: none;
     text-transform: uppercase;  
-  --clr-torquoise: 64, 224, 208;
-  color: rgb(var(--clr-torquoise));
 `;
 
 const RoundButton = styled.div`
@@ -158,7 +133,7 @@ const RoundButton = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(var(--clr-torquoise), 0.3);
+  background: var(--bgr-gradient);
   color: rgb(var(--clr-white));
   display: flex;
   justify-content: center;
@@ -174,8 +149,6 @@ const TopMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButton, setShowButton] = useState(false);
-
-    const { width, height } = useWindowSize();
 
 
 
@@ -213,19 +186,20 @@ const TopMenu = () => {
 
 
     const toggleMenu = () => {
-        if (width <= 850) {
-            if (isOpen) {
-                setIsAnimating(true); // Start closing animation
-                timeoutRef.current = setTimeout(() => {
-                    setIsOpen(false);
-                    setIsAnimating(false);
-                }, 400); // Duration of slideUp animation
-            } else {
+        if (isOpen) {
+            setIsAnimating(true); // Start closing animation
+            timeoutRef.current = setTimeout(() => {
+                setIsOpen(false);
+                setIsAnimating(false);
+            }, 400); // Duration of slideUp animation
+        } else {
 
-                setIsOpen(true);
-            }
+            setIsOpen(true);
         }
-    }; const scrollToSection = (event, sectionId) => {
+    };
+
+
+    const scrollToSection = (event, sectionId) => {
         event.preventDefault();
         setIsOpen(false);
         const section = document.getElementById(sectionId);
@@ -237,23 +211,14 @@ const TopMenu = () => {
     return (
         <>
             <Nav>
-                <Logo>  <Image
-                    src="/images/logo-torquoise.png"
-                    fill
-                    sizes="(max-width: 850px) 250px, 300px"
-                    alt="Anna WEBDEV"
-                /></Logo>
-                <UseClientMenu>
-                    <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
-                        {/*<MenuItem>Home</MenuItem>*/}
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} role="button" aria-label="View services section">Services</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">Projects</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">Contact</a></MenuItem>
-                        <MenuItem><a href="/game" role="button" aria-label="play a memo game">Fun</a></MenuItem>
-                    </MenuItems>
-                </UseClientMenu>
-
-                <HamburgerIcon role="button" onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
+                <Logo><img src="../images/Logo_Anna_Webdev_3.png" alt="Anna WEBDEV" /></Logo>
+                <MenuItems $isOpen={isOpen} $isAnimating={isAnimating}>
+                    <MenuItem>Home</MenuItem>
+                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} aria-label="View services section">Services</a></MenuItem>
+                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} aria-label="View portfolio section">Projects</a></MenuItem>
+                    <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Contact</a></MenuItem>
+                </MenuItems>
+                <HamburgerIcon onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
                     <span>
                         <div></div>
                         <div></div>
@@ -272,6 +237,3 @@ const TopMenu = () => {
 };
 
 export default TopMenu;
-
-
-

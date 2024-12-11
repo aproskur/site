@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react';
-import { WordGameProvider, useWordGame } from '../../context/WordGameContext';
+import { WordGameProvider, useWordGame } from '../../../context/WordGameContext';
 import styles from './WordGamePage.module.css';
 import styled from 'styled-components';
-import WordGame from "../../components/word-game-components/WordGame"
+import WordGame from "../../../components/word-game-components/WordGame"
 
 
 

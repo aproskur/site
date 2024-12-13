@@ -1,0 +1,25 @@
+{
+    "Homepage": {
+        "menu": {
+            "services": "Services",
+            "projects": "Projects",
+            "contact": "Contact",
+            "fun": "Fun"
+        },
+        "hero": {
+            "title": "Web Developer",
+            "subtitle": "Based in Cardiff, working worldwide",
+            "p1": "Hi, my name is Anna and I am a freelance web developer.",
+            "p2-1": "Crafting engaging",
+            "span1": "Websites",
+            "p2-2": "with a tech-savvy touch.",
+            "p3-1": "From",
+            "span2": "Creation",
+            "p3-2": "to ongoing",
+            "span3": "support",
+            "p3-3": ", I'm here for your small business or collaborative team.",
+            "p4": "Here coding meets creativity!",
+            "button": "Discuss a project"
+        }
+    }
+}

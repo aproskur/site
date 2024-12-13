@@ -2,11 +2,12 @@
 //import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import StyledComponentsRegistry from '../lib/registry';
+import StyledComponentsRegistry from '../../lib/registry';
 import Script from 'next/script';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
+import { NextIntlClientProvider } from 'next-intl';
 
 /*
 const inter = Inter({
@@ -87,7 +88,14 @@ export const metadata = {
 
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children, params }) {
+  let messages;
+  try {
+    messages = require(`../../i18n/messages/${params.locale}.json`);
+  } catch (error) {
+    console.error(`Could not load translations for locale: ${params.locale}`);
+    messages = require('../../i18n/messages/en.json');
+  }
   return (
     <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>
@@ -106,7 +114,9 @@ export default function RootLayout({ children }) {
           <iframe src="https://www.googletagmanager.com/ns.html?id=G-W5ZZY1CWBH"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
         </noscript>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <NextIntlClientProvider locale={params.locale} messages={messages}>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

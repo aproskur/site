@@ -1,14 +1,14 @@
 'use client'
-import Watermark from '../components/Watermark'
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
+import { useTranslations } from 'next-intl';
 
-const DynamicTopMenu = dynamic(() => import('../components/TopMenu'));
-const DynamicHero = dynamic(() => import('../components/Hero'));
-const DynamicService = dynamic(() => import('../components/Service'));
-const DynamicPortfolio = dynamic(() => import('../components/Portfolio'));
-const DynamicContact = dynamic(() => import('../components/Contacts'), { ssr: false });
-const DynamicFooter = dynamic(() => import('../components/Footer'));
+const DynamicTopMenu = dynamic(() => import('../../components/TopMenu'));
+const DynamicHero = dynamic(() => import('../../components/Hero'));
+const DynamicService = dynamic(() => import('../../components/Service'));
+const DynamicPortfolio = dynamic(() => import('../../components/Portfolio'));
+const DynamicContact = dynamic(() => import('../../components/Contacts'), { ssr: false });
+const DynamicFooter = dynamic(() => import('../../components/Footer'));
 
 const StyledMainContainer = styled.main`
   display: flex;
@@ -16,6 +16,7 @@ const StyledMainContainer = styled.main`
 `;
 
 export default function Home() {
+  const t = useTranslations('Homepage');
 
 
   const words = ['CODE', 'CODE', 'CODE', 'CODE', 'CODE'];
@@ -27,7 +28,7 @@ export default function Home() {
     <>
       <DynamicTopMenu />
       <StyledMainContainer>
-        <DynamicHero />
+        <DynamicHero title={t('hero.title')} subtitle={t('hero.subtitle')} p1={t('hero.p1')} />
         <DynamicService id="services" />
         <DynamicPortfolio id="projects" />
         <DynamicContact id="contact-anna" />

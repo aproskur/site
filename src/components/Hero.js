@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button.js'
+import { useTranslations } from 'next-intl';
 
 
 const HeroContainer = styled.div`
@@ -38,7 +39,7 @@ const HeroText = styled.div`
 
     p {
         font-size: 1.5rem;
-        font-family: var(--font-rajdhani);
+        font-family: var(--font-rajdhani), Arial, sans-serif;
         margin-bottom: 0.75em;
     }
 
@@ -90,7 +91,9 @@ img {
 `;
 
 
-function Hero() {
+function Hero({ title, subtitle, p1 }) {
+
+    const t = useTranslations('Homepage.hero');
 
     const scrollToSection = (event, sectionId) => {
         event.preventDefault();
@@ -103,13 +106,13 @@ function Hero() {
     return (
         <HeroContainer>
             <HeroText>
-                <h1>WEB DEVELOPER </h1>
-                <h2>Based in Cardiff, working worldwide</h2>
-                <p> Hi, my name is Anna and I am a freelance web developer.</p>
-                <p>Crafting engaging <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>websites</span> with a tech-savvy touch.</p>
-                <p>  From <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>creation</span> to ongoing <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>support</span>, I'm here for your small business or collaborative team. </p>
-                <p>Here coding meets creativity!</p>
-                <Button style={{ fontFamily: 'var(--font-poppins)' }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">Discuss a project</Button>
+                <h1>{title} </h1>
+                <h2>{subtitle}</h2>
+                <p> {p1}</p>
+                <p>{t('p2-1')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span1')}</span> {t('p2-2')}</p>
+                <p>  {t('p3-1')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span2')}</span> {t('p3-2')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span3')}</span>{t('p3-3')}</p>
+                <p>{t('p4')}</p>
+                <Button style={{ fontFamily: 'var(--font-poppins), Arial, sans-serif' }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">{t('button')}</Button>
             </HeroText>
         </HeroContainer>
     );

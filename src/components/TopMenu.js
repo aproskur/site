@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components'
 import useWindowSize from '@/hooks/useWindowSize';
 import Image from 'next/image'
+import { useTranslations } from 'next-intl';
 
 
 
@@ -171,6 +172,8 @@ const RoundButton = styled.div`
 
 const TopMenu = () => {
 
+
+
     const [isOpen, setIsOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showButton, setShowButton] = useState(false);
@@ -233,7 +236,7 @@ const TopMenu = () => {
             section.scrollIntoView({ behavior: 'auto' });
         }
     };
-
+    const t = useTranslations('Homepage');
     return (
         <>
             <Nav>
@@ -246,10 +249,10 @@ const TopMenu = () => {
                 <UseClientMenu>
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
                         {/*<MenuItem>Home</MenuItem>*/}
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} role="button" aria-label="View services section">Services</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">Projects</a></MenuItem>
-                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">Contact</a></MenuItem>
-                        <MenuItem><a href="/game" role="button" aria-label="play a memo game">Fun</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} role="button" aria-label="View services section">{t('menu.services')}</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">{t('menu.projects')}</a></MenuItem>
+                        <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">{t('menu.contact')}</a></MenuItem>
+                        <MenuItem><a href="/game" role="button" aria-label="play a memo game">{t('menu.fun')}</a></MenuItem>
                     </MenuItems>
                 </UseClientMenu>
 

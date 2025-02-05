@@ -108,7 +108,7 @@ export const metadata = {
 
 }
 
-module.exports = async function RootLayout({ children, params }) {
+export default async function RootLayout({ children, params }) {
 
   const { locale } = params;
   // Ensure that the incoming `locale` is valid

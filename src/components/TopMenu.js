@@ -4,6 +4,9 @@ import styled, { keyframes, css } from 'styled-components'
 import useWindowSize from '@/hooks/useWindowSize';
 import Image from 'next/image'
 import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
+import { px } from 'framer-motion';
 
 
 
@@ -20,6 +23,8 @@ const Nav = styled.nav`
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     z-index: 1000;
 `;
+
+
 
 const Logo = styled.div`
   flex-grow: 0;
@@ -170,6 +175,10 @@ const RoundButton = styled.div`
 `;
 
 
+
+
+
+
 const TopMenu = () => {
 
 
@@ -180,7 +189,7 @@ const TopMenu = () => {
 
     const { width, height } = useWindowSize();
 
-
+    const currentLocale = useLocale();
 
     const timeoutRef = useRef(null);
 
@@ -247,15 +256,18 @@ const TopMenu = () => {
                     alt="Anna WEBDEV"
                 /></Logo>
                 <UseClientMenu>
+
                     <MenuItems $isOpen={isOpen} $isAnimating={isAnimating} $width={width}>
+
                         {/*<MenuItem>Home</MenuItem>*/}
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'services')} role="button" aria-label="View services section">{t('menu.services')}</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">{t('menu.projects')}</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">{t('menu.contact')}</a></MenuItem>
                         <MenuItem><a href="/game" role="button" aria-label="play a memo game">{t('menu.fun')}</a></MenuItem>
+                        <LanguageSwitcher className="mobile-language-switcher" currentLocale={currentLocale}></LanguageSwitcher>
                     </MenuItems>
                 </UseClientMenu>
-
+                <LanguageSwitcher className="top-menu-language-switcher" currentLocale={currentLocale} />
                 <HamburgerIcon role="button" onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
                     <span>
                         <div></div>

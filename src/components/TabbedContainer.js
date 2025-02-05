@@ -14,7 +14,9 @@ const TabButton = styled.button`
   cursor: pointer;
   border-top-left-radius: 10px;
   border-top-right-radius: 3px;
-  font-family: var(--font-rajdhani);
+          font-family: ${(props) =>
+    props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-rajdhani), Arial, sans-serif'};
+
   background: var(--bgr-gradient);
   color: rgb(var(--clr-white));
 
@@ -39,9 +41,13 @@ const TabButton = styled.button`
 const TabContentContainer = styled.div`
   height: 50vh;
   overflow-y: scroll;
+            font-family: ${(props) =>
+    props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-poppins), Arial, sans-serif'};
+
 
     @media (max-width: 768px) {
     height: 60vh; 
+    font-size: 1rem;
   }
 `;
 

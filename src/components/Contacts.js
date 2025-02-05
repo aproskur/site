@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Button from './Button';
 import { useGoogleReCaptcha, GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { useTranslations, useLocale } from 'next-intl';
 
 const Contact = ({ id }) => {
   const [loadRecaptcha, setLoadRecaptcha] = useState(false);
@@ -56,8 +57,17 @@ const StyledContainer = styled.div`
     color: rgb(var(--clr-gold));
   }
 
+      @media (max-width: 600px){
+
+        h2 {
+        font-size: 1.75rem !important;
+        }
+    }
+
+
   p {
     line-height: 1.6;
+    padding-bottom: 0.5em;
   }
 
   strong {
@@ -76,6 +86,8 @@ const StyledContactsContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 1em;
+    font-family: ${(props) =>
+    props.$locale === 'ru' ? 'Arial, sans-serif' : 'var(--font-poppins), Arial, sans-serif'};
 
   @media (max-width: 800px) {
     width: 90%;
@@ -86,8 +98,11 @@ const StyledContactsContainer = styled.div`
   }
 
   h2 {
-    font-size: 3rem;
+   
     margin-bottom: .75em;
+    font-size: ${(props) =>
+    props.$locale === 'ru' ? '2.5rem' : '3rem'};
+  }
   }
 `;
 
@@ -169,6 +184,9 @@ const GridButton = styled(Button)`
   grid-area: button;
   justify-self: center;
   padding: .5em 1em;
+       font-family: ${(props) =>
+    props.$locale === 'ru' ? 'Arial, sans-serif' : 'var(--font-poppins), Arial, sans-serif'};
+
 `;
 
 const ContactList = styled.ul`
@@ -224,6 +242,9 @@ const StyledErrorFormMessage = styled(StyledMessage)`
 `;
 
 const ContactForm = ({ onFocus }) => {
+  const t = useTranslations("Homepage.contacts");
+  const locale = useLocale();
+  const langParam = locale === 'ru' ? 'ru' : 'en';
 
 
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -257,7 +278,7 @@ const ContactForm = ({ onFocus }) => {
     let isValid = true;
 
     if (!name || typeof name !== 'string' || name.trim() === '') {
-      setNameError("Please enter your name");
+      setNameError(t("enter-name-error"));
       isValid = false;
     } else {
       setNameError("");
@@ -265,24 +286,24 @@ const ContactForm = ({ onFocus }) => {
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!email || email.trim() === '') {
-      setEmailError("Please enter your email");
+      setEmailError(t('enter-mail-error'));
       isValid = false;
     } else if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(t('valid-mail-error'));
       isValid = false;
     } else {
       setEmailError("");
     }
 
     if (!message || message.trim() === '') {
-      setMessageError("Please enter your message");
+      setMessageError(t('enter-message-error'));
       isValid = false;
     } else {
       setMessageError("");
     }
 
     if (!token) {
-      setErrorMessage("Please complete the reCAPTCHA");
+      setErrorMessage(t('complete-recaptcha-error'));
       isValid = false;
     } else {
       setErrorMessage(""); // Clear error message if token is present
@@ -299,7 +320,7 @@ const ContactForm = ({ onFocus }) => {
 
     // Ensure reCAPTCHA is available before submission
     if (!recaptchaReady) {
-      setErrorMessage("reCAPTCHA not yet loaded. Please try again in a moment.");
+      setErrorMessage(t('recaptcha-load-error'));
       return;
     }
 
@@ -314,7 +335,7 @@ const ContactForm = ({ onFocus }) => {
     const isValid = validateForm(token, name, email, message);
 
     if (!isValid) {
-      setErrorMessage('Please complete all required fields.');
+      setErrorMessage(t('complete-all-fields-error'));
       return;
     }
 
@@ -329,12 +350,12 @@ const ContactForm = ({ onFocus }) => {
       });
 
       if (response.status === 200) {
-        setSuccessMessage('Your message has been sent successfully!');
+        setSuccessMessage(t('success-message'));
         setName('');
         setEmail('');
         setMessage('');
       } else {
-        setErrorMessage('Failed to send message. Please try again later.');
+        setErrorMessage(t('failed-to-send-message'));
       }
     } catch (error) {
       if (error.response) {
@@ -343,7 +364,7 @@ const ContactForm = ({ onFocus }) => {
         setErrorMessage(`Failed to send message: ${error.response.data.error}`);
       } else {
         console.error('Error message:', error.message);
-        setErrorMessage('Failed to send message. Please try again later.');
+        setErrorMessage(t('failed-to-send-message'));
       }
     } finally {
       setIsSubmitting(false);
@@ -355,52 +376,55 @@ const ContactForm = ({ onFocus }) => {
 
   return (
     <StyledContainer>
-      <StyledContactsContainer>
-        <h2>Contact Me</h2>
-        <p><strong>For Small Businesses & Individual Entrepreneurs: </strong>Need a website that captures the essence of your business? I specialize in creating custom, engaging websites that help small businesses and entrepreneurs stand out and grow.</p>
-        <p><strong>For Startups & Innovative Projects: </strong>As a passionate web developer, I love working with startups and innovative projects. If you're looking for a tech partner to bring your vision to life, you're in the right place.</p>
-        <p><strong>For Networking & Partnerships: </strong>I'm always excited to connect with other professionals. Whether you're a freelancer, a company looking for a freelance developer, or someone who wants to discuss a potential partnership, let's talk!</p>
-        <p id="contact-anna"><strong>Reach Out Now: </strong>I'm just an email or message away. Contact me for any web development needs, questions, or just to say hi. Together, we can create a website that not only meets but exceeds your expectations.</p>
-        <p>Feel free to reach out to me via email <a style={{ color: 'rgb(var(--clr-gold))' }} href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
-          &nbsp; or use a contact form below</p>
+      <StyledContactsContainer $locale={locale}>
+        <h2>{t('main-heading')}</h2>
+        <p><strong>{t('caption-1')} </strong>{t('description-1')}</p>
+        <p><strong>{t('caption-2')}</strong>{t('description-2')}</p>
+        <p><strong>{t('caption-3')}</strong>{t('description-3')}</p>
+        <p id="contact-anna"><strong>{t('caption-4')}</strong>{t('description-4')}</p>
+        <p>{t('p1')}{' '}<a style={{ color: 'rgb(var(--clr-gold))' }} href="mailto:annapro.webdev@gmail.com">annapro.webdev@gmail.com</a>
+          &nbsp; {t('p2')}</p>
       </StyledContactsContainer>
 
       <StyledForm onSubmit={handleSubmit}>
         <FieldWrapper style={{ gridArea: 'name' }}>
           <StyledInput
+            id="name"
             type="text"
             value={name}
             aria-label="name"
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your Name"
+            placeholder={t('name-placeholder')}
             onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!nameError}>{nameError}</StyledErrorMessage>
         </FieldWrapper>
         <FieldWrapper style={{ gridArea: 'email' }}>
           <StyledInput
+            id="email"
             type="email"
             aria-label="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your Email"
+            placeholder={t('mail-placeholder')}
             onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!emailError}>{emailError}</StyledErrorMessage>
         </FieldWrapper>
         <FieldWrapper style={{ gridArea: 'message' }}>
           <StyledTextArea
+            id="text"
             type="text"
             aria-label="message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Your Message"
+            placeholder={t('message-placeholder')}
             onFocus={onFocus}
           />
           <StyledErrorMessage $show={!!messageError}>{messageError}</StyledErrorMessage>
         </FieldWrapper>
-        <GridButton style={{ gridArea: 'button' }} type="submit" aria-label="send message">
-          {isSubmitting ? "Sending message..." : "Send message"}
+        <GridButton $locale={locale} style={{ gridArea: 'button' }} type="submit" aria-label="send message">
+          {isSubmitting ? t('sending-message') : t('send-message')}
         </GridButton>
 
       </StyledForm>
@@ -420,9 +444,16 @@ const ContactForm = ({ onFocus }) => {
         )
       }
       <div>
-        <StyledParagraph>This site is protected by reCAPTCHA and the
-          <a href="https://policies.google.com/privacy"> Google Privacy Policy</a> and
-          <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+        <StyledParagraph>
+          {t('recaptcha-message')}{' '}
+          <a href={`https://policies.google.com/privacy?hl=${langParam}`}>
+            {t('privacy-policy')}
+          </a>{' '}
+          {t('and')}{' '}
+          <a href={`https://policies.google.com/terms?hl=${langParam}`}>
+            {t('terms-of-service')}
+          </a>{' '}
+          {t('apply')}.
         </StyledParagraph>
       </div>
 

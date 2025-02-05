@@ -8,6 +8,9 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
 /*
 const inter = Inter({
@@ -42,6 +45,23 @@ const archivoNarrowFont = localFont({
   display: 'block',
   variable: '--font-archivo-narrow'
 });
+
+//for cyrilic in HEro instead of Rajdhani
+const exo2Font = localFont(
+  {
+    src: [
+      {
+        path: './assets/fonts/exo_2/Exo2-Light.ttf',
+        weight: '400',
+        style: 'normal'
+      },
+
+
+    ],
+    display: 'block',
+    variable: '--font-exo2'
+  }
+);
 
 
 const wordGameFont = localFont({
@@ -88,16 +108,27 @@ export const metadata = {
 
 }
 
-export default async function RootLayout({ children, params }) {
-  let messages;
+module.exports = async function RootLayout({ children, params }) {
+
+  const { locale } = params;
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale)) {
+    notFound();
+  }
+
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+  /*
   try {
     messages = require(`../../i18n/messages/${params.locale}.json`);
   } catch (error) {
     console.error(`Could not load translations for locale: ${params.locale}`);
     messages = require('../../i18n/messages/en.json');
-  }
+  } */
   return (
-    <html lang="en" className={`${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
+    <html lang={locale} className={`${exo2Font.variable} ${archivoNarrowFont.variable} ${poppinsFont.variable}  ${wordGameFont.variable} ${styledText.variable}`}>
       <head>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
@@ -114,7 +145,7 @@ export default async function RootLayout({ children, params }) {
           <iframe src="https://www.googletagmanager.com/ns.html?id=G-W5ZZY1CWBH"
             height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
         </noscript>
-        <NextIntlClientProvider locale={params.locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </NextIntlClientProvider>
       </body>

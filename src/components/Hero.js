@@ -2,13 +2,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button.js'
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 
 const HeroContainer = styled.div`
   display: flex;
   flex-direction: row;
-  font-size: 2.5rem;
+font-size: ${(props) =>
+        props.$locale === 'ru' ? '2rem' : '2.5rem'};
+
   align-items: center;
   height: 80%;
   padding: 1em;
@@ -22,26 +24,34 @@ const HeroContainer = styled.div`
 
 const HeroText = styled.div`
    
-    line-height: 1.3;
-    font-family: var(--font-rajdhani), Arial, sans-serif;
-
+      line-height: ${(props) =>
+        props.$locale === 'ru' ? '1.2' : '1.3'};
+     font-family: ${(props) =>
+        props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-rajdhani), Arial, sans-serif'};
+        
     h1,h2 {
-        font-size: 3.5rem;
+        font-size: ${(props) =>
+        props.$locale === 'ru' ? '2.75rem' : '3.5rem'};
         margin-bottom: 0.1em;
+
     }
 
     h2{
         margin-bottom: .75em;
-        font-size: 2rem;
+        font-size: ${(props) =>
+        props.$locale === 'ru' ? '2rem' : '2rem'};
         color: rgb(var(--clr-gold));
         text-transform: uppercase;
     }
 
     p {
-        font-size: 1.5rem;
-        font-family: var(--font-rajdhani), Arial, sans-serif;
+        font-size: ${(props) =>
+        props.$locale === 'ru' ? '1.35rem' : '1.5rem'};
+     font-family: ${(props) =>
+        props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-rajdhani), Arial, sans-serif'};
         margin-bottom: 0.75em;
     }
+    
 
     p:last-of-type {
         margin-bottom: 1em;
@@ -49,7 +59,8 @@ const HeroText = styled.div`
 
     @media (max-width: 600px){
         h1 {
-            font-size: 2.25rem;
+              font-size: ${(props) =>
+        props.$locale === 'ru' ? '2rem' : '2.25rem'};
         }
 
         h2 {
@@ -94,6 +105,7 @@ img {
 function Hero({ title, subtitle, p1 }) {
 
     const t = useTranslations('Homepage.hero');
+    const locale = useLocale();
 
     const scrollToSection = (event, sectionId) => {
         event.preventDefault();
@@ -105,12 +117,15 @@ function Hero({ title, subtitle, p1 }) {
 
     return (
         <HeroContainer>
-            <HeroText>
+            <HeroText $locale={locale}>
                 <h1>{title} </h1>
                 <h2>{subtitle}</h2>
                 <p> {p1}</p>
                 <p>{t('p2-1')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span1')}</span> {t('p2-2')}</p>
                 <p>  {t('p3-1')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span2')}</span> {t('p3-2')} <span style={{ textTransform: "uppercase", fontWeight: "bold" }}>{t('span3')}</span>{t('p3-3')}</p>
+                {locale === 'ru' && (
+                    <p>{t('extraParagraphForRus')}</p>
+                )}
                 <p>{t('p4')}</p>
                 <Button style={{ fontFamily: 'var(--font-poppins), Arial, sans-serif' }} onClick={(e) => scrollToSection(e, 'contact-anna')} aria-label="View contact section">{t('button')}</Button>
             </HeroText>

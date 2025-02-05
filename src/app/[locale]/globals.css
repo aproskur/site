@@ -59,3 +59,15 @@ a {
 .grecaptcha-badge {
   visibility: hidden;
 }
+
+.top-menu-language-switcher {
+  @media (max-width: 500px) {
+    display: none !important;
+  }
+}
+
+.mobile-language-switcher {
+  @media (min-width: 800px) {
+    display: none !important;
+  }
+}

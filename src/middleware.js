@@ -1,15 +1,9 @@
-import createIntlMiddleware from 'next-intl/middleware';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-export default createIntlMiddleware({
-    locales: ['en', 'ru'],
-    defaultLocale: 'en',
-});
+export default createMiddleware(routing);
 
-// Exclude static assets and internal routes
 export const config = {
-    matcher: [
-        // Apply middleware only to locale-specific routes
-        //'/((?!_next|favicon.ico|images|api).*)',
-        '/', '/(en|ru)/:path*'
-    ],
+
+    matcher: ['/((?!api|_next|.*\\..*).*)']
 };

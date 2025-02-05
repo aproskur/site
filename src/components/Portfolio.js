@@ -19,6 +19,7 @@ import sozoPortfolioMobile from '../../public/images/sozo-portfolio-mobile.webp'
 import webdevWebP from '../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../public/images/website-game-pairs.png';
 import useMobile from '../hooks/useMobile';
+import { useTranslations, useLocale } from 'next-intl';
 
 const SuperContainer = styled.div`
   //background: url('./images/watercolor.png');
@@ -27,11 +28,12 @@ const SuperContainer = styled.div`
   background-size: contain;
 
   h2 {
-    font-size: 3rem;
-    margin-top: 1em;
+    padding: 1em;
     text-align: center;
     color: rgb(var(--clr-gold));
-    margin-bottom: .75em;
+    font-size: ${(props) =>
+        props.$locale === 'ru' ? '2.5rem' : '3rem'};
+  }
 
   }
 `;
@@ -96,10 +98,15 @@ const ProjectInfo = styled.div`
 
 const ProjectTitle = styled.h3`
   color: #333;
+  font-size: 1.25rem;
 `;
 
 const ProjectDescription = styled.p`
   color: #333;
+
+  @media (max-width: 800px) {
+  font-size: 1rem;
+  }
 `;
 
 
@@ -116,16 +123,18 @@ const PortfolioImage = ({ alt, src, width, height, blurDataURL }) => {
 
 const Portfolio = ({ id }) => {
     const isMobile = useMobile();
+    const t = useTranslations("Homepage.portfolio");
+    const locale = useLocale();
 
     return (
-        <SuperContainer id={id}>
-            <h2>SOME WORKS</h2>
+        <SuperContainer $locale={locale} id={id}>
+            <h2>{t("main-heading")}</h2>
             <PortfolioContainer>
                 <PortfolioItemWrapper>
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page',
+                                name: isMobile ? t("tab-ludesign-main-mobile") : t("tab-ludesign-main-desktop"),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="main-page"
@@ -145,7 +154,7 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: isMobile ? 'XS' : 'Mobile',
+                                name: isMobile ? t("tab-ludesign-mobile") : t("tab-ludesign-desktop"),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="ludesign-mobile"
@@ -165,7 +174,7 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: 'Portfolio Page',
+                                name: isMobile ? t("tab-ludesign-portfolio-mobile") : t("tab-ludesign-portfolio-desktop"),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="ludesign-portfolio-mobile"
@@ -185,35 +194,24 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: isMobile ? 'Way' : 'Approach',
+                                name: isMobile ? t('tab-ludesign-approach-mobile') : t('tab-ludesign-approach'),
                                 content: (
                                     <ProjectInfo>
                                         <p>
-                                            The website{' '}
+                                            {t('website')} {' '}
                                             <a
                                                 href="https://ludesign.info"
                                                 rel="nofollow noopener noreferrer"
                                             >
                                                 ludesign.info
                                             </a>{' '}
-                                            showcases the work of Ludmila Stepashina, a talented
-                                            designer and illustrator. This site serves as a
-                                            professional portfolio highlighting her skills and
-                                            projects.
+                                            {t('ludesign-approach-p1')}
                                         </p>
                                         <p>
-                                            Built with HTML, CSS, and JavaScript, and utilizing
-                                            Bootstrap for responsive design, the website offers a
-                                            clean, modern look and a user-friendly experience. Its
-                                            layout is intuitive, making it easy for visitors to
-                                            navigate and explore Ludmila's work.
+                                            {t('ludesign-approach-p2')}
                                         </p>
                                         <p>
-                                            The use of high-quality images effectively showcases her
-                                            portfolio, highlighting the range and depth of her design
-                                            capabilities. The overall design, including the color
-                                            scheme and typography, aligns seamlessly with her
-                                            professional branding and style.
+                                            {t('ludesign-approach-p3')}
                                         </p>
                                     </ProjectInfo>
                                 ),
@@ -222,7 +220,7 @@ const Portfolio = ({ id }) => {
                     />
                 </PortfolioItemWrapper>
                 <ProjectCard>
-                    <ProjectTitle>Portfolio</ProjectTitle>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         HTML, CSS, JavaScript, Bootstrap
                     </ProjectDescription>
@@ -233,7 +231,7 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page',
+                                name: t('tab-main-page'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="sozo-main-mobile"
@@ -251,7 +249,7 @@ const Portfolio = ({ id }) => {
                                 )
                             },
                             {
-                                name: 'Portfolio Page',
+                                name: t('tab-portfolio-page'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="sozo-portfolio-mobile"
@@ -271,29 +269,20 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: 'Approach',
+                                name: isMobile ? t('tab-approach-mobile') : t('tab-approach-desktop'),
                                 content: (
                                     <ProjectInfo>
                                         <p>
-                                            The website{' '}
+                                            {t('website')}{' '}
                                             <a
                                                 href="https://sozodesign.ru"
                                                 rel="nofollow noopener noreferrer"
                                             >
                                                 sozodesign.ru
                                             </a>{' '}
-                                            is a well-crafted WordPress site, customized to showcase
-                                            design and interior decoration services. It features an
-                                            aesthetically pleasing and modern design, enhanced by
-                                            HTML, CSS, JavaScript, and PHP.
+                                            {t('sozo-approach-p1')}
                                         </p>
-                                        <p>
-                                            With its responsive layout, the site ensures seamless
-                                            navigation and viewing on various devices. JavaScript
-                                            enhancements provide advanced user interaction, while PHP
-                                            customizations contribute to dynamic content
-                                            functionality, demonstrating a harmonious blend of design
-                                            and technical expertise in web development.
+                                        <p>{t('sozo-approach-p2')}
                                         </p>
                                     </ProjectInfo>
                                 ),
@@ -302,7 +291,7 @@ const Portfolio = ({ id }) => {
                     />
                 </PortfolioItemWrapper>
                 <ProjectCard>
-                    <ProjectTitle>Portfolio</ProjectTitle>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         WordPress, Customization, CSS, JavaScript, PHP
                     </ProjectDescription>
@@ -313,7 +302,7 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page',
+                                name: t('tab-main-page'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="art-main-mobile"
@@ -331,7 +320,7 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: 'Portfolio Page',
+                                name: t('tab-portfolio-page'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="art-portfolio-mobile"
@@ -349,22 +338,13 @@ const Portfolio = ({ id }) => {
                                 )
                             },
                             {
-                                name: 'Approach',
+                                name: isMobile ? t('tab-approach-mobile') : t('tab-approach-desktop'),
                                 content: (
                                     <ProjectInfo>
-                                        <p>
-                                            The website art inspiration is an artist's portfolio
-                                            represents a custom adaptation of a WordPress theme,
-                                            designed to create an online gallery.
-                                            It incorporates interactive elements through custom
-                                            JavaScript, adding depth to the user experience.
+                                        <p>{t('art-approach-p1')}
                                         </p>
                                         <p>
-                                            Offering a distinctive approach to layout and design, the
-                                            site effectively showcases art pieces, leveraging a
-                                            responsive framework for seamless viewing on various
-                                            devices. This project is a testament to the fusion of
-                                            creative design and interactive web technologies.
+                                            {t('art-approach-p2')}
                                         </p>
                                     </ProjectInfo>
                                 ),
@@ -373,7 +353,7 @@ const Portfolio = ({ id }) => {
                     />
                 </PortfolioItemWrapper>
                 <ProjectCard>
-                    <ProjectTitle>Portfolio</ProjectTitle>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         WordPress, CSS, JavaScript
                     </ProjectDescription>
@@ -384,7 +364,7 @@ const Portfolio = ({ id }) => {
                     <TabbedContainer
                         tabs={[
                             {
-                                name: 'Main Page',
+                                name: t('tab-main-page'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="webdev-main-mobile"
@@ -402,7 +382,7 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: 'A game',
+                                name: t('tab-game'),
                                 content: isMobile ? (
                                     <PortfolioImage
                                         key="webdev-game-mobile"
@@ -420,7 +400,7 @@ const Portfolio = ({ id }) => {
                                 ),
                             },
                             {
-                                name: 'Approach',
+                                name: isMobile ? t('tab-approach-mobile') : t('tab-approach-desktop'),
                                 content: (
                                     <ProjectInfo>
                                         <p>
@@ -430,17 +410,10 @@ const Portfolio = ({ id }) => {
                                             >
                                                 annawebdev.pro
                                             </a>{' '}
-                                            This website is a personal portfolio for a freelance web developer offering a variety of web services.
-                                            It demonstrates a collection of web development projects showcasing
-                                            skills in HTML, CSS, JavaScript, React, Wordpress and game development.
-                                            Each project is designed with a focus on functionality,
-                                            user experience, and coding best practices.
+                                            {t('webdev-p1')}
                                         </p>
                                         <p>
-                                            The website itself is build with React, using Styled Components,and implements
-                                            some standard security features to ensure secure communication between the user and the website.
-                                            This site is mobile and SEO-friendly.
-                                            It includes a portfolio section, services overview, a contact form, and a fun section with a game, all crafted to highlight full-stack development skills while maintaining scalability for future growth.
+                                            {t('webdev-p2')}
                                         </p>
                                     </ProjectInfo>
                                 ),
@@ -449,7 +422,7 @@ const Portfolio = ({ id }) => {
                     />
                 </PortfolioItemWrapper>
                 <ProjectCard>
-                    <ProjectTitle>Portfolio</ProjectTitle>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         HTML, CSS, JavaScript, Game Development
                     </ProjectDescription>

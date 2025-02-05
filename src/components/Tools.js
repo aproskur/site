@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslations, useLocale } from 'next-intl';
 
 const TooltipContainer = styled.div`
   position: relative;
@@ -57,10 +58,24 @@ const ToolsContainer = styled.div`
     padding-bottom: 3em;
     padding-top:1em;
 
+
     h2 {
         padding: 1em;
         text-align: center;
-        font-size: 3rem;
+            font-size: ${(props) =>
+        props.$locale === 'ru' ? '2.5rem' : '3rem'};
+  }
+
+
+     @media (max-width: 600px){
+
+        h2 {
+        padding-top: .25em;
+        padding-bottom: 1em;
+        font-size: 2rem !important;
+        }
+    }
+
         @media (max-width: 500px) {
       font-size: 2.5rem;
     }
@@ -84,11 +99,13 @@ const IconsContainer = styled.div`
 
 
 const Tools = () => {
+    const t = useTranslations("Homepage.tools");
+    const locale = useLocale();
 
 
     return (
-        <ToolsContainer>
-            <h2>Tools & Experience</h2>
+        <ToolsContainer $locale={locale}>
+            <h2>{t("main-heading")}</h2>
             <IconsContainer>
                 <Tooltip text="HTML5">
                     <svg viewBox="0 0 128 128" width="80" height="80">

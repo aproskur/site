@@ -264,10 +264,10 @@ const TopMenu = () => {
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'projects')} role="button" aria-label="View portfolio section">{t('menu.projects')}</a></MenuItem>
                         <MenuItem><a href="#" onClick={(e) => scrollToSection(e, 'contact-anna')} role="button" aria-label="View contact section">{t('menu.contact')}</a></MenuItem>
                         <MenuItem><a href="/game" role="button" aria-label="play a memo game">{t('menu.fun')}</a></MenuItem>
-                        <LanguageSwitcher className="mobile-language-switcher" currentLocale={currentLocale}></LanguageSwitcher>
+                        {width <= 800 && <LanguageSwitcher currentLocale={currentLocale} />}
                     </MenuItems>
                 </UseClientMenu>
-                <LanguageSwitcher className="top-menu-language-switcher" currentLocale={currentLocale} />
+                {width > 800 && <LanguageSwitcher currentLocale={currentLocale} />}
                 <HamburgerIcon role="button" onClick={toggleMenu} className={isOpen ? 'open' : ''} aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}>
                     <span>
                         <div></div>

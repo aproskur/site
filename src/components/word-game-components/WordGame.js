@@ -5,7 +5,7 @@ import HeaderWordGame from './HeaderWordGame';
 import GameLetter from './Letter';
 import VirtualKeyboard from './VirtualKeyboard';
 import Popup from './Popup';
-import styles from '../../app/pages/word-game/WordGamePage.module.css';
+import styles from '@/components/word-game-components/WordGamePage.module.css';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
 

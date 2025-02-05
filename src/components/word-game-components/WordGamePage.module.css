@@ -1,0 +1,71 @@
+.wordGameContainer {
+
+    --dark-navy: 38, 22, 118;
+    --blue: 36, 99, 255;
+    --white: 255, 255, 255;
+
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    font-family: var(--font-wordGameFont);
+
+
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    grid-template-rows: 15% 55% auto;
+    grid-template-areas:
+        ". header ."
+        ". word  ."
+        ". keyboard .";
+
+    padding: 2em;
+
+}
+
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+@media screen and (min-width: 1024px) {
+    .background {
+        background-image: url('/images/word-game-images/background-desktop.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .background {
+        background-image: url('/images/word-game-images/background-tablet.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .background {
+        background-image: url('/images/word-game-images/background-mobile.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .wordGameContainer {
+        grid-template-columns: 100%;
+        grid-template-rows: 20% 40% auto;
+        grid-template-areas:
+            "header"
+            "word"
+            "keyboard";
+        padding: 1em;
+    }
+}

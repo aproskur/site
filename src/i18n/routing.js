@@ -1,5 +1,5 @@
-const { defineRouting } = require('next-intl/routing');
-const { createNavigation } = require('next-intl/navigation');
+import { defineRouting } from 'next-intl/routing';
+import { createNavigation } from 'next-intl/navigation';
 
 const routing = defineRouting({
     // A list of all locales that are supported

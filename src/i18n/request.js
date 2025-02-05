@@ -1,5 +1,5 @@
-const { getRequestConfig } = require('next-intl/server');
-const { routing } = require('./routing');
+import { getRequestConfig } from 'next-intl/server';
+import { routing } from './routing';
 
 module.exports = getRequestConfig(async ({ requestLocale }) => {
     // This typically corresponds to the `[locale]` segment

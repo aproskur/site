@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 const TabWrapper = styled.div`
   display: flex;
@@ -52,7 +53,25 @@ const TabContentContainer = styled.div`
 `;
 
 const TabbedContainer = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(tabs[0].name);
+  const [activeTab, setActiveTab] = useState(() => {
+    return tabs.length > 0 ? tabs[0].name : ""; // Prevents selecting a missing tab
+  });
+
+  // fixing disappering tabs
+  useEffect(() => {
+    if (!tabs.find(tab => tab.name === activeTab)) {
+      console.warn(`⚠️ Active tab "${activeTab}" is invalid. Resetting to first tab.`);
+
+      if (tabs.length > 0) {
+        setActiveTab(tabs[0].name); // Only reset if there are valid tabs
+      }
+    }
+  }, [tabs]);
+
+
+
+
+
 
   const handleKeyDown = (e, tabName) => {
     const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
@@ -70,7 +89,22 @@ const TabbedContainer = ({ tabs }) => {
     setActiveTab(tabs[newIndex].name);
   };
 
+  useEffect(() => {
+    const activeTabObject = tabs.find(tab => tab.name === activeTab);
+    console.log("Rendering tab:", activeTabObject ? activeTabObject.name : "Tab not found");
+  }, [activeTab, tabs]);
+
+  if (!tabs || tabs.length === 0) {
+    return <div>No tabs available</div>; // Handles the case where tabs is empty
+  }
+  useEffect(() => {
+    console.log("Tabs received:", tabs.map(tab => tab.name));
+  }, [tabs]);
+
   return (
+
+
+
     <div>
       <TabWrapper role="tablist">
         {tabs.map(tab => (
@@ -89,7 +123,9 @@ const TabbedContainer = ({ tabs }) => {
         ))}
       </TabWrapper>
       <TabContentContainer>
-        {tabs.find(tab => tab.name === activeTab)?.content}
+        {tabs.find(tab => tab.name === activeTab)?.content || (
+          <p></p>
+        )}
       </TabContentContainer>
     </div>
   );

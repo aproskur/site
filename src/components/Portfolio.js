@@ -20,6 +20,7 @@ import webdevWebP from '../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../public/images/website-game-pairs.png';
 import useMobile from '../hooks/useMobile';
 import { useTranslations, useLocale } from 'next-intl';
+import { useEffect, useMemo } from 'react';
 
 const SuperContainer = styled.div`
   //background: url('./images/watercolor.png');
@@ -127,9 +128,85 @@ const Portfolio = ({ id }) => {
     const t = useTranslations("Homepage.portfolio");
     const locale = useLocale();
 
+    useEffect(() => {
+        console.log("Rendering Ludesign Image:", document.querySelectorAll('img[alt^="Ludesign"]'));
+    }, []);
+
+
+    const ludesignTabs = useMemo(() => [
+        {
+            name: isMobile ? t("tab-ludesign-main-mobile") : t("tab-ludesign-main-desktop"),
+            content: (
+                <PortfolioImage
+                    key={`ludesign-main-${isMobile ? 'mobile' : 'desktop'}`}
+                    src={ludesignWebP}
+                    alt="Ludesign Desktop Screenshot"
+                    width={isMobile ? 300 : 650}
+                    blurDataURL="/images/ludesign-portfolio.webp"
+                    priority={true}
+                />
+            ),
+        },
+        {
+            name: isMobile ? t("tab-ludesign-mobile") : t("tab-ludesign-desktop"),
+            content: (
+                <PortfolioImage
+                    key={`ludesign-mobile-${isMobile ? 'mobile' : 'desktop'}`}
+                    src={ludesignMainMobile}
+                    alt="Ludesign Mobile Screenshot"
+                    width={isMobile ? 300 : 200}
+                    blurDataURL="/images/blurred-ludesign-main-mobile.webp"
+                    priority={true}
+                />
+            ),
+        },
+        {
+            name: isMobile ? t("tab-ludesign-portfolio-mobile") : t("tab-ludesign-portfolio-desktop"),
+            content: (
+                <PortfolioImage
+                    key={`ludesign-portfolio-${isMobile ? 'mobile' : 'desktop'}`}
+                    src={ludesignPortfolioWebP}
+                    alt="Ludesign Project Screenshot"
+                    width={isMobile ? 300 : 650}
+                    blurDataURL="/images/ludesign-portfolio.webp"
+                />
+            ),
+        },
+        {
+            name: isMobile ? t('tab-ludesign-approach-mobile') : t('tab-ludesign-approach'),
+            content: (
+                <ProjectInfo>
+                    <p>
+                        {t('website')} {' '}
+                        <a href="https://ludesign.info" rel="nofollow noopener noreferrer">
+                            ludesign.info
+                        </a>{' '}
+                        {t('ludesign-approach-p1')}
+                    </p>
+                    <p>{t('ludesign-approach-p2')}</p>
+                    <p>{t('ludesign-approach-p3')}</p>
+                </ProjectInfo>
+            ),
+        },
+    ], [isMobile, t]); // tabs only update when isMobile or t changes
+
+
+
+
     return (
         <SuperContainer $locale={locale} id={id}>
             <h2>{t("main-heading")}</h2>
+            <PortfolioContainer>
+                <PortfolioItemWrapper>
+                    <TabbedContainer tabs={ludesignTabs} />
+                </PortfolioItemWrapper>
+                <ProjectCard>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
+                    <ProjectDescription>
+                        HTML, CSS, JavaScript, Bootstrap
+                    </ProjectDescription>
+                </ProjectCard>
+            </PortfolioContainer>
 
             <PortfolioContainer>
                 <PortfolioItemWrapper>

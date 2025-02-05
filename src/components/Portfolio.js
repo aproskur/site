@@ -123,109 +123,14 @@ const PortfolioImage = ({ alt, src, width, height, blurDataURL }) => {
 
 const Portfolio = ({ id }) => {
     const isMobile = useMobile();
+
     const t = useTranslations("Homepage.portfolio");
     const locale = useLocale();
 
     return (
         <SuperContainer $locale={locale} id={id}>
             <h2>{t("main-heading")}</h2>
-            <PortfolioContainer>
-                <PortfolioItemWrapper>
-                    <TabbedContainer
-                        tabs={[
-                            {
-                                name: isMobile ? t("tab-ludesign-main-mobile") : t("tab-ludesign-main-desktop"),
-                                content: isMobile ? (
-                                    <PortfolioImage
-                                        key="main-page"
-                                        src={ludesignWebP}
-                                        alt="Desktop Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="main-page-mobile"
-                                        src={ludesignWebP}
-                                        alt="Desktop Screenshot"
-                                        width={650}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ),
-                            },
-                            {
-                                name: isMobile ? t("tab-ludesign-mobile") : t("tab-ludesign-desktop"),
-                                content: isMobile ? (
-                                    <PortfolioImage
-                                        key="ludesign-mobile"
-                                        src={ludesignMainMobile}
-                                        alt="Mobile Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="ludesign-mobile-d"
-                                        src={ludesignMainMobile}
-                                        alt="Desktop Screenshot"
-                                        width={200}
-                                        blurDataURL='../../../public/images/blurred-ludesign-main-mobile.webp'
-                                    />
-                                ),
-                            },
-                            {
-                                name: isMobile ? t("tab-ludesign-portfolio-mobile") : t("tab-ludesign-portfolio-desktop"),
-                                content: isMobile ? (
-                                    <PortfolioImage
-                                        key="ludesign-portfolio-mobile"
-                                        src={ludesignPortfolioWebP}
-                                        alt="Project Screenshot"
-                                        width={300}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ) : (
-                                    <PortfolioImage
-                                        key="ludesign-portfolio-mobile-desktop"
-                                        src={ludesignPortfolioWebP}
-                                        alt="Project Screenshot"
-                                        width={650}
-                                        blurDataURL='../../../public/images/ludesign-portfolio.webp'
-                                    />
-                                ),
-                            },
-                            {
-                                name: isMobile ? t('tab-ludesign-approach-mobile') : t('tab-ludesign-approach'),
-                                content: (
-                                    <ProjectInfo>
-                                        <p>
-                                            {t('website')} {' '}
-                                            <a
-                                                href="https://ludesign.info"
-                                                rel="nofollow noopener noreferrer"
-                                            >
-                                                ludesign.info
-                                            </a>{' '}
-                                            {t('ludesign-approach-p1')}
-                                        </p>
-                                        <p>
-                                            {t('ludesign-approach-p2')}
-                                        </p>
-                                        <p>
-                                            {t('ludesign-approach-p3')}
-                                        </p>
-                                    </ProjectInfo>
-                                ),
-                            },
-                        ]}
-                    />
-                </PortfolioItemWrapper>
-                <ProjectCard>
-                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
-                    <ProjectDescription>
-                        HTML, CSS, JavaScript, Bootstrap
-                    </ProjectDescription>
-                </ProjectCard>
-            </PortfolioContainer>
+
             <PortfolioContainer>
                 <PortfolioItemWrapper>
                     <TabbedContainer
@@ -256,7 +161,7 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={300}
-                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
+                                        blurDataURL='/images/blurred-sozo-portfolio.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
@@ -264,7 +169,7 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={650}
-                                        blurDataURL='../../../public/images/blurred-sozo-portfolio.webp'
+                                        blurDataURL='/images/blurred-sozo-portfolio.webp'
                                     />
                                 ),
                             },

@@ -94,6 +94,15 @@ const StyledYellowButton = styled(ToggleButton)`
     }
   `;
 
+  const PlayerButton = styled(ToggleButton)`
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.6em 0.8em;
+  font-size: 0.95em;
+`;
+
+
 
 
 
@@ -125,18 +134,18 @@ const ThemeSelector = () => {
                     <div>Select Players</div>
                 </StyledItemsWrapper>
                 <StyledItemsWrapper>
-                    <ToggleButton active={numPlayers === 1} onClick={() => handlePlayerSelection(1)}>
+                    <PlayerButton active={numPlayers === 1} onClick={() => handlePlayerSelection(1)}>
                         1
-                    </ToggleButton>
-                    <ToggleButton active={numPlayers === 2} onClick={() => handlePlayerSelection(2)}>
+                    </PlayerButton>
+                    <PlayerButton active={numPlayers === 2} onClick={() => handlePlayerSelection(2)}>
                         2
-                    </ToggleButton>
-                    <ToggleButton active={numPlayers === 3} onClick={() => handlePlayerSelection(3)}>
+                    </PlayerButton>
+                    <PlayerButton active={numPlayers === 3} onClick={() => handlePlayerSelection(3)}>
                         3
-                    </ToggleButton>
-                    <ToggleButton active={numPlayers === 4} onClick={() => handlePlayerSelection(4)}>
+                    </PlayerButton>
+                    <PlayerButton active={numPlayers === 4} onClick={() => handlePlayerSelection(4)}>
                         4
-                    </ToggleButton>
+                    </PlayerButton>
                 </StyledItemsWrapper>
                 <StyledItemsWrapper>
                     <div>Grid Size</div>

@@ -18,6 +18,7 @@ import sozoMainMobile from '../../public/images/sozo-main-mobile.webp';
 import sozoPortfolioMobile from '../../public/images/sozo-portfolio-mobile.webp';
 import webdevWebP from '../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../public/images/website-game-pairs.png';
+import bitesizeProjectsWebp from '../../public/images/bitesize-projects.webp';
 import useMobile from '../hooks/useMobile';
 import { useTranslations, useLocale } from 'next-intl';
 import { useEffect, useMemo } from 'react';
@@ -407,6 +408,54 @@ const Portfolio = ({ id }) => {
                     <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         HTML, CSS, JavaScript, Game Development
+                    </ProjectDescription>
+                </ProjectCard>
+            </PortfolioContainer>
+                     <PortfolioContainer>
+                <PortfolioItemWrapper>
+                    <TabbedContainer
+                        tabs={[
+                            {
+                                name: t('tab-main-page'),
+                                content: isMobile ? (
+                                    <PortfolioImage
+                                        key="webdev-main-mobile"
+                                        src={bitesizeProjectsWebp}
+                                        alt="Project Screenshot"
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        key="webdev-main-desktop"
+                                        src={bitesizeProjectsWebp}
+                                        alt="Project Screenshot"
+                                        width={650}
+                                    />
+                                ),
+                            },
+                            {
+                                name: isMobile ? t('tab-approach-mobile') : t('tab-approach-desktop'),
+                                content: (
+                                    <ProjectInfo>
+                                        <p>
+                                            <a
+                                                href="https://aproskur.github.io"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                aproskur.github.io
+                                            </a>{' '}
+                                            {t('bitesize-p1')}
+                                        </p>
+                                    </ProjectInfo>
+                                ),
+                            },
+                        ]}
+                    />
+                </PortfolioItemWrapper>
+                <ProjectCard>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
+                    <ProjectDescription>
+                        HTML, CSS, JavaScript
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>

@@ -19,6 +19,8 @@ import sozoPortfolioMobile from '../../public/images/sozo-portfolio-mobile.webp'
 import webdevWebP from '../../public/images/anna-webdev.webp';
 import webdevGamePNG from '../../public/images/website-game-pairs.png';
 import bitesizeProjectsWebp from '../../public/images/bitesize-projects.webp';
+import shiatsuCardiffMain from '../../public/images/shiatsu-cardiff-home-page.webp';
+import shiatsuCardifSchool from '../../public/images/shiatsu-cardiff-2.webp';
 import useMobile from '../hooks/useMobile';
 import { useTranslations, useLocale } from 'next-intl';
 import { useEffect, useMemo } from 'react';
@@ -411,7 +413,7 @@ const Portfolio = ({ id }) => {
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>
-                     <PortfolioContainer>
+            <PortfolioContainer>
                 <PortfolioItemWrapper>
                     <TabbedContainer
                         tabs={[
@@ -456,6 +458,54 @@ const Portfolio = ({ id }) => {
                     <ProjectTitle>{t('tech-stack')}</ProjectTitle>
                     <ProjectDescription>
                         HTML, CSS, JavaScript
+                    </ProjectDescription>
+                </ProjectCard>
+            </PortfolioContainer>
+            <PortfolioContainer>
+                <PortfolioItemWrapper>
+                    <TabbedContainer
+                        tabs={[
+                            {
+                                name: t('tab-main-page'),
+                                content: isMobile ? (
+                                    <PortfolioImage
+                                        key="webdev-main-mobile"
+                                        src={shiatsuCardiffMain}
+                                        alt="Project Screenshot"
+                                        width={300}
+                                    />
+                                ) : (
+                                    <PortfolioImage
+                                        key="webdev-main-desktop"
+                                        src={shiatsuCardiffMain}
+                                        alt="Project Screenshot"
+                                        width={650}
+                                    />
+                                ),
+                            },
+                            {
+                                name: isMobile ? t('tab-approach-mobile') : t('tab-approach-desktop'),
+                                content: (
+                                    <ProjectInfo>
+                                        <p>
+                                            <a
+                                                href="https://shiatsucardiff.com"
+                                                rel="nofollow noopener noreferrer"
+                                            >
+                                                shiatsucardiff.com
+                                            </a>{' '}
+                                            {t('shiatsucardiff-p1')}
+                                        </p>
+                                    </ProjectInfo>
+                                ),
+                            },
+                        ]}
+                    />
+                </PortfolioItemWrapper>
+                <ProjectCard>
+                    <ProjectTitle>{t('tech-stack')}</ProjectTitle>
+                    <ProjectDescription>
+                        WordPress Theme Customization
                     </ProjectDescription>
                 </ProjectCard>
             </PortfolioContainer>

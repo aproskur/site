@@ -15,16 +15,19 @@ const StyledButton = styled.button`
   font-size: 1.25rem;
   font-family: var(--font);
   padding: 1em 1.25em;
-  border-radius: 30px;
+  border-radius: 50px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   position: relative;
   overflow: hidden;
-  background: rgb(58, 83, 109);
+  background:rgb(72, 170, 170);
   color: #fff;
   text-transform: uppercase;
   min-width: 5em;
+    box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(72, 170, 170, 0.6);
 
 
   // Adding shine effect on hover

@@ -85,7 +85,9 @@
             "art-approach-p2": "Offering a distinctive approach to layout and design, the site effectively showcases art pieces, leveraging a responsive framework for seamless viewing on various devices. This project showcases the perfect blend of creative design and interactive web technologies.",
             "webdev-p1": "This website is a personal portfolio for a freelance web developer offering a variety of web services. It demonstrates a collection of web development projects showcasing skills in HTML, CSS, JavaScript, React, WordPress, and game development. Each project is designed with a focus on functionality, user experience, and coding best practices.",
             "webdev-p2": "The website itself is built with React, using Styled Components, and implements some standard security features to ensure secure communication between the user and the website. This site is mobile and SEO-friendly. It includes a portfolio section, services overview, a contact form, and a fun section with a game, all crafted to highlight full-stack development skills while maintaining scalability for future growth.",
-            "bitesize-p1": "I built responsive layouts and reusable components using semantic HTML and modern CSS, and added interactivity with JavaScript where needed."
+            "bitesize-p1": "I built responsive layouts and reusable components using semantic HTML and modern CSS, and added interactivity with JavaScript where needed.",
+            "shiatsucardiff-p1": "Shiatsu Cardiff — Shiatsu Practitioner's Website. Built with WordPress, tailored with custom CSS and visual editor enhancements. Delivered a responsive, client-friendly site optimized for both desktop and mobile. Focused on clean design, and easy content management for the client."
+
         },
         "contacts": {
             "main-heading": "Contact me",

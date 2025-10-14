@@ -61,5 +61,20 @@ a {
 }
 
 .grecaptcha-badge {
-  visibility: hidden;
+  position: fixed;
+  inset: auto 2.5rem 2.5rem auto;
+  z-index: 9000;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.grecaptcha-badge:hover,
+.grecaptcha-badge:focus-within {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .grecaptcha-badge {
+    inset: auto 1.25rem 1.25rem auto;
+  }
 }

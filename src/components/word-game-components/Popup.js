@@ -126,7 +126,7 @@ const TransparentOverlay = styled.div`
 
 const Button = styled.button`
   background-color: transparent;
-  background-image: url('../images/word-game-images/ButtonDefault.png');
+  background-image: url('/images/word-game-images/ButtonDefault.png');
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -146,7 +146,7 @@ const Button = styled.button`
 
   &:hover {
     transform: scale(.95);
-    background-image: url('../images/word-game-images/ButtonHover.png');
+    background-image: url('/images/word-game-images/ButtonHover.png');
   }
 
   &:active {
@@ -170,21 +170,21 @@ const Button = styled.button`
 
 const GradientButton = styled(Button)`
   background: linear-gradient(to bottom, #FE71FE, #7199FF);
-  background-image: url('../images/word-game-images/GradientButtonDefault.png');
+  background-image: url('/images/word-game-images/GradientButtonDefault.png');
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
 
 
   &:hover {
-    background-image: url('../images/word-game-images/GradientButtonHover.png');
+    background-image: url('/images/word-game-images/GradientButtonHover.png');
   }
 
 
 `;
 const PlayButton = styled.button`
   background: radial-gradient(circle at top, #FE71FE, #7199FF);
-  background-image: url('../images/word-game-images/StartGameButton.png');
+  background-image: url('/images/word-game-images/StartGameButton.png');
   background-size: 150px 150px;
   border: 1px solid black;
   border-radius: 50%; 
@@ -200,7 +200,7 @@ const PlayButton = styled.button`
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), inset 0 -4px 8px rgba(0, 0, 0, 0.1);
-    background-image: url('../images/word-game-images/StartButtonHover.png');
+    background-image: url('/images/word-game-images/StartButtonHover.png');
   }
 
   &:active {
@@ -452,7 +452,7 @@ const CategoryTitle = styled(OrdinaryTitle)`
 `;
 
 const CategoryButton = styled(Button)`
-background-image: url('../images/word-game-images/CategoryButtonDefault.png');
+background-image: url('/images/word-game-images/CategoryButtonDefault.png');
 background-size: contain;
 background-position: center;
 background-repat:no-repat;
@@ -463,7 +463,7 @@ height: 150px;
 
 
 &:hover {
-  background-image: url('../images/word-game-images/ButtonCategoryHoverNew.png');
+  background-image: url('/images/word-game-images/ButtonCategoryHoverNew.png');
 }
 
 
@@ -502,7 +502,7 @@ const CategorySelection = ({ onCategorySelect, onRoundButtonClick }) => (
 );
 
 const TitleContainer = styled.div`
-  background-image: url('../images/word-game-images/HangmanGroup.png');
+  background-image: url('/images/word-game-images/HangmanGroup.png');
   background-repeat: no-repeat;
   background-size: contain;
   width: 100%;

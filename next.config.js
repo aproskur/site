@@ -5,11 +5,6 @@ const nextConfig = {
     },
 };
 
+const withNextIntl = require('next-intl/plugin')();
 
-async function loadConfig() {
-    const { default: createNextIntlPlugin } = await import("next-intl/plugin");
-    const withNextIntl = createNextIntlPlugin();
-    return withNextIntl(nextConfig);
-}
-
-module.exports = loadConfig();
+module.exports = withNextIntl(nextConfig);

@@ -246,7 +246,6 @@ const ContactForm = ({ onFocus }) => {
   const locale = useLocale();
   const langParam = locale === 'ru' ? 'ru' : 'en';
 
-
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   // Define recaptchaReady state
@@ -342,7 +341,7 @@ const ContactForm = ({ onFocus }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('../api/send-email', {
+      const response = await axios.post('/api/send-email', {
         token,
         name,
         email,

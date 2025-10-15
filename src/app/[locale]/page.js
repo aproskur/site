@@ -2,6 +2,8 @@
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const DynamicTopMenu = dynamic(() => import('../../components/TopMenu'));
 const DynamicHero = dynamic(() => import('../../components/Hero'));
@@ -17,6 +19,50 @@ const StyledMainContainer = styled.main`
 
 export default function Home() {
   const t = useTranslations('Homepage');
+  const searchParams = useSearchParams();
+  const sectionParam = searchParams?.get('section');
+
+  useEffect(() => {
+    if (!sectionParam || typeof window === 'undefined') {
+      return;
+    }
+
+    let attemptsRemaining = 16;
+
+    const removeSectionParam = () => {
+      const url = new URL(window.location.href);
+      if (!url.searchParams.has('section')) {
+        return;
+      }
+      url.searchParams.delete('section');
+      window.history.replaceState(null, '', url.toString());
+    };
+
+    const tryScroll = () => {
+      const target = document.getElementById(sectionParam);
+
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        removeSectionParam();
+        return;
+      }
+
+      attemptsRemaining -= 1;
+
+      if (attemptsRemaining <= 0) {
+        removeSectionParam();
+        return;
+      }
+
+      window.requestAnimationFrame(tryScroll);
+    };
+
+    window.requestAnimationFrame(tryScroll);
+
+    return () => {
+      attemptsRemaining = 0;
+    };
+  }, [sectionParam]);
 
 
   const words = ['CODE', 'CODE', 'CODE', 'CODE', 'CODE'];

@@ -5,7 +5,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import Image from 'next/image'
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import { useRouter } from '@/i18n/routing';
+import { useRouter, routing } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
 
 
@@ -233,12 +233,24 @@ const TopMenu = ({ background }) => {
         }
     };
 
+    const isOnHomePage = () => {
+        if (typeof window === 'undefined') {
+            return false;
+        }
+
+        const { pathname } = window.location;
+        if (pathname === `/${currentLocale}`) {
+            return true;
+        }
+
+        return currentLocale === routing.defaultLocale && pathname === '/';
+    };
+
     const scrollToSection = async (event, sectionId) => {
         event.preventDefault();
         setIsOpen(false);
-        const homePath = `/${currentLocale}`;
 
-        if (typeof window !== 'undefined' && window.location.pathname === homePath) {
+        if (isOnHomePage()) {
             const section = document.getElementById(sectionId);
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
@@ -246,10 +258,8 @@ const TopMenu = ({ background }) => {
             }
         }
 
-        await router.push(
-            { pathname: '/', hash: sectionId },
-            { locale: currentLocale }
-        );
+        const targetUrl = `/?section=${encodeURIComponent(sectionId)}`;
+        await router.push(targetUrl, { locale: currentLocale });
     };
     const t = useTranslations('Homepage');
 

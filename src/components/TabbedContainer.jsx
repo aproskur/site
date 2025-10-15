@@ -85,6 +85,7 @@ const TabbedContainer = ({ tabs = [], fullWidthTabs = true }) => {
   const tabRefs = useRef([]);
   const baseId = useId();
 
+
   useEffect(() => {
     if (tabs.length === 0) return;
     if (!tabs.find(tab => tab.name === activeTab)) {
@@ -95,12 +96,20 @@ const TabbedContainer = ({ tabs = [], fullWidthTabs = true }) => {
   useEffect(() => {
     tabRefs.current = tabs.map((_, index) => tabRefs.current[index] || null);
   }, [tabs]);
-  useEffect(() => {
-    const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
-    if (currentIndex !== -1) {
-      tabRefs.current[currentIndex]?.focus();
-    }
-  }, [activeTab, tabs]);
+
+const hasMounted = useRef(false);
+
+useEffect(() => {
+  const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
+  if (currentIndex === -1) return;
+
+  if (hasMounted.current) {
+    tabRefs.current[currentIndex]?.focus();
+  } else {
+    hasMounted.current = true;
+  }
+}, [activeTab, tabs]);
+
 
   const handleKeyDown = (e, index) => {
     const currentIndex = index;

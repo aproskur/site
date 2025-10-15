@@ -93,24 +93,31 @@ export default function WordGame() {
 
     return (
         <div className={styles.wordGameContainer}>
-            <HeaderWordGame onMenuClick={handleMenuClick} />
-            {isGameVisible && (
-                <StyledLetterContainer>
-                    {wordToPlay.map((word, wordIndex) => (
-                        <div key={wordIndex} className='word'>
-                            {word.map((letter, letterIndex) => (
-                                <GameLetter
-                                    key={`${letterIndex}-${letterIndex}`}
-                                    letterToGuess={letter}
-                                    isGuessed={guessedLetters.has(letter)}
-                                />
-                            ))}
-                        </div>
-                    ))}
-                </StyledLetterContainer>
-            )}
-            <VirtualKeyboard />
-            <Popup isVisible={isPopupVisible} onClose={togglePopup} mode={popupMode} handleMode={setPopupMode} />
+            <picture className={styles.background} aria-hidden="true">
+                <source media="(min-width: 1024px)" srcSet="/images/word-game-images/background-desktop.svg" />
+                <source media="(min-width: 768px)" srcSet="/images/word-game-images/background-tablet.svg" />
+                <img src="/images/word-game-images/background-mobile.svg" alt="" />
+            </picture>
+            <div className={styles.content}>
+                <HeaderWordGame onMenuClick={handleMenuClick} />
+                {isGameVisible && (
+                    <StyledLetterContainer>
+                        {wordToPlay.map((word, wordIndex) => (
+                            <div key={wordIndex} className='word'>
+                                {word.map((letter, letterIndex) => (
+                                    <GameLetter
+                                        key={`${letterIndex}-${letterIndex}`}
+                                        letterToGuess={letter}
+                                        isGuessed={guessedLetters.has(letter)}
+                                    />
+                                ))}
+                            </div>
+                        ))}
+                    </StyledLetterContainer>
+                )}
+                <VirtualKeyboard />
+                <Popup isVisible={isPopupVisible} onClose={togglePopup} mode={popupMode} handleMode={setPopupMode} />
+            </div>
         </div>
     );
 }

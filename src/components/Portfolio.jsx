@@ -23,7 +23,7 @@ import shiatsuCardiffMain from '../../public/images/shiatsu-cardiff-home-page.we
 import shiatsuCardifSchool from '../../public/images/shiatsu-cardiff-2.webp';
 import useMobile from '../hooks/useMobile';
 import { useTranslations, useLocale } from 'next-intl';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 const SuperContainer = styled.div`
   //background: url('./images/watercolor.png');
@@ -130,10 +130,6 @@ const Portfolio = ({ id }) => {
 
     const t = useTranslations("Homepage.portfolio");
     const locale = useLocale();
-
-    useEffect(() => {
-        console.log("Rendering Ludesign Image:", document.querySelectorAll('img[alt^="Ludesign"]'));
-    }, []);
 
 
     const ludesignTabs = useMemo(() => [

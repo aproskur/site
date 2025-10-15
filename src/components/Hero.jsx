@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styled from 'styled-components'
-import Button from './Button.js'
+import Button from './Button.jsx'
 import { useTranslations, useLocale } from 'next-intl';
 
 

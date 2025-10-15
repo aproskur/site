@@ -3,55 +3,82 @@ import styled from 'styled-components';
 
 const TabWrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
   border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
 `;
 
 const TabButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #ddd;
   border-bottom: none;
-  padding: 10px 20px;
+  padding: 0.75rem 1.25rem;
   cursor: pointer;
   border-top-left-radius: 10px;
   border-top-right-radius: 3px;
-          font-family: ${(props) =>
+  font-family: ${(props) =>
     props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-rajdhani), Arial, sans-serif'};
-
+  flex: ${(props) => (props.$fullWidth ? '1 1 160px' : '0 0 auto')};
+  min-width: ${(props) => (props.$fullWidth ? '140px' : 'auto')};
+  text-align: center;
+  line-height: 1.3;
   background: var(--bgr-gradient);
   color: rgb(var(--clr-white));
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #007bff;
   }
 
-     @media (max-width: 768px) {
-    flex: 1;
+  &:hover {
+    border-color: #bbb;
+  }
+
+  @media (max-width: 768px) {
+    flex: ${(props) => (props.$fullWidth ? '1 1 100%' : '1 1 auto')};
+    min-width: unset;
   }
 
   ${({ $active }) =>
     $active &&
     `
-    background: inherit;
+    background: rgb(var(--clr-white));
     border-color: #bbb;
     color: rgb(var(--clr-gray));
+    font-weight: 600;
   `}
 `;
 
 const TabContentContainer = styled.div`
   height: 50vh;
   overflow-y: scroll;
-            font-family: ${(props) =>
+  font-family: ${(props) =>
     props.$locale === 'ru' ? 'var(--font-exo2), Arial, sans-serif' : 'var(--font-poppins), Arial, sans-serif'};
+  padding: 1.25rem;
+  border: 1px solid #bbb;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
 
+   & img {
+    display: block;          
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+  }
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
     height: 60vh; 
     font-size: 1rem;
   }
 `;
 
-const TabbedContainer = ({ tabs = [] }) => {
+const TabbedContainer = ({ tabs = [], fullWidthTabs = true }) => {
   const [activeTab, setActiveTab] = useState(() => {
     return tabs.length > 0 ? tabs[0].name : ""; // Prevents selecting a missing tab
   });
@@ -68,11 +95,6 @@ const TabbedContainer = ({ tabs = [] }) => {
   useEffect(() => {
     tabRefs.current = tabs.map((_, index) => tabRefs.current[index] || null);
   }, [tabs]);
-
-
-
-
-
   useEffect(() => {
     const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
     if (currentIndex !== -1) {
@@ -114,9 +136,6 @@ const TabbedContainer = ({ tabs = [] }) => {
   const activeTabId = activeIndex !== -1 ? getTabId(activeIndex) : undefined;
 
   return (
-
-
-
     <div>
       <TabWrapper role="tablist">
         {tabs.map((tab, index) => (
@@ -125,6 +144,7 @@ const TabbedContainer = ({ tabs = [] }) => {
             type="button"
             id={getTabId(index)}
             aria-controls={getPanelId(index)}
+            $fullWidth={fullWidthTabs}
             $active={index === activeIndex}
             onClick={() => setActiveTab(tab.name)}
             tabIndex={0}

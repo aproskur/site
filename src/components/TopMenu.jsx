@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components'
 import useWindowSize from '@/hooks/useWindowSize';
 import Image from 'next/image'
@@ -177,6 +177,30 @@ const MenuItem = styled.li`
   }
 `;
 
+const ScrollTopButton = styled.button`
+  position: fixed;
+  bottom: var(--scroll-top-button-bottom, 20px);
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--bgr-gradient);
+  color: rgb(var(--clr-white));
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1200;
+  font-size: 1.5rem;
+
+  &:focus-visible {
+    outline: 3px solid rgba(var(--clr-white), 0.8);
+    outline-offset: 3px;
+  }
+`;
+
 const RightControls = styled.div`
   display: flex;
   align-items: center;
@@ -196,6 +220,7 @@ const TopMenu = ({ background }) => {
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [showScrollButton, setShowScrollButton] = useState(false);
 
     const { width } = useWindowSize();
 
@@ -227,6 +252,24 @@ const TopMenu = ({ background }) => {
         );
     };
     const t = useTranslations('Homepage');
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollButton(window.scrollY > 200);
+        };
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <>
             <Nav $background={background}>
@@ -264,6 +307,11 @@ const TopMenu = ({ background }) => {
                     </RightControls>
                 </LayoutWrapper>
             </Nav>
+            {showScrollButton && (
+                <ScrollTopButton type="button" onClick={scrollToTop} aria-label="Scroll back to top">
+                    ↑
+                </ScrollTopButton>
+            )}
         </>
 
     );

@@ -11,6 +11,24 @@ const Contact = ({ id }) => {
   const [loadRecaptcha, setLoadRecaptcha] = useState(false);
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    const root = document.documentElement;
+
+    if (loadRecaptcha) {
+      root.style.setProperty('--scroll-top-button-bottom', '90px');
+    } else {
+      root.style.removeProperty('--scroll-top-button-bottom');
+    }
+
+    return () => {
+      root.style.removeProperty('--scroll-top-button-bottom');
+    };
+  }, [loadRecaptcha]);
+
   const handleFocus = () => {
     if (!loadRecaptcha) {
       setLoadRecaptcha(true); // Load reCAPTCHA only when form is focused

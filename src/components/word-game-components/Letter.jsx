@@ -8,8 +8,9 @@ import { motion } from 'framer-motion';
 const StyledLetter = styled.div`
   width: 60px;
   height: 74px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 24px;
-  background-color: ${props => props.$isGuessed ? 'rgb(var(--blue))' : 'rgba(var(--dark-navy), 0.8)'};
+  background-color: ${props => props.$isGuessed ? 'rgb(var(--blue))' : 'rgba(var(--dark-navy), 0.9)'};
   color: rgb(var(--white));
   text-transform: uppercase;
   display: flex;

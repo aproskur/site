@@ -94,9 +94,17 @@ export default function WordGame() {
     return (
         <div className={styles.wordGameContainer}>
             <picture className={styles.background} aria-hidden="true">
-                <source media="(min-width: 1024px)" srcSet="/images/word-game-images/background-desktop.svg" />
-                <source media="(min-width: 768px)" srcSet="/images/word-game-images/background-tablet.svg" />
-                <img src="/images/word-game-images/background-mobile.svg" alt="" />
+                <source
+                    media="(min-width: 1024px)"
+                    srcSet="/images/word-game-images/background-desktop.webp"
+                    type="image/webp"
+                />
+                <source
+                    media="(min-width: 768px)"
+                    srcSet="/images/word-game-images/tablet-background.webp"
+                    type="image/webp"
+                />
+                <img src="/images/word-game-images/mobile-background.webp" alt="" />
             </picture>
             <div className={styles.content}>
                 <HeaderWordGame onMenuClick={handleMenuClick} />

@@ -34,10 +34,11 @@ function LinkedInIcon() {
 }
 
 const FooterContainer = styled.footer`
-  background-color: #555769; 
+  background-color: rgb(var(--clr-gray)); 
   color: rgb(var(--clr-torquoise));
   padding: 20px;
   text-align: center;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
 `;
 
 const CopyrightText = styled.p`

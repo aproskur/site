@@ -6,7 +6,7 @@ const TitleContainer = styled.div`
   align-items: center;
   position: relative;
   font-family: var(--font-wordGameFont), sans-serif;
-  top: -100px;  //how much of the title is outside
+  top: -100px;
   left: 35%;
   transform: translateX(-50%);
 
@@ -22,26 +22,26 @@ const TitleContainer = styled.div`
 `;
 
 const Hangman = styled.span`
-  font-size: 90px; // Larger size for the main part of the title
+  font-size: 90px;
   color: white;
-  text-shadow: 2px 2px 0px #000; // Optional: adds depth
+  text-shadow: 2px 2px 0px #000;
 `;
 
 const SmallText = styled.span`
-  font-size: 30px; // Smaller size for 'the' and 'game'
+  font-size: 30px;
   color: white;
-  position: absolute; // Position absolutely within the TitleContainer
+  position: absolute;
 `;
 
 const TheText = styled(SmallText)`
   top: 0;
-  transform: translate(-230%, -10%); // positioning above Hangman
+  transform: translate(-230%, -10%);
   text-transform: uppercase;
 `;
 
 const GameText = styled(SmallText)`
   bottom: 0;
-  transform: translate(70%, 50%); // positioning below Hangman
+  transform: translate(70%, 50%);
   text-transform: uppercase;
 `;
 

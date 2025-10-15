@@ -121,5 +121,23 @@
             "terms-of-service": "Terms of Service",
             "apply": "apply"
         }
+    },
+    "FunPage": {
+        "title": "Take a Fun Break",
+        "subtitle": "Two bite-sized games crafted to show how playful code can be.",
+        "games": {
+            "memo": {
+                "name": "Memo Match",
+                "description": "Flip the cards, remember the icons, and clear the board before your friends do.",
+                "cta": "Play Memo Match",
+                "alt": "Screenshot of the memo match game board with colourful cards."
+            },
+            "word": {
+                "name": "Word Play",
+                "description": "Pick a topic and see if you can guess the hidden word",
+                "cta": "Play Word Play",
+                "alt": "Screenshot of the word guessing game interface."
+            }
+        }
     }
 }

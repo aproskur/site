@@ -84,6 +84,7 @@ const TabbedContainer = ({ tabs = [], fullWidthTabs = true }) => {
   });
   const tabRefs = useRef([]);
   const baseId = useId();
+  const shouldFocusRef = useRef(false);
 
 
   useEffect(() => {
@@ -97,17 +98,14 @@ const TabbedContainer = ({ tabs = [], fullWidthTabs = true }) => {
     tabRefs.current = tabs.map((_, index) => tabRefs.current[index] || null);
   }, [tabs]);
 
-const hasMounted = useRef(false);
-
 useEffect(() => {
   const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
-  if (currentIndex === -1) return;
-
-  if (hasMounted.current) {
-    tabRefs.current[currentIndex]?.focus();
-  } else {
-    hasMounted.current = true;
+  if (currentIndex === -1 || !shouldFocusRef.current) {
+    return;
   }
+
+  shouldFocusRef.current = false;
+  tabRefs.current[currentIndex]?.focus();
 }, [activeTab, tabs]);
 
 
@@ -123,12 +121,14 @@ useEffect(() => {
       newIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
+      shouldFocusRef.current = true;
       setActiveTab(tabs[currentIndex].name);
       return;
     } else {
       return;
     }
 
+    shouldFocusRef.current = true;
     setActiveTab(tabs[newIndex].name);
   };
 
@@ -155,7 +155,10 @@ useEffect(() => {
             aria-controls={getPanelId(index)}
             $fullWidth={fullWidthTabs}
             $active={index === activeIndex}
-            onClick={() => setActiveTab(tab.name)}
+            onClick={() => {
+              shouldFocusRef.current = true;
+              setActiveTab(tab.name);
+            }}
             tabIndex={0}
             role="tab"
             aria-selected={index === activeIndex}

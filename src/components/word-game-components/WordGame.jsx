@@ -41,6 +41,8 @@ const StyledLetterContainer = styled.div`
 
 `;
 
+const RESULT_POPUP_DELAY = 2000;
+
 export default function WordGame() {
     const {
         wordToPlay,
@@ -56,35 +58,42 @@ export default function WordGame() {
 
     const togglePopup = () => setIsPopupVisible(!isPopupVisible);
 
-    const triggerConfetti = () => {
+    useEffect(() => {
+        if (!isGameLost) {
+            return;
+        }
+
+        const timeoutId = setTimeout(() => {
+            setPopupMode("lost");
+            setIsPopupVisible(true);
+        }, RESULT_POPUP_DELAY);
+
+        return () => clearTimeout(timeoutId);
+    }, [isGameLost, setIsPopupVisible, setPopupMode, RESULT_POPUP_DELAY]);
+
+    useEffect(() => {
+        if (!isGameWon) {
+            return;
+        }
+
         confetti({
             particleCount: 100,
             spread: 100,
             origin: { y: 0.6 }
         });
-    };
 
-    useEffect(() => {
-        if (isGameLost) {
+        const timeoutId = setTimeout(() => {
+            setPopupMode("win");
             setIsPopupVisible(true);
-            setPopupMode("lost");
-        } else if (isGameWon) {
-            triggerConfetti();
-            setTimeout(() => {
-                setIsPopupVisible(true);
-                setPopupMode("win");
-            }, 1000);
-        }
-    }, [isGameLost, isGameWon]);
+        }, RESULT_POPUP_DELAY);
+
+        return () => clearTimeout(timeoutId);
+    }, [isGameWon, setIsPopupVisible, setPopupMode, RESULT_POPUP_DELAY]);
 
     const handleMenuClick = () => {
         setPopupMode("pause");
         setIsPopupVisible(true);
     };
-
-    console.log("Popup mode", popupMode);
-    console.log("wordToPlay:", wordToPlay);
-    console.log("guessedLetters:", guessedLetters);
 
     if (!wordToPlay) {
         console.error('WordGameContext not available or wordToPlay is undefined.');

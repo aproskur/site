@@ -259,67 +259,83 @@ const RoundButton = styled.button`
 
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  background-color: rgba(--var(dark-navy), 0.5);
-  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
   position: relative;
-  height: calc(100vh - 20px); 
+  z-index: 2;
+  background-color: rgba(var(--dark-navy), 0.35);
+  border-radius: 32px;
+  overflow-y: auto;
+  max-height: calc(100vh - 240px);
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding-top: 1em;
-    overflow-y:scroll;
-    padding-top: 25em; /* fixes for chrome,spolis for firefox */
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    padding: 1.5rem 1rem;
+    max-height: none;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 `;
 
 const Card = styled.div`
-  width: 200px;
   min-height: 300px;
   border-radius: 30px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   background: rgb(var(--white));
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  flex-grow: 1;
-  padding: 30px;
+  gap: 1rem;
+  padding: 2rem 1.75rem;
   font-family: inherit;
+  height: 100%;
+
+  @media (max-width: 900px) {
+    padding: 1.75rem 1.5rem;
+  }
 
   @media (max-width: 768px) {
     display: grid;
     grid-template-areas:
-    "number title"
-    "number text";
-    grid-template-columns: 1fr 3fr;
-    width: 90%;
-    min-height: 200px;
+      "number title"
+      "text text";
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    text-align: left;
+    gap: 0.5rem 1rem;
+    min-height: 0;
   }
 
   @media (max-width: 480px) {
-    grid-template-areas:
-    "number title"
-    "text text";
-    min-height: 300px;
-    padding: 1em;
+    padding: 1.5rem;
   }
 `;
 
 const CardNumber = styled.div`
   font-size: 3rem;
   color: rgb(var(--blue));
-  flex: 0 0 20%;
+  font-weight: 600;
+  line-height: 1;
+  align-self: center;
 
   @media (max-width: 768px) {
     grid-area: number;
     text-align: left;
-    font-size: 5rem;
+    font-size: 4rem;
+    align-self: start;
   }
 
   @media (max-width: 480px) {
@@ -330,33 +346,38 @@ const CardNumber = styled.div`
 `;
 
 const CardTitle = styled.h3`
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 22px;
+  margin: 0;
   color: rgb(var(--dark-navy));
   font-family: inherit;
   letter-spacing: 1px;
-  font-weight: normal;
-  flex: 0 0 20%;
+  font-weight: 600;
+  text-transform: uppercase;
 
   @media (max-width: 768px) {
     grid-area: title;
     text-align: left;
     font-size: 20px;
   }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 const CardText = styled.p`
   font-size: 16px;
   text-align: center;
-  color: grey;
-  flex: 1;
-  padding: 5px;
+  color: rgba(var(--dark-navy), 0.7);
+  margin: 0;
+  width: 100%;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 
   @media (max-width: 768px) {
     grid-area: text;
     text-align: left;
-    font-size: 20px;
-
+    font-size: 16px;
   }
 `;
 
@@ -455,7 +476,7 @@ const CategoryButton = styled(Button)`
 background-image: url('/images/word-game-images/CategoryButtonDefault.png');
 background-size: contain;
 background-position: center;
-background-repat:no-repat;
+background-repat:no-repeat;
 background-color: transparent;
 border-radius: 5px;
 padding: 10px 20px;

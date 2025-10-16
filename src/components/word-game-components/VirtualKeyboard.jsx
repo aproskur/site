@@ -92,11 +92,7 @@ const LetterKey = ({ letter }) => {
       return () => clearTimeout(timer);
     }
   }, [isPressed]);
-
-
-  // DEBUG
   const handleClick = () => {
-    console.log(`Letter ${letter} clicked`);
     addGuessedLetter(letter);
     setIsPressed(true);
   };
@@ -149,7 +145,7 @@ const VirtualKeyboard = ({ onClick }) => {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [addGuessedLetter]);
+  }, [addGuessedLetter, isGameVisible]);
 
   return (
     <Container>

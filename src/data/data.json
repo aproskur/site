@@ -368,6 +368,30 @@
             {
                 "name": "Chile",
                 "selected": false
+            },
+            {
+                "name": "Senegal",
+                "selected": false
+            },
+            {
+                "name": "Turkey",
+                "selected": false
+            },
+            {
+                "name": "Slovakia",
+                "selected": false
+            },
+            {
+                "name": "Iceland",
+                "selected": false
+            },
+            {
+                "name": "South Korea",
+                "selected": false
+            },
+            {
+                "name": "Portugal",
+                "selected": false
             }
         ],
         "Capital Cities": [

@@ -824,7 +824,7 @@
                 "selected": false
             },
             {
-                "name": "Trial Chamber",
+                "name": "Trial Chambers",
                 "selected": false
             },
             {
@@ -858,7 +858,24 @@
             {
                 "name": "Minecraft",
                 "selected": false
+            },
+            {
+                "name": "Copper Golem",
+                "selected": false
+            },
+            {
+                "name": "Copper",
+                "selected": false
+            },
+            {
+                "name": "Pale Gardens",
+                "selected": false
+            },
+            {
+                "name": "Creaking",
+                "selected": false
             }
+
         ]
     }
 }

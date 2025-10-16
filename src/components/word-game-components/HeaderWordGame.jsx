@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useWordGame } from '../../context/WordGameContext';
 
 const HeaderContainer = styled.div`
@@ -78,6 +78,27 @@ const ProgressBarFill = styled.div`
   border-radius: 8px;
 `;
 
+const heartbeat = keyframes`
+  0%, 24%, 48%, 100% {
+    transform: scale(1);
+  }
+  12%, 36% {
+    transform: scale(1.2);
+  }
+`;
+
+const HeartWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${heartbeat} 1.4s ease-in-out infinite;
+  transform-origin: center;
+
+  svg {
+    display: block;
+  }
+`;
+
 const HeartIcon = () => {
   const svgContent = `
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 54 50">
@@ -91,7 +112,7 @@ const HeartIcon = () => {
     </svg>
   `;
 
-  return <div dangerouslySetInnerHTML={{ __html: svgContent }} />;
+  return <HeartWrapper dangerouslySetInnerHTML={{ __html: svgContent }} />;
 };
 
 const MenuIcon = () => {

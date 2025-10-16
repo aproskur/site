@@ -87,17 +87,19 @@ const CardBody = styled.div`
   gap: 1rem;
   flex: 1;
 
-  h2 {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
 
   p {
     font-size: 1rem;
     line-height: 1.6;
     color: rgba(var(--clr-white), 0.8);
   }
+`;
+
+const CardTitle = styled.h2`
+  font-size: clamp(1.25rem, 2.5vw + 0.5rem, 2.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
 `;
 
 const CardFooter = styled.div`
@@ -117,6 +119,7 @@ const PlayLink = styled(Link)`
   text-transform: uppercase;
   letter-spacing: 0.08em;
   transition: background 0.3s ease, transform 0.3s ease;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 
   &:hover,
   &:focus-visible {
@@ -164,7 +167,7 @@ export default function FunLandingPage() {
                 />
               </ImageWrapper>
               <CardBody>
-                <h2>{t(`games.${game.key}.name`)}</h2>
+                <CardTitle>{t(`games.${game.key}.name`)}</CardTitle>
                 <p>{t(`games.${game.key}.description`)}</p>
                 <CardFooter>
                   <PlayLink href={game.href}>{t(`games.${game.key}.cta`)}</PlayLink>

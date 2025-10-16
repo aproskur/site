@@ -53,16 +53,15 @@ export const WordGameProvider = ({ children }) => {
 
     const addGuessedLetter = (letter) => {
         setGuessedLetters(currentGuessed => {
-        
-            
             const letterUpper = letter.toUpperCase();
-                if(currentGuessed.has(letterUpper)){
-                    return currentGuessed;
-                }
+            if (currentGuessed.has(letterUpper)) {
+                return currentGuessed;
+            }
             const updatedGuessed = new Set(currentGuessed);
             updatedGuessed.add(letterUpper);
 
             const wordLetters = wordToPlay.flat();
+            let didLose = false;
             if (!wordLetters.includes(letterUpper)) {
                 setWrongGuesses(prevWrongGuesses => {
                     const nextWrongGuesses = prevWrongGuesses + 1;
@@ -71,15 +70,14 @@ export const WordGameProvider = ({ children }) => {
                     if (nextWrongGuesses >= totalGuesses) {
                         setIsGameLost(true);
                         setPopupMode("lost");
-                        // Reveal the full answer so the player can see the missed word.
-                        wordLetters.forEach(char => updatedGuessed.add(char));
+                        didLose = true;
                     }
 
                     return nextWrongGuesses;
                 });
             }
 
-            if (wordLetters.every(char => updatedGuessed.has(char))) {
+            if (!didLose && wordLetters.every(char => updatedGuessed.has(char))) {
                 setIsGameWon(true);
                 setPopupMode("win");
             }

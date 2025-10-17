@@ -54,8 +54,7 @@ const HomeLogoLink = styled(Link)`
   justify-content: center;
 
   @media (max-width: 767px){
-    top: 1rem;
-    left: 1rem;
+    display: none;
   }
 `;
 
@@ -70,6 +69,49 @@ const HomeLogoImage = styled.img`
   @media (max-width: 480px){
     height: 36px;
   }
+`;
+
+const MobileNavWrapper = styled.nav`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+
+  @media (max-width: 767px){
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;
+
+const MobileNavLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  min-height: 44px;
+  border-radius: 999px;
+  background: rgba(22, 16, 62, 0.75);
+  color: rgb(var(--white));
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+`;
+
+const MobileNavIcon = styled.img`
+  width: 28px;
+  height: auto;
+`;
+
+const MobileNavText = styled.span`
+  white-space: nowrap;
 `;
 
 // Delay before showing win/lose popups to let the animation breathe
@@ -136,11 +178,26 @@ export default function WordGame() {
         return <div>Unable to load the game. Please try reloading.</div>;
     }
 
+    const containerClassName = `${styles.wordGameContainer}${!isGameVisible ? ` ${styles.wordGameContainerCompact}` : ''}`;
+
     return (
-        <div className={styles.wordGameContainer}>
+        <div className={containerClassName}>
             <HomeLogoLink href={{ pathname: '/' }} aria-label="Back to home" title="Return to main page">
                 <HomeLogoImage src="/images/short-transparent-logo.webp" alt="Anna Web Dev logo" />
             </HomeLogoLink>
+            <MobileNavWrapper>
+                {!isGameVisible && (
+                    <>
+                        <MobileNavLink href={{ pathname: '/' }}>
+                            <MobileNavIcon src="/images/short-transparent-logo.webp" alt="Anna Web Dev logo" />
+                            <MobileNavText>Main site</MobileNavText>
+                        </MobileNavLink>
+                        <MobileNavLink href={{ pathname: '/fun' }}>
+                            <MobileNavText>Fun hub</MobileNavText>
+                        </MobileNavLink>
+                    </>
+                )}
+            </MobileNavWrapper>
             <picture className={styles.background} aria-hidden="true">
                 <source
                     media="(min-width: 1024px)"
@@ -155,7 +212,7 @@ export default function WordGame() {
                 <img src="/images/word-game-images/mobile-background.webp" alt="" />
             </picture>
             <div className={styles.content}>
-                <HeaderWordGame onMenuClick={handleMenuClick} />
+                {isGameVisible && <HeaderWordGame onMenuClick={handleMenuClick} />}
                 {isGameVisible && (
                     <StyledLetterContainer>
                         {wordToPlay.map((word, wordIndex) => (

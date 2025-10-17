@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useWordGame } from '@/context/WordGameContext';
 import GameTitle from './GameTitle';
 
+// Full-screen overlay that doubles as the start screen backdrop
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -21,6 +22,7 @@ const Overlay = styled.div`
 `;
 
 
+// Main popup shell; grows to full screen for rules/category views
 const PopupContainer = styled.div`
   width: ${({ $biggerPopup }) => ($biggerPopup ? '100%' : '500px')};
   height: ${({ $biggerPopup }) => ($biggerPopup ? '100vh' : 'auto')};
@@ -381,10 +383,11 @@ const CardText = styled.p`
   }
 `;
 
+// “How to play” cards explaining the flow of the game
 const RulesCards = ({ onRoundButtonClick }) => {
   const cards = [
     { number: "01", title: 'Choose a category', text: "First, choose a word category, like animals or movies. The computer then randomly selects a secret word from that topic and shows you blanks for each letter of the word." },
-    { number: "02", title: 'Guess letters', text: "Take turns guessing letters. The computer fills in the relevant blank spaces if your guess is correct. If it's wrong, you lose some health, which empties after eight incorrect guesses." },
+    { number: "02", title: 'Guess letters', text: "Take turns guessing letters. The computer fills in the relevant blank spaces if your guess is correct. If it's wrong, you lose some health, which empties after ten incorrect guesses." },
     { number: "03", title: 'Win or loose', text: "You win by guessing all the letters in the word before your health runs out. If the health bar empties before you guess the word, you lose." }
   ];
 
@@ -508,6 +511,7 @@ const CategoryRoundButton = styled(RoundButton)`
 
 const categories = ["Minecraft", "Movies", "Countries", "Capital Cities", "Sports", "Animals"];
 
+// Category chooser shown before a round or when the player wants to switch topics
 const CategorySelection = ({ onCategorySelect, onRoundButtonClick }) => (
   <CategoryContainer>
     <CategoryTitle>Pick a Category</CategoryTitle>
@@ -554,6 +558,7 @@ const MainGameTitle = () => (
 
 
 
+// Central popup controller handling start, pause, win, loss, rules, and category states
 function Popup({ isVisible, onClose, mode, handleMode }) {
 
   const { startGame, resetGame } = useWordGame();
@@ -568,7 +573,7 @@ function Popup({ isVisible, onClose, mode, handleMode }) {
     onClose();
   };
 
-  // Define buttons for different game states
+  // Configure the CTA buttons according to the current popup mode
   let buttons = [
     { label: 'Continue', onClick: () => onClose(), color: 'rgb(var(--blue))' },
     /*  { label: 'New Category', onClick: initiateCategorySelection, color: 'rgb(var(--blue))' } */

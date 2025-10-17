@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useWordGame } from '../../context/WordGameContext';
 import { motion } from 'framer-motion';
 
+// Individual key styling and interaction feedback
 const StyledLetterKey = styled(motion.button)`
   width: 80px;
   height: 54px;
@@ -55,6 +56,7 @@ const StyledLetterKey = styled(motion.button)`
   }
 `;
 
+// Wrapper for the three keyboard rows
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,6 +82,7 @@ const Row = styled.div`
 
 `;
 
+// Single key component that plays nicely with both clicks and keyboard events
 const LetterKey = ({ letter }) => {
   const { guessedLetters, addGuessedLetter } = useWordGame();
   const [isPressed, setIsPressed] = useState(false);
@@ -131,7 +134,7 @@ const VirtualKeyboard = ({ onClick }) => {
     alphabet.slice(rowLength * 2)
   ];
 
-  // for using keyboard
+  // Wire up physical keyboard input so players can type their guesses
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (!isGameVisible) return;

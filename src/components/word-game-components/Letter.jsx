@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useWordGame } from '../../context/WordGameContext';
 import { motion } from 'framer-motion';
 
+// Card that flips from hidden to filled once the correct letter is guessed
 const StyledLetter = styled.div`
   width: 60px;
   height: 74px;
@@ -43,6 +44,7 @@ const AnimatedLetter = styled(motion.span)`
   display: inline-block;
 `;
 
+// Fade-and-drop animation when a hidden letter is revealed
 const letterVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300 } },

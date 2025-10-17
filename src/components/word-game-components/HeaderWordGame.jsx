@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useWordGame } from '../../context/WordGameContext';
 
+// Header shows category, pause button, and remaining health indicator
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -99,6 +102,7 @@ const HeartWrapper = styled.div`
   }
 `;
 
+// Gradient heart with heartbeat animation to emphasise remaining health
 const HeartIcon = () => {
   const svgContent = `
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 54 50">

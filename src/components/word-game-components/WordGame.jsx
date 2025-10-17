@@ -8,7 +8,9 @@ import Popup from './Popup';
 import styles from '@/components/word-game-components/WordGamePage.module.css';
 import styled from 'styled-components';
 import confetti from 'canvas-confetti';
+import { Link } from '@/i18n/routing';
 
+// Layout wrapper for the revealed words so multi-word phrases stay centered
 const StyledLetterContainer = styled.div`
   grid-area: word;
   display: flex;
@@ -41,6 +43,36 @@ const StyledLetterContainer = styled.div`
 
 `;
 
+// Floating logo that returns users to the main page
+const HomeLogoLink = styled(Link)`
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 767px){
+    top: 1rem;
+    left: 1rem;
+  }
+`;
+
+const HomeLogoImage = styled.img`
+  height: 56px;
+  width: auto;
+
+  @media (max-width: 767px){
+    height: 42px;
+  }
+
+  @media (max-width: 480px){
+    height: 36px;
+  }
+`;
+
+// Delay before showing win/lose popups to let the animation breathe
 const RESULT_POPUP_DELAY = 2000;
 
 export default function WordGame() {
@@ -56,8 +88,10 @@ export default function WordGame() {
         isGameVisible
     } = useWordGame();
 
+    // Pause/resume popup visibility while keeping context in sync
     const togglePopup = () => setIsPopupVisible(!isPopupVisible);
 
+    // Wait a moment after the final wrong guess before presenting the loss popup
     useEffect(() => {
         if (!isGameLost) {
             return;
@@ -71,6 +105,7 @@ export default function WordGame() {
         return () => clearTimeout(timeoutId);
     }, [isGameLost, setIsPopupVisible, setPopupMode, RESULT_POPUP_DELAY]);
 
+    // Fire confetti on victory and surface the win popup after a short delay
     useEffect(() => {
         if (!isGameWon) {
             return;
@@ -90,6 +125,7 @@ export default function WordGame() {
         return () => clearTimeout(timeoutId);
     }, [isGameWon, setIsPopupVisible, setPopupMode, RESULT_POPUP_DELAY]);
 
+    // Pause the game and expose the popup menu
     const handleMenuClick = () => {
         setPopupMode("pause");
         setIsPopupVisible(true);
@@ -102,6 +138,9 @@ export default function WordGame() {
 
     return (
         <div className={styles.wordGameContainer}>
+            <HomeLogoLink href={{ pathname: '/' }} aria-label="Back to home" title="Return to main page">
+                <HomeLogoImage src="/images/short-transparent-logo.webp" alt="Anna Web Dev logo" />
+            </HomeLogoLink>
             <picture className={styles.background} aria-hidden="true">
                 <source
                     media="(min-width: 1024px)"

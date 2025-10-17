@@ -92,7 +92,7 @@ const MobileNavLink = styled(Link)`
   align-items: center;
   gap: 0.45rem;
   padding: 0.45rem 0.9rem;
-  min-height: 44px;
+  height: 44px;
   border-radius: 999px;
   background: rgba(22, 16, 62, 0.75);
   color: rgb(var(--white));
@@ -103,15 +103,29 @@ const MobileNavLink = styled(Link)`
   font-weight: 600;
   backdrop-filter: blur(6px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 480px){
+    font-size: 1rem;
+    padding: 0.5rem 1.1rem;
+    height: 52px;
+  }
 `;
 
 const MobileNavIcon = styled.img`
   width: 28px;
   height: auto;
+
+  @media (max-width: 480px){
+    width: 42px;
+  }
 `;
 
 const MobileNavText = styled.span`
   white-space: nowrap;
+
+  @media (max-width: 480px){
+    letter-spacing: 0.1em;
+  }
 `;
 
 // Delay before showing win/lose popups to let the animation breathe

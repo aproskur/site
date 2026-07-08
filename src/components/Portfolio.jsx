@@ -114,14 +114,14 @@ const ProjectDescription = styled.p`
 `;
 
 
-const PortfolioImage = ({ alt, src, width, height, blurDataURL }) => {
+const PortfolioImage = ({ alt, src, width, height }) => {
     return <NextImage
         src={src}
         alt={alt}
         width={width}
         height={height}
-        placeholder={blurDataURL ? "blur" : "empty"}
-        blurDataURL={blurDataURL || undefined} />
+        
+         />
 };
 
 
@@ -141,7 +141,6 @@ const Portfolio = ({ id }) => {
                     src={ludesignWebP}
                     alt="Ludesign Desktop Screenshot"
                     width={isMobile ? 300 : 650}
-                    blurDataURL="/images/ludesign-portfolio.webp"
                     priority={true}
                 />
             ),
@@ -154,7 +153,6 @@ const Portfolio = ({ id }) => {
                     src={ludesignMainMobile}
                     alt="Ludesign Mobile Screenshot"
                     width={isMobile ? 300 : 200}
-                    blurDataURL="/images/blurred-ludesign-main-mobile.webp"
                     priority={true}
                 />
             ),
@@ -167,7 +165,7 @@ const Portfolio = ({ id }) => {
                     src={ludesignPortfolioWebP}
                     alt="Ludesign Project Screenshot"
                     width={isMobile ? 300 : 650}
-                    blurDataURL="/images/ludesign-portfolio.webp"
+                    
                 />
             ),
         },
@@ -237,7 +235,6 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={300}
-                                        blurDataURL='/images/blurred-sozo-portfolio.webp'
                                     />
                                 ) : (
                                     <PortfolioImage
@@ -245,7 +242,6 @@ const Portfolio = ({ id }) => {
                                         src={sozoPortfolioJPG}
                                         alt="Project Screenshot"
                                         width={650}
-                                        blurDataURL='/images/blurred-sozo-portfolio.webp'
                                     />
                                 ),
                             },

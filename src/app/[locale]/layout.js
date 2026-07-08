@@ -42,7 +42,7 @@ const archivoNarrowFont = localFont({
       style: 'normal'
     }
   ],
-  display: 'block',
+  display: 'swap',
   variable: '--font-archivo-narrow'
 });
 
@@ -52,27 +52,27 @@ const exo2Font = localFont(
     src: [
       {
         path: './assets/fonts/exo_2/Exo2-Light.ttf',
-        weight: '400',
-        style: 'normal'
-      },
+      weight: '400',
+      style: 'normal'
+    },
 
 
-    ],
-    display: 'block',
-    variable: '--font-exo2'
+  ],
+  display: 'swap',
+  variable: '--font-exo2'
   }
 );
 
 
 const wordGameFont = localFont({
   src: './assets/fonts/MouseMemoirs-Regular.ttf',
-  display: 'block',
+  display: 'swap',
   variable: '--font-wordGameFont'
 });
 
 const styledText = localFont({
   src: './assets/fonts/Rajdhani/Rajdhani-Regular.ttf',
-  display: 'block',
+  display: 'swap',
   variable: '--font-rajdhani'
 });
 
@@ -97,7 +97,7 @@ const poppinsFont = localFont({
       style: 'normal'
     }
   ],
-  display: 'block',
+  display: 'swap',
   variable: '--font-poppins'
 });
 

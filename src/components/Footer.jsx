@@ -13,7 +13,7 @@ function EmailIcon() {
       aria-label="Email Anna"
     >
       <FontAwesomeIcon icon={faEnvelope} size="1x" />
-      <span className="sr-only">Email Anna</span>
+      <SrOnly>Email Anna</SrOnly>
     </a>
   )
 }
@@ -61,6 +61,19 @@ const SocialIcon = styled.div`
     color: rgb(var(--clr-gold));
   }
 `;
+
+const SrOnly = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

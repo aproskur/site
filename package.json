@@ -44,5 +44,8 @@
     "@types/react": "18.2.61",
     "babel-plugin-styled-components": "^2.1.4",
     "typescript": "5.3.3"
+  },
+  "overrides": {
+    "sharp": "0.35.3"
   }
 }
